@@ -15,8 +15,8 @@ const listFonts = [
 
 function preload() {
   formats = loadJSON('./assets/formats.json', () => {
-    cnvW = formats["sqr"].width
-    cnvH = formats["sqr"].height
+    cnvW = formats["aff"].width
+    cnvH = formats["aff"].height
   })
   opsReg = loadFont('./assets/fonts/OPS/OPSFavorite-Regular.otf')
   font_pathR = loadFont('./assets/fonts/Path/Path-R.otf')
@@ -57,7 +57,7 @@ function setup() {
 
 function draw() {
   background(255)
-  debugMode()
+  // debugMode()
 
   if (textBuffer) {
 
@@ -93,8 +93,8 @@ function draw() {
     disableTouchActions: true,
     freeRotation: false
   }
-  
-  // orbitControl(2,2,2, options)
+
+  orbitControl(2,2,2, options)
   frameRate(30)
 
   // let fovy = map(mouseY, 0, WiH, 0.1, 7)
@@ -102,8 +102,9 @@ function draw() {
 
   // push for grid layer elements
   push()
-  // rotateY(millis() * 0.01)
-  // rotateZ(millis() * 0.01)
+  // rotateY(45)
+  // rotateZ(-5)
+  // rotateX(-5)
 
   push()
   if (matrix) {
