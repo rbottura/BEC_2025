@@ -36,6 +36,7 @@ function setup() {
   randomSeed(1)
 
   cam = createCamera()
+  cam.ortho()
   initCamSettings = cam
   // cam.perspective(2.5 * atan(height / 2 / 800));
   // ortho()
@@ -55,7 +56,8 @@ function setup() {
 }
 
 function draw() {
-  background(255);
+  background(255)
+  debugMode()
 
   if (textBuffer) {
 
@@ -82,14 +84,17 @@ function draw() {
 
   push()
   beginClip({ invert: true })
-  
   texture(textBuffer)
-  
   plane(width, height)
   endClip()
   pop()
 
-  orbitControl()
+  let options = {
+    disableTouchActions: true,
+    freeRotation: false
+  }
+  
+  // orbitControl(2,2,2, options)
   frameRate(30)
 
   // let fovy = map(mouseY, 0, WiH, 0.1, 7)
@@ -97,7 +102,8 @@ function draw() {
 
   // push for grid layer elements
   push()
-  rotateY(millis() * 0.01)
+  // rotateY(millis() * 0.01)
+  // rotateZ(millis() * 0.01)
 
   push()
   if (matrix) {
@@ -145,6 +151,7 @@ function draw() {
   pop()
 
   pop()
+
   // pop grid layer elements
   keyAction()
 }

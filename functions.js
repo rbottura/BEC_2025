@@ -230,6 +230,7 @@ function resizeToFormat(format) {
         let aspect = obj.width/obj.height
         cam = undefined
         cam = initCamSettings
+        cam.ortho()
     }
 }
 
@@ -242,6 +243,7 @@ function resetEdges(){
     listEdges = []
     listEdges = createEdges(listVertices, cellSize)
 }
+
 function keyAction() {
     if (keyIsDown(65)) {
         resizeToFormat("16/9")
@@ -252,4 +254,8 @@ function keyAction() {
     if (keyIsDown(69)) {
         resizeToFormat("sqr")
     }
+}
+
+function myOrbControl(buffer, cam){
+    
 }
