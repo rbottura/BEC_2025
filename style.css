@@ -1,0 +1,17 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(209, 209, 209);
+}
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+canvas {
+  display: block;
+  box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.651);
+}
