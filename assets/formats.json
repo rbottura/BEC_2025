@@ -12,7 +12,10 @@
     "height": 540
   },
   "aff": {
-    "width":437,
-    "height":620
+    "width":496,
+    "height":702
+  },
+  "bleeds":{
+    "size": 3
   }
 }

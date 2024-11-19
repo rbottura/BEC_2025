@@ -257,5 +257,15 @@ function keyAction() {
 }
 
 function myOrbControl(buffer, cam){
-    
+
+}
+
+function showBleeds(size){
+    push()
+    noFill()
+    stroke('green')
+    strokeWeight(size * 2)
+    translate(-width/2, -height/2)
+    rect(0,0,width, height)
+    pop()
 }

@@ -15,8 +15,8 @@ const listFonts = [
 
 function preload() {
   formats = loadJSON('./assets/formats.json', () => {
-    cnvW = formats["aff"].width
-    cnvH = formats["aff"].height
+    cnvW = formats["aff"].width + formats["bleeds"].size*2
+    cnvH = formats["aff"].height + formats["bleeds"].size*2
   })
   opsReg = loadFont('./assets/fonts/OPS/OPSFavorite-Regular.otf')
   font_pathR = loadFont('./assets/fonts/Path/Path-R.otf')
@@ -153,6 +153,7 @@ function draw() {
 
   pop()
 
+  // showBleeds(formats["bleeds"].size)
   // pop grid layer elements
   keyAction()
 }
