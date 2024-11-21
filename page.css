@@ -14,7 +14,16 @@
     padding: 5px;
     border: rgba(184, 184, 184, 0.21) 5px solid;
     border-radius: 10px;
-    box-shadow: 0px 0px 25px -5px rgba(0, 0, 0, 0.664);
+    box-shadow: 0px 0px 155px -5px rgba(48, 8, 100, 0.4);
+}
+
+.rendered-element {
+    flex-grow: .5;
+}
+
+#render-window-wrapper {
+    flex-grow: 1.5;
+    /* width: 50vw; */
 }
 
 #page {
@@ -25,14 +34,4 @@
     /* background-image: url('./img/compo_text_1.png'); */
     background-size: contain;
     mix-blend-mode: darken;
-}
-
-#titre {
-    font-family: metaF;
-    font-size: 15em;
-    -webkit-text-stroke: 1px black;
-    color: black;
-    width: 100%;
-    text-align: center;
-    line-height: 50%;
 }

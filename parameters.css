@@ -4,7 +4,7 @@
     flex-wrap: wrap;
     justify-content: right;
     flex-grow: 1;
-    max-width: 40vw;
+    max-width: 35vw;
     z-index: 5;
     gap: 5px;
     padding: 5px;
@@ -37,11 +37,10 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-right: 0px;
     gap: 5px;
     justify-content: space-around;
     padding: 10px 2px;
-    padding-right: 5spx;
+    /* padding-right: 5px; */
     max-height: 55vh;
     overflow-y: scroll;
     /* box-shadow: inset 0px 0px 20px 0px black; */
@@ -49,37 +48,29 @@
 
 #list-edges-container::-webkit-scrollbar {
     width: 10px;
-    /* Width of the scrollbar */
-    /* left: 10px; */
-
 }
 
 #list-edges-container::-webkit-scrollbar-track {
     background: #f1f1f1;
-    /* Light gray background */
     border-radius: 5px;
-    /* Rounded corners */
-
 }
 
 #list-edges-container::-webkit-scrollbar-thumb {
     background: #1c1c1c;
-    /* Darker gray thumb */
     border-radius: 5px;
-    /* Rounded corners for the thumb */
 }
 
 #list-edges-container::-webkit-scrollbar-thumb:hover {
     cursor: pointer;
     background: #9e9e9e;
-    /* Even darker on hover */
 }
 
 label>span {
     display: flex;
     position: relative;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    color: black;
+    color: rgb(0, 0, 0);
+    opacity: 1;
     font-weight: 600;
     font-size: 20px;
     /* min-width: 25px; */
@@ -88,11 +79,9 @@ label>span {
     /* -webkit-text-stroke: .5px white; */
     /* text-shadow: -2px 1px 0px rgb(195, 195, 195); */
     -webkit-user-select: none;
-    /* Safari */
     -ms-user-select: none;
-    /* IE 10 and IE 11 */
     user-select: none;
-    /* Standard syntax */
+    /* text-shadow: 1px 1px 0px#ffffff76, -1px -1px 0px#ffffff83; */
 }
 
 .edge-select-btn {
@@ -116,6 +105,4 @@ label {
     display: inline-flex;
     align-items: center;
     cursor: pointer;
-    font-size: 16px;
-    color: #333;
 }

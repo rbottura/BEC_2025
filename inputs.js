@@ -36,10 +36,10 @@ function createSwitchEdges() {
     for (const edge of listEdges) {
         let n = `${edge.index}`
         let edgeBtn = createCheckbox(n, true)
-        if (edge.colorId == 'black') {
-            let lb = select('span', edgeBtn)
-            lb.elt.style.color = "white"
-        }
+        // if (edge.colorId == 'black') {
+        //     let lb = select('span', edgeBtn)
+        //     lb.elt.style.color = "white"
+        // }
         edgeBtn.elt.style.borderColor = edge.color
         edgeBtn.elt.id = edge.index
         edgeBtn.addClass('edge-select-btn')
@@ -58,7 +58,6 @@ function randomEdgesGenerator(listBtn, listInputElt) {
     let numbInput = createInput(85)
     let nEdge = numbInput.value()
     let btn = createButton('generate')
-    // console.log(colors)
     container.child(numbInput)
     container.child(btn)
     numbInput.input(() => nEdge = numbInput.value())
@@ -78,7 +77,6 @@ function updateEdgesRender(nEdge, listInputElt, listBtn) {
             listInputElt[i].checked = true
         } else {
             listInputElt[i].checked = false
-            // console.log(listInputElt[i])
         }
         updateEdgeCheck(listEdges[i], listBtn[i], colors[i], colorsId[i])
     }
@@ -105,10 +103,12 @@ function updateEdgeCheck(edge, edgeBtn, newColor, newColorId) {
     if (edgeBtn.checked()) {
         edge.render = true
         btn.style.backgroundColor = edge.color
+        lb.elt.style.opacity = 1
         // customBox.elt.style.backgroundColor =  edge.color
     } else {
         edge.render = false
-        btn.style.backgroundColor = '#888'
+        btn.style.backgroundColor = '#ddd'
+        lb.elt.style.opacity = .25
         // customBox.elt.style.backgroundColor =  '#fff'
     }
 }

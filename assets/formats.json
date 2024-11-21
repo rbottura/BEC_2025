@@ -17,5 +17,9 @@
   },
   "bleeds":{
     "size": 3
+  },
+  "custom":{
+    "width":800,
+    "height":694
   }
 }

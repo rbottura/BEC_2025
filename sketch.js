@@ -15,8 +15,8 @@ const listFonts = [
 
 function preload() {
   formats = loadJSON('./assets/formats.json', () => {
-    cnvW = formats["poster"].width + formats["bleeds"].size*2
-    cnvH = formats["poster"].height + formats["bleeds"].size*2
+    cnvW = formats["custom"].width + formats["bleeds"].size*2
+    cnvH = formats["custom"].height + formats["bleeds"].size*2
   })
   opsReg = loadFont('./assets/fonts/OPS/OPSFavorite-Regular.otf')
   font_pathR = loadFont('./assets/fonts/Path/Path-R.otf')
@@ -42,7 +42,7 @@ function setup() {
   textGraphics = createGraphics(WiW, WiH, P2D)
 
   cam = createCamera()
-  cam.ortho()
+  cam.ortho(-width / 2, width / 2, -height / 2, height / 2, 0, 8000)
   initCamSettings = cam
   // cam.perspective(2.5 * atan(height / 2 / 800));
   // ortho()
@@ -113,8 +113,8 @@ function draw() {
 
   // push for grid layer elements
   push()
-  // rotateY(45)
-  // rotateZ(-5)
+  rotateY(millis() * 0.01)
+  rotateZ(millis() * 0.01)
   // rotateX(-5)
 
   push()
