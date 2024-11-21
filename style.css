@@ -3,6 +3,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: rgb(235, 235, 235);
+  overflow: hidden;
 }
 
 p {
@@ -28,7 +29,7 @@ main {
 
 canvas {
   display: block;
-  box-shadow: 0 0 25px -5px rgba(0, 0, 0, 0.651);
+  /* box-shadow: 0 0 25px -5px rgba(0, 0, 0, 0.651); */
 }
 
 #canvas-container {
@@ -72,15 +73,6 @@ canvas {
   margin-top: 30px;
   font-family: metaF;
   font-size: 350px;
-}
-
-#render-area {
-  display: flex;
-  position: absolute;
-  width: 85vw;
-  height: 100vh;
-  justify-content: right;
-  align-items: center;
 }
 
 #status-container {

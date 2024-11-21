@@ -1,23 +1,27 @@
 #parameters-container {
     display: flex;
-    position: absolute;
-    top: 80px;
-    left: 15px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: right;
+    flex-grow: 1;
+    max-width: 40vw;
     z-index: 5;
-    flex-direction: column;
-    gap: 8px;
-    border: black 1px solid;
+    gap: 5px;
+    padding: 5px;
+    border: rgb(255, 255, 255) 2px solid;
+    box-sizing: border-box;
+    border-radius: 8px;
     /* background-color: rgb(198, 198, 198); */
     backdrop-filter: blur(2px);
-    box-shadow: 0 0 25px -8px black;
-    padding: 5px;
+    background-color: #d6d6d6;
 }
 
 .parameters-box {
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
     padding: 0px 5px;
-    background-color: rgba(67, 67, 67, 0.5);
+    background-color: rgba(255, 255, 255, 0.852);
     border-radius: 5px
 }
 
@@ -33,18 +37,21 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    max-width: 40vw;
+    margin-right: 0px;
     gap: 5px;
     justify-content: space-around;
     padding: 10px 2px;
-    /* max-height: 55vh; */
-    /* overflow-y: scroll; */
+    padding-right: 5spx;
+    max-height: 55vh;
+    overflow-y: scroll;
+    /* box-shadow: inset 0px 0px 20px 0px black; */
 }
 
 #list-edges-container::-webkit-scrollbar {
     width: 10px;
     /* Width of the scrollbar */
     /* left: 10px; */
+
 }
 
 #list-edges-container::-webkit-scrollbar-track {
@@ -52,6 +59,7 @@
     /* Light gray background */
     border-radius: 5px;
     /* Rounded corners */
+
 }
 
 #list-edges-container::-webkit-scrollbar-thumb {
@@ -110,31 +118,4 @@ label {
     cursor: pointer;
     font-size: 16px;
     color: #333;
-}
-
-.custom-edge-checkbox {
-    content: "";
-    display: inline-block;
-    /* width: 10px; */
-    /* height: 10px; */
-    width: 100%;
-    height: 10px;
-    background-color: white;
-    transition: background-color 0.3s ease;
-}
-
-input[type="checkbox"]:checked+label::before {
-    background-color: #28a745;
-    /* Change this color as desired */
-    border-color: #28a745;
-    /* Optional: Update border color */
-}
-
-label:hover::before {
-    border-color: #007bff;
-}
-
-.checked label::before {
-    background-color: #28a745;
-    /* Green */
 }
