@@ -1,7 +1,22 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   background-color: rgb(209, 209, 209);
+}
+
+p {
+  margin: 0;
+}
+
+input {
+  margin: 5px 0px;
+}
+
+@font-face {
+  font-family: metaF;
+  src: local("mn128_clean_META"), url('./assets/fonts/mn128_clean_META.otf') format("opentype");
+  /* font-weight: 700; */
 }
 
 main {
@@ -13,5 +28,63 @@ main {
 
 canvas {
   display: block;
-  box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.651);
+  box-shadow: 0 0 25px -5px rgba(0, 0, 0, 0.651);
+}
+
+#canvas-container {
+  z-index: 1;
+}
+
+#nav {
+  display: none;
+  position: fixed;
+  width: 100vw;
+  /* height: 60px; */
+  background-color: aliceblue;
+  justify-content: center;
+}
+
+#size-btn-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.size-btn {
+  display: flex;
+  position: relative;
+  cursor: pointer;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: aqua;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+.label {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  height: 100%;
+}
+
+#test-metafont {
+  display: block;
+  position: absolute;
+  margin-top: 30px;
+  font-family: metaF;
+  font-size: 350px;
+}
+
+#render-area {
+  display: flex;
+  position: absolute;
+  width: 85vw;
+  height: 100vh;
+  justify-content: right;
+  align-items: center;
+}
+
+#status-container {
+  display: flex;
+  position: absolute;
+  margin-left: 20px;
 }

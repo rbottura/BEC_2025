@@ -2,17 +2,86 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Sketch</title>
 
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="page.css" />
+    <link rel="stylesheet" type="text/css" href="parameters.css" />
 
+    <!-- <script src="libraries/p5.js"></script> -->
     <script src="libraries/p5.min.js"></script>
-    <script src="libraries/p5.sound.min.js"></script>
+    <!-- <script src="libraries/p5.sound.min.js"></script> -->
+    <!-- <script src="libraries/p5.capture.umd.min.js"></script> -->
   </head>
 
   <body>
+    <div id="status-container">
+      <div id="status-infos">
+        <p>
+          Current display for poster layout <br />
+          bleeds : on <br />
+          background text layer is an image
+        </p>
+      </div>
+    </div>
+    <div id="nav">
+      <div id="size-btn-container">
+        <div class="btn-label label">resizes :</div>
+        <div class="size-btn" id="">poster</div>
+        <div class="size-btn" id="">16/9</div>
+        <div class="size-btn" id="">9/16</div>
+        <div class="size-btn" id="">sqr</div>
+      </div>
+    </div>
+    <div id="parameters-container">
+      inputs :
+      <div class="parameters-box" id="seed-box">
+        <div class="param-label">seed :</div>
+        <div class="param-input-wrapper" id="seed-input"></div>
+      </div>
+      <div class="parameters-box">
+        <div class="param-label">grid values :</div>
+        <div class="param-input-wrapper"></div>
+      </div>
+      <div class="parameters-box" id="edge-size-box">
+        <div class="param-label">Edges size :</div>
+        <div class="param-input-wrapper" id="edges-size"></div>
+      </div>
+      <div class="parameters-box">
+        <div class="param-label">Edges colors random :</div>
+        <div class="param-input-wrapper" id="edges-color-random"></div>
+      </div>
+      <div class="parameters-box">
+        <div class="param-label">Edges color select :</div>
+        <div class="param-input-wrapper" id="edges-color-select"></div>
+      </div>
+      <!-- <div class="parameters-box">
+        <div class="param-label">n-Edges select :</div>
+        <div class="param-input-wrapper" id="edges-number-select"></div>
+      </div> -->
+      <!-- <div class="parameters-box">
+        <div class="param-label">Faces color select :</div>
+        <div class="param-input-wrapper"></div>
+      </div> -->
+      <!-- <div class="parameters-box">
+        <div class="param-label">n-Faces select :</div>
+        <div class="param-input-wrapper"></div>
+      </div> -->
+      <div class="parameters-box">
+        <div class="param-label">list edges</div>
+        <div class="param-input-wrapper" id="list-edges-container"></div>
+      </div>
+    </div>
+    <div id="render-area">
+      <div id="page">
+        <!-- <div id="titre">HABITER</div> -->
+      </div>
+      <div id="canvas-container"></div>
+    </div>
+
+    <script src="inputs.js"></script>
     <script src="functions.js"></script>
     <script src="class.js"></script>
     <script src="sketch.js"></script>

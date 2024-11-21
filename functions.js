@@ -65,8 +65,10 @@ function createEdges(points, cellSize) {
                 // Only add edge if it's unique
                 if (!uniqueEdges.has(edgeKey)) {
                     uniqueEdges.add(edgeKey);
-                    let edgeColor = BECcolors[floor(random() * 5)]
-                    edges.push(new Edge(p1, p2, edgeColor, edgeCounter))
+                    let randColor = floor(random() * 5)
+                    let colorId = BECcolorsId[randColor]
+                    let edgeColor = BECcolors[randColor]
+                    edges.push(new Edge(p1, p2, edgeColor, colorId, edgeCounter))
                     edgeCounter++
                 }
             }
@@ -169,40 +171,87 @@ function findCells(points, edgeMap) {
             cellIndex++
         }
     }
-    console.log(cells)
+    // console.log(cells)
     return cells;
 }
 
 function createInfos() {
     const titre = 'HABITER'
-    const sTitre = "Expositions, rencontres, ateliers autour"
+    const sTitre = "Expositions, rencontres, ateliers autour \ndes arts numériques et hybrides"
     const sTitre2 = "des arts numériques et hybrides"
-    const date = "18.04 - 21.06"
+    const date = "18.04 - 21.06\n2025"
     const nomBEC = "1RE BIENNALE EN COMMUN(S"
 
     let arr = []
 
-    console.log(titre.length)
-    let titreSize = width/titre.length*1.8
+    // console.log(titre.length)
+    let titreSize = width / titre.length * 5
     push()
     textSize(titreSize)
     let w = textWidth(titre)
-    let titreHeight = titreSize*0.5
-    let titreInfos = new InfoText(width / 2 - w / 2, titreHeight, 0, font_pathRMono, titreSize, titre, '', textGraphics)
+    let titreHeight = titreSize * .5
+    let titreInfos = new InfoText(width / 2 - w / 2, titreHeight, 0, metaF, titreSize, titre, '', textGraphics)
     arr.push(titreInfos)
     pop()
 
     return arr
 }
 
-function getRandomColors(number) {
+function getRandomArrayOfInt(n, min, max) {
     let arr = []
-    for (let i = 0; i < number; i++) {
-        let randColor = color(BECcolors[floor(random(BECcolors.length))])
-        arr.push(randColor)
+    for (let i = 0; i < n; i++) {
+        let randomN = int(random(min, max))
+        arr.push(randomN)
     }
-    // console.log(arr)
     return arr
+}
+
+function getRandomColors(colorsArray, number) {
+    let arrId = getRandomArrayOfInt(number, 0, colorsArray.length)
+    let arr = []
+
+    for (let i = 0; i < arrId.length; i++) {
+        arr.push(colorsArray[arrId[i]])
+    }
+
+    return [arr, arrId]
+}
+
+function getArrayOfRandomUniqueInt(n, min, max) {
+    let arr = []
+
+    while (arr.length != n) {
+        let randomNumber = int(random(min, max))
+        if (!arr.includes(randomNumber)) {
+            arr.push(randomNumber)
+        }
+    }
+    return sort(arr)
+}
+
+function getOppositeColor(color) {
+    // Remove the hash if it's a hex color
+    if (color.startsWith("#")) {
+        color = color.slice(1);
+    }
+
+    // Parse the RGB components from the hex color
+    const r = parseInt(color.substring(0, 2), 16); // Red
+    const g = parseInt(color.substring(2, 4), 16); // Green
+    const b = parseInt(color.substring(4, 6), 16); // Blue
+
+    // Calculate the opposite color
+    const oppositeR = 255 - r;
+    const oppositeG = 255 - g;
+    const oppositeB = 255 - b;
+
+    return color(oppositeR, oppositeG, oppositeB)
+    // return 'rgb('+oppositeR+', '+oppositeG+', '+oppositeB+')';
+
+    // Convert back to hex and return
+    // return `#${oppositeR.toString(16).padStart(2, "0")}${oppositeG
+    //     .toString(16)
+    //     .padStart(2, "0")}${oppositeB.toString(16).padStart(2, "0")}`;
 }
 
 function getEdgeAxis(pA, pB) {
@@ -215,10 +264,6 @@ function getEdgeAxis(pA, pB) {
     }
 }
 
-// function windowResized() {
-//     resizeCanvas(windowWidth, windowHeight);
-// }
-
 function resizeToFormat(format) {
     let w = width, h = height
     let f = format
@@ -227,7 +272,7 @@ function resizeToFormat(format) {
         resizeCanvas(obj.width, obj.height)
         resetText()
         resetEdges()
-        let aspect = obj.width/obj.height
+        let aspect = obj.width / obj.height
         cam = undefined
         cam = initCamSettings
         cam.ortho()
@@ -239,7 +284,7 @@ function resetText() {
     listInfos = createInfos()
 }
 
-function resetEdges(){
+function resetEdges() {
     listEdges = []
     listEdges = createEdges(listVertices, cellSize)
 }
@@ -256,16 +301,36 @@ function keyAction() {
     }
 }
 
-function myOrbControl(buffer, cam){
+function myOrbControl(buffer, cam) {
 
 }
 
-function showBleeds(size){
+function showBleeds(size) {
     push()
     noFill()
     stroke('green')
     strokeWeight(size * 2)
-    translate(-width/2, -height/2)
-    rect(0,0,width, height)
+    translate(-width / 2, -height / 2)
+    rect(0, 0, width, height)
     pop()
+}
+
+document.querySelectorAll('.size-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        let format = e.target.innerHTML
+        // console.log(format)
+        resizeToFormat(format)
+    })
+})
+
+function resizePage(canvas, page) {
+    page.style.width = canvas.width + "px"
+    page.style.height = canvas.height + "px"
+}
+
+function loadInputs() {
+    updateSeed()
+    edgesSize()
+    let [listBtn, listInput] = createSwitchEdges()
+    randomEdgesGenerator(listBtn, listInput)
 }

@@ -1,0 +1,19 @@
+#page {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    background-color: rgb(255, 255, 255);
+    background-image: url('./img/compo_text_1.png');
+    background-size: contain;
+    mix-blend-mode: darken;
+}
+
+#titre {
+    font-family: metaF;
+    font-size: 15em;
+    -webkit-text-stroke: 1px black;
+    color: black;
+    width: 100%;
+    text-align: center;
+    line-height: 50%;
+}

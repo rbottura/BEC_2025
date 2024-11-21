@@ -1,7 +1,7 @@
 let matrix, cam, cam2, initCamSettings, listVertices = [], listEdges = [], listCells = [], listFaces = [], listInfos = []
 let JointsBuffer, textBuffer
-let opsReg, font_pathR, font_pathRMono
-let formats, cnvW, cnvH
+let opsReg, font_pathR, font_pathRMono, metaF
+let formats, cnvW, cnvH, cnv, seed = 1
 
 const listFonts = [
   "Path-R",
@@ -15,25 +15,31 @@ const listFonts = [
 
 function preload() {
   formats = loadJSON('./assets/formats.json', () => {
-    cnvW = formats["aff"].width + formats["bleeds"].size*2
-    cnvH = formats["aff"].height + formats["bleeds"].size*2
+    cnvW = formats["poster"].width + formats["bleeds"].size*2
+    cnvH = formats["poster"].height + formats["bleeds"].size*2
   })
   opsReg = loadFont('./assets/fonts/OPS/OPSFavorite-Regular.otf')
   font_pathR = loadFont('./assets/fonts/Path/Path-R.otf')
   font_pathRMono = loadFont('./assets/fonts/Path/Path-RMono.otf')
+  metaF = loadFont('./assets/fonts/mn128_clean_META.otf')
 }
 
 function setup() {
   colorMode(RGB, 255, 255, 255, 1)
   angleMode(DEGREES)
   rectMode(CENTER)
-  createCanvas(cnvW, cnvH, WEBGL)
+  cnv = createCanvas(cnvW, cnvH, WEBGL)
+  cnv.parent('#canvas-container')
+  document.querySelector('main').remove()
+
+  pixelDensity(1)
+  resizePage(cnv, document.querySelector('#page'))
 
   JointsBuffer = createFramebuffer()
   textBuffer = createFramebuffer()
+  textBuffer.pixelDensity(1)
 
   textGraphics = createGraphics(WiW, WiH, P2D)
-  randomSeed(1)
 
   cam = createCamera()
   cam.ortho()
@@ -52,12 +58,16 @@ function setup() {
   const edgeMap = buildEdgeMap(listEdges)
   listCells = findCells(listVertices, edgeMap)
 
-  listInfos = createInfos()
+  // listInfos = createInfos()
+
+  loadInputs()
 }
 
 function draw() {
+  // randomSeed(seed)
   background(255)
   // debugMode()
+  // clear()
 
   if (textBuffer) {
 
@@ -73,6 +83,7 @@ function draw() {
     if (listInfos) {
       for (const txt of listInfos) {
         txt.show()
+        // console.log('oueoue')
       }
     }
 
@@ -115,7 +126,10 @@ function draw() {
   push()
   if (listEdges) {
     for (let i = 0; i < listEdges.length; i += 1) {
-      listEdges[i].showBox(8)
+      // listEdges[i].thickness = 15
+      if(listEdges[i].render){
+        listEdges[i].showBox()
+      }
       // listEdges[i].showJoints(true, true)
     }
   }
@@ -130,10 +144,10 @@ function draw() {
       }
       if (frameCount % 1 == 0) {
         if (cell.id == floor(random() * listCells.length) && cell.id % 5 == 0) {
-          let randomMove = int(-50 + random(100))
-          cell.moveEdges(randomMove)
-          let randomSize = floor(-100 + random(200))
-          cell.resizeEdges(randomSize)
+          // let randomMove = 100 * noise(0.005 * frameCount);
+          // cell.moveEdges(randomMove)
+          // let randomSize = floor(-100 + random(200))
+          // cell.resizeEdges(randomSize)
         }
       }
       // cell.showDebug()

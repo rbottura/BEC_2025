@@ -1,4 +1,5 @@
 const BECcolors = ['rgb(0,115,220)', 'rgb(228, 5, 20)', 'rgb(0,167,115)', 'rgb(255,212,0)', 'rgb(0,0,0)']
+const BECcolorsId = ['blue', 'red', 'green', 'yellow', 'black']
 class Matrix {
     constructor(gridX, gridY, gridZ, cellSize, offset, lineWeight) {
         this.gridX = gridX;
@@ -62,25 +63,28 @@ class Matrix {
     }
     getMinVertices() {
         this.minGridVerices = mergeUniqueArrays(...this.gridVertices);
-        console.log(this.minGridVerices)
+        // console.log(this.minGridVerices)
         return this.minGridVerices
     }
 }
 
 class Edge {
-    constructor(pointA, pointB, color, index) {
+    constructor(pointA, pointB, color, coloreId, index) {
         this.pointA = pointA; // First endpoint as p5.Vector
         this.pointB = pointB; // Second endpoint as p5.Vector
-        this.color = color;   // Color of the edge
+        this.color = color;
+        this.colorId = coloreId
         this.index = index
 
         this.jSize = 10
         this.edgeOffset = -50
         this.edgeSize = 200
         this.edgeEaseSize = 200
-        this.edgeThickness = 0
+        this.thickness = 1
         this.scale = 1
         this.rotate = 0
+
+        this.render = true
 
         this.joints = getOffsetVector(this.pointA, this.pointB, this.edgeOffset / 2);
 
@@ -135,13 +139,13 @@ class Edge {
         // sphere(20, 10, 10)
         if (this.axis == "X") {
             // rotateX(this.index*0.1)
-            box(this.edgeSize + this.edgeOffset, thickness, thickness)
+            box(this.edgeSize + this.edgeOffset, this.thickness, this.thickness)
         } else if (this.axis == "Y") {
             // rotateY(this.index*0.1)
-            box(thickness, this.edgeSize + this.edgeOffset, thickness)
+            box(this.thickness, this.edgeSize + this.edgeOffset, this.thickness)
         } else if (this.axis == "Z") {
             // rotateZ(this.index*0.1)
-            box(thickness, thickness, this.edgeSize + this.edgeOffset)
+            box(this.thickness, this.thickness, this.edgeSize + this.edgeOffset)
         }
         pop()
     }
@@ -168,7 +172,11 @@ class Edge {
         }
         pop()
     }
+    updateThickness(val){
+        this.thickness = val
+    }
     resize(newSize) {
+        
         this.edgeEaseSize += newSize
     }
     move(x, y, z) {
@@ -360,12 +368,15 @@ class InfoText {
         // plane(width, height)
         fill('black')
         // noFill()
-        translate(-width / 2, -height / 2, 5)
+        translate(-width /2, -height / 2, 5)
         translate(this.posV)
         textFont(this.font)
         textAlign(CENTER, CENTER)
+        // textLeading(2)
         textSize(this.size)
-
+        // this.txt2p = this.font.textToPoints(this.txt, this.posV.x, this.posV.y, this.size)
+        // scale(10)
+        // textStyle(ITALIC)
         text(this.txt, 0, 0)
         // rect(0,0,width,height)
         pop()
