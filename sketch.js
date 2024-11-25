@@ -1,22 +1,17 @@
-let matrix, cam, cam2, initCamSettings, listVertices = [], listEdges = [], listCells = [], listFaces = [], listInfos = []
+let matrix, listVertices = [], listEdges = [], listCells = [], listFaces = [], listInfos = []
 let JointsBuffer, textBuffer
+let cam, cam2, initCamSettings 
 let opsReg, font_pathR, font_pathRMono, metaF
 let formats, cnvW, cnvH, cnv, seed = 1
-
-const listFonts = [
-  "Path-R",
-  "Path-RMono",
-  "Path-RBold",
-  "Path-RHeavy",
-  "Path-C",
-  "Path-CBold",
-  "Path-CHeavy"
-]
+let currentFormatName = "custom", currentFormat
+let xRot = 0, yRot = 0, zRot = 0, sceneRotSpeed = 0, sceneZdist = 0, sceneScale = 1, myScene
+let listScenesVariables = [xRot, yRot, zRot, sceneScale, sceneRotSpeed]
 
 function preload() {
   formats = loadJSON('./assets/formats.json', () => {
-    cnvW = formats["custom"].width + formats["bleeds"].size*2
-    cnvH = formats["custom"].height + formats["bleeds"].size*2
+    currentFormat = formats[currentFormatName]
+    cnvW = currentFormat.width + formats["bleeds"].size * 2
+    cnvH = currentFormat.height + formats["bleeds"].size * 2
   })
   opsReg = loadFont('./assets/fonts/OPS/OPSFavorite-Regular.otf')
   font_pathR = loadFont('./assets/fonts/Path/Path-R.otf')
@@ -33,7 +28,6 @@ function setup() {
   document.querySelector('main').remove()
 
   pixelDensity(1)
-  resizePage(cnv, document.querySelector('#page'))
 
   JointsBuffer = createFramebuffer()
   textBuffer = createFramebuffer()
@@ -42,10 +36,9 @@ function setup() {
   textGraphics = createGraphics(WiW, WiH, P2D)
 
   cam = createCamera()
-  cam.ortho(-width / 2, width / 2, -height / 2, height / 2, 0, 8000)
-  initCamSettings = cam
-  // cam.perspective(2.5 * atan(height / 2 / 800));
-  // ortho()
+  cam.perspective(2.5 * atan(height / 2 / 800));
+  // cam.ortho(-width / 2, width / 2, -height / 2, height / 2, 0, 8000)
+  initCamSettings = {"isOrtho" : false}
 
   // cam2 = textBuffer.createCamera()
   // cam2.set(cam)
@@ -58,14 +51,16 @@ function setup() {
   const edgeMap = buildEdgeMap(listEdges)
   listCells = findCells(listVertices, edgeMap)
 
-  // listInfos = createInfos()
+  myScene = new Scene(xRot, yRot, zRot, sceneScale, sceneRotSpeed)
 
   loadInputs()
+  setCamera(cam)
 }
 
 function draw() {
   // randomSeed(seed)
   background(255)
+  frameRate(30)
   // debugMode()
   // clear()
 
@@ -78,7 +73,7 @@ function draw() {
     // cam2.frustum()
     // cam2.perspective(fovy2, width/height, .001, 10000)
     resetMatrix()
-    
+
     push()
     if (listInfos) {
       for (const txt of listInfos) {
@@ -91,7 +86,6 @@ function draw() {
     textBuffer.end()
   }
 
-  setCamera(cam)
 
   push()
   beginClip({ invert: true })
@@ -105,17 +99,25 @@ function draw() {
     freeRotation: false
   }
 
-  orbitControl(2,2,2, options)
-  frameRate(30)
+  if( (currentFormatName == 'full')){
+    if ((mouseX>= width/4) && (mouseX<=3*width/4) && (mouseY>=height/4) && (mouseY<=3*height/4)){
+      orbitControl(2, 2, 2, options)
+    }
+  } else {
+    orbitControl(2, 2, 2, options)
+  }
 
   // let fovy = map(mouseY, 0, WiH, 0.1, 7)
   // perspective(fovy * atan(height / 2 / 800), 16/9, 1*0.001, 1*10000)
 
   // push for grid layer elements
   push()
-  rotateY(millis() * 0.01)
-  rotateZ(millis() * 0.01)
-  // rotateX(-5)
+
+  scale(myScene.scale)
+
+  rotateX(myScene.xRot + frameCount * 10 * myScene.rotSpeed * toZero(myScene.xRot))
+  rotateY(myScene.yRot + frameCount * 10 * myScene.rotSpeed * toZero(myScene.yRot))
+  rotateZ(myScene.zRot + frameCount * 10 * myScene.rotSpeed * toZero(myScene.zRot))
 
   push()
   if (matrix) {
@@ -124,10 +126,11 @@ function draw() {
   pop()
 
   push()
+  // console.log(xRot)
   if (listEdges) {
     for (let i = 0; i < listEdges.length; i += 1) {
       // listEdges[i].thickness = 15
-      if(listEdges[i].render){
+      if (listEdges[i].render) {
         listEdges[i].showBox()
       }
       // listEdges[i].showJoints(true, true)
@@ -163,11 +166,12 @@ function draw() {
       // face.show()
     }
   }
+  
+  // filter(THRESHOLD, .85)
   pop()
 
   pop()
+  // pop grid layer elements
 
   // showBleeds(formats["bleeds"].size)
-  // pop grid layer elements
-  keyAction()
 }

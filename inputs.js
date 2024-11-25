@@ -1,7 +1,3 @@
-function resetGrid(cellX, cellY, cellZ) {
-
-}
-
 function edgesSize() {
     let slider = createSlider(0, 50, 1, 1)
     let textVal = createP('1')
@@ -36,10 +32,7 @@ function createSwitchEdges() {
     for (const edge of listEdges) {
         let n = `${edge.index}`
         let edgeBtn = createCheckbox(n, true)
-        // if (edge.colorId == 'black') {
-        //     let lb = select('span', edgeBtn)
-        //     lb.elt.style.color = "white"
-        // }
+
         edgeBtn.elt.style.borderColor = edge.color
         edgeBtn.elt.id = edge.index
         edgeBtn.addClass('edge-select-btn')
@@ -56,11 +49,28 @@ function createSwitchEdges() {
 function randomEdgesGenerator(listBtn, listInputElt) {
     let container = select('#edges-color-random')
     let numbInput = createInput(85)
+    numbInput.size(10)
     let nEdge = numbInput.value()
     let btn = createButton('generate')
     container.child(numbInput)
     container.child(btn)
-    numbInput.input(() => nEdge = numbInput.value())
+    let arrVal = []
+    numbInput.input((val) => {
+        let firstDigits
+        console.log(arrVal)
+        if (0 <= numbInput.value() && numbInput.value() <= listEdges.length) {
+            arrVal.push(val.data)
+            nEdge = numbInput.value()
+        } else if (arrVal.length != 0){
+            firstDigits = parseInt(arrVal.reduce((accumulator, currentValue) => accumulator + currentValue))
+            arrVal = []
+            numbInput.value(firstDigits)
+            alert('chose an integer between 0 and 170')
+        } else {
+            numbInput.value(0)
+            alert('chose an integer between 0 and 170')
+        }
+    })
     btn.mousePressed(() => updateEdgesRender(nEdge, listInputElt, listBtn))
 }
 
@@ -107,22 +117,127 @@ function updateEdgeCheck(edge, edgeBtn, newColor, newColorId) {
         // customBox.elt.style.backgroundColor =  edge.color
     } else {
         edge.render = false
-        btn.style.backgroundColor = '#ddd'
-        lb.elt.style.opacity = .25
+        btn.style.backgroundColor = '#999'
+        lb.elt.style.opacity = .5
+        // lb.elt.filter = 'invert(1)'
         // customBox.elt.style.backgroundColor =  '#fff'
     }
 }
 
-function edgesByColor() {
-    let edColorSelect = createSelect(true)
-    edColorSelect.parent('#edges-color-select')
-    edColorSelect.option('red')
-    edColorSelect.option('green')
-    edColorSelect.option('blue')
-    edColorSelect.option('yellow')
-    edColorSelect.option('black')
+function resizeRender(format, page) {
+    if (!page) {
+        page = select('#page')
+    }
+    let renderContainerElt = select('#render-window-wrapper')
+    let w = parseInt(format.width)
+    let h = parseInt(format.height)
+    let s = { w, h }
 
-    edColorSelect.changed(() => {
+    resizeCanvas(w, h)
+    changeCamera(cam, initCamSettings)
 
+    renderContainerElt.size(s)
+    page.size(s)
+}
+
+function initSizesBtns() {
+    let btns = selectAll('.page-size-btn')
+    console.log(btns)
+    btns.forEach(btn => {
+        btn.elt.addEventListener('click', (e) => {
+            console.log(e)
+            if (currentFormatName == 'full' && e.target.innerHTML != 'full') {
+                toggleFullScreen()
+            }
+            currentFormatName = e.target.innerHTML
+            currentFormat = formats[currentFormatName]
+            resizeRender(currentFormat)
+            if (currentFormatName == "full") {
+                toggleFullScreen(currentFormatName)
+            }
+        })
     })
+}
+
+function createAxisSliders() {
+    let xSlider = createSlider(0, 90, 0, 1)
+    let ySlider = createSlider(0, 90, 0, 1)
+    let zSlider = createSlider(0, 90, 0, 1)
+    let scaleSlider = createSlider(0.2, 2, 1, .1)
+    let speedSlider = createSlider(0, 0.1, 0, 0.005)
+
+    let sliders = [
+        xSlider,
+        ySlider,
+        zSlider,
+        scaleSlider,
+        speedSlider
+    ]
+
+    class SliderInput {
+        constructor(input, label, feedback, wrapper, index) {
+            this.input = input
+            this.label = label
+            this.feedback = feedback
+
+            this.nodeInput = input.elt
+            this.nodeLabel = label.elt
+            this.nodeFeedback = feedback.elt
+
+            this.index = index
+            this.wrapper = wrapper
+            if (this.wrapper) {
+                this.wrap()
+            }
+        }
+        wrap() {
+            this.wrapper.elt.append(...this.nodesArr())
+        }
+        nodesArr() {
+            return [this.nodeLabel, this.nodeInput, this.nodeFeedback]
+        }
+        updateValue(elt, val) {
+            let arrSceneVar = Object.keys(myScene)
+            myScene[arrSceneVar[this.index]] = val
+            if (elt == this.input) {
+                this.feedback.value(val)
+            } else {
+                console.log(elt)
+                this.input.value(val)
+            }
+        }
+    }
+
+    let container = document.querySelector('#axis-container')
+    let arr = []
+    sliders.forEach((slider, index) => {
+        slider.addClass('slider')
+        let sliderNames = ['x', 'y', 'z', 's', 'speed']
+        let sliderWrapper = createDiv()
+        sliderWrapper.addClass('slider-input-wrapper')
+
+        let label = createElement('label', sliderNames[index])
+        label.addClass('slider-label')
+
+        let valueFeedback = createInput()
+        valueFeedback.addClass('input-box')
+        valueFeedback.size(40)
+
+        let sInput = new SliderInput(slider, label, valueFeedback, sliderWrapper, index)
+        arr.push(sliderWrapper.elt)
+
+        linkSliderToInputArea(slider, (elt, value) => sInput.updateValue(elt, value))
+        linkSliderToInputArea(valueFeedback, (elt, value) => sInput.updateValue(elt, value))
+    })
+    container.append(...arr)
+}
+
+function linkSliderToInputArea(sceneInput, callback) {
+    sceneInput.input(() => callback(sceneInput, sceneInput.value()))
+}
+function updateSceneScale(val) {
+    return map(val, 0, 500, 0.2, 3)
+}
+function updateRotationSpeed(val) {
+    return map(val, 0, 10, 0, 0.05, true)
 }

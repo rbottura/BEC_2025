@@ -246,12 +246,6 @@ function getOppositeColor(color) {
     const oppositeB = 255 - b;
 
     return color(oppositeR, oppositeG, oppositeB)
-    // return 'rgb('+oppositeR+', '+oppositeG+', '+oppositeB+')';
-
-    // Convert back to hex and return
-    // return `#${oppositeR.toString(16).padStart(2, "0")}${oppositeG
-    //     .toString(16)
-    //     .padStart(2, "0")}${oppositeB.toString(16).padStart(2, "0")}`;
 }
 
 function getEdgeAxis(pA, pB) {
@@ -264,21 +258,6 @@ function getEdgeAxis(pA, pB) {
     }
 }
 
-function resizeToFormat(format) {
-    let w = width, h = height
-    let f = format
-    let obj = formats[f]
-    if ((f == "16/9" || f == "9/16" || f == "sqr") && (w != obj.width) || (h != obj.height)) {
-        resizeCanvas(obj.width, obj.height)
-        resetText()
-        resetEdges()
-        let aspect = obj.width / obj.height
-        cam = undefined
-        cam = initCamSettings
-        cam.ortho()
-    }
-}
-
 function resetText() {
     listInfos = []
     listInfos = createInfos()
@@ -287,22 +266,6 @@ function resetText() {
 function resetEdges() {
     listEdges = []
     listEdges = createEdges(listVertices, cellSize)
-}
-
-function keyAction() {
-    if (keyIsDown(65)) {
-        resizeToFormat("16/9")
-    }
-    if (keyIsDown(90)) {
-        resizeToFormat("9/16")
-    }
-    if (keyIsDown(69)) {
-        resizeToFormat("sqr")
-    }
-}
-
-function myOrbControl(buffer, cam) {
-
 }
 
 function showBleeds(size) {
@@ -323,14 +286,61 @@ document.querySelectorAll('.size-btn').forEach(btn => {
     })
 })
 
-function resizePage(canvas, page) {
-    page.style.width = canvas.width + "px"
-    page.style.height = canvas.height + "px"
-}
+let myBECRender
 
 function loadInputs() {
-    updateSeed()
+    // updateSeed()
+    let settingsWindow = select('#parameters-container')
+    let handle = select('.handle')
+    handle.draggable(settingsWindow)
+    settingsWindow.position(150, 150)
     edgesSize()
+    initSizesBtns()
+    createAxisSliders()
     let [listBtn, listInput] = createSwitchEdges()
     randomEdgesGenerator(listBtn, listInput)
+    myBECRender = new BECRenderer(cnv)
+}
+
+// Where el is the DOM element you'd like to test for visibility
+function isHidden(el) {
+    var style = window.getComputedStyle(el);
+    return (style.display === 'none')
+}
+
+function toZero(x) {
+    return Math.abs(x) < 1 ? 0 : 1;
+}
+
+function toggleFullScreen(targetFormat) {
+    if (!document.fullscreenElement && targetFormat == 'full') {
+        document.body.requestFullscreen();
+    } else if (document.exitFullscreen) {
+        document.exitFullscreen();
+    }
+}
+
+function changeCamera(cam, mode) {
+    cam = undefined
+    cam = createCamera();
+
+    if (mode === 'toggle') {
+        if (initCamSettings.isOrtho) {
+            setPerspective(cam);
+        } else {
+            setOrtho(cam);
+        }
+        initCamSettings.isOrtho = !initCamSettings.isOrtho;
+    } else {
+        initCamSettings.isOrtho ? setOrtho(cam) : setPerspective(cam);
+    }
+    setCamera(cam)
+}
+
+function setOrtho(cam) {
+    cam.ortho(-width / 2, width / 2, -height / 2, height / 2, 0, 8000);
+}
+
+function setPerspective(cam) {
+    cam.perspective(2.5 * atan(height / 2 / 800));
 }

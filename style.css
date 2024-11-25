@@ -2,16 +2,12 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background-color: rgb(235, 235, 235);
+  background-color: rgb(230, 230, 230);
   overflow: hidden;
 }
 
 p {
   margin: 0;
-}
-
-input {
-  margin: 5px 0px;
 }
 
 @font-face {
@@ -20,45 +16,16 @@ input {
   /* font-weight: 700; */
 }
 
+@font-face {
+  font-family: notoEmoji;
+  src: url('./assets/fonts/NotoEmoji-VariableFont_wght.ttf');
+}
+
 main {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-}
-
-canvas {
-  display: block;
-}
-
-#canvas-container {
-  z-index: 1;
-}
-
-#nav {
-  display: none;
-  position: fixed;
-  width: 100vw;
-  /* height: 60px; */
-  background-color: aliceblue;
-  justify-content: center;
-}
-
-#size-btn-container {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-}
-
-.size-btn {
-  display: flex;
-  position: relative;
-  cursor: pointer;
-  font-family: 'Courier New', Courier, monospace;
-  background-color: aqua;
-  align-items: center;
-  justify-content: center;
-  padding: 5px;
 }
 
 .label {

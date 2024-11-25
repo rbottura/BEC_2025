@@ -7,7 +7,7 @@
     "width": 405,
     "height": 720
   },
-  "sqr": {
+  "1:1": {
     "width": 540,
     "height": 540
   },
@@ -19,7 +19,11 @@
     "size": 3
   },
   "custom":{
-    "width":800,
-    "height":694
+    "width":500,
+    "height":780
+  },
+  "full":{
+    "width":1920,
+    "height":1080
   }
 }
