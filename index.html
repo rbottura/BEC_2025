@@ -59,14 +59,17 @@
 
       <div class="parameters-box">
         <div class="param-label">canvas filtering :</div>
-        <div class="param-input-wrapper" id="canvas-filtering-container">
-          
-        </div>
+        <div class="param-input-wrapper" id="canvas-filtering-container"></div>
       </div>
 
       <div class="parameters-box" id="list-edges-box">
         <div class="param-label">list edges</div>
         <div class="param-input-wrapper" id="list-edges-container"></div>
+      </div>
+      
+      <div class="parameters-box" id="infos-layers-box">
+        <div class="param-label">animate visible edges :</div>
+        <div class="param-input-wrapper" id="animate-edges-container"></div>
       </div>
 
       <div class="parameters-box" id="infos-layers-box">
@@ -77,6 +80,7 @@
           <div class="input-layer-wrapper" id="layer-infos-wrapper"></div>
         </div>
       </div>
+
     </div>
 
     <div id="render-area-wrapper">
@@ -98,11 +102,10 @@
             <div class="page-layers layer-title"></div>
 
             <!-- here goes the p5 canvas that is generated -->
-            <div class="page-layers " id="canvas-container"></div>
-            
+            <div class="page-layers" id="canvas-container"></div>
+
             <div class="page-layers layer-infos"></div>
           </div>
-
         </div>
       </div>
     </div>

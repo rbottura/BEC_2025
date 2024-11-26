@@ -258,16 +258,6 @@ function getEdgeAxis(pA, pB) {
     }
 }
 
-function resetText() {
-    listInfos = []
-    listInfos = createInfos()
-}
-
-function resetEdges() {
-    listEdges = []
-    listEdges = createEdges(listVertices, cellSize)
-}
-
 function showBleeds(size) {
     push()
     noFill()
@@ -278,14 +268,14 @@ function showBleeds(size) {
     pop()
 }
 
-let myBECRender
+let myBECRender, listVisibleEdges = []
 function loadInputs() {
 
     // Window settings position and draggable
     let settingsWindow = select('#parameters-container')
     let handle = select('.handle')
     handle.draggable(settingsWindow)
-    settingsWindow.position(150, 150)
+    settingsWindow.position(50, 50)
 
     // some settings boxes
     createAxisSliders()
@@ -297,6 +287,13 @@ function loadInputs() {
     // create singled-out edges interfaces for custom preview
     let [listBtn, listInput] = createSwitchEdges()
     randomEdgesGenerator(listBtn, listInput)
+
+    listVisibleEdges = listEdges.slice(0)
+    let btn = createCheckbox('Anim Edges', true)
+    btn.id('anim-edges-checkbox')
+    let container = select('#animate-edges-container')
+    container.child(btn)
+    console.log(listVisibleEdges)
 
     // using custom renderer for player settings
     myBECRender = new BECRenderer(cnv)

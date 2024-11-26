@@ -144,6 +144,10 @@ function draw() {
   pop()
 
   push()
+  // console.log()
+  animateEdges(select('#anim-edges-checkbox'), 80, 80, .2)
+  if(frameCount == 1){
+  }
   if (listCells) {
     for (let cell of listCells) {
       // cell.showWireFrame()

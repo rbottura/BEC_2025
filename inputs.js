@@ -14,16 +14,6 @@ function edgesSize() {
     })
 }
 
-function updateSeed() {
-    let txtArea = createInput(1)
-    txtArea.id = 'seed-txt-input'
-    txtArea.parent('#seed-input')
-    seed = txtArea.value()
-    txtArea.changed(() => {
-        seed = txtArea.value()
-    })
-}
-
 function createSwitchEdges() {
     let container = select('#list-edges-container')
     let arrBtn = [], arrInput = []
@@ -71,7 +61,11 @@ function randomEdgesGenerator(listBtn, listInputElt) {
             alert('chose an integer between 0 and 170')
         }
     })
-    btn.mousePressed(() => updateEdgesRender(nEdge, listInputElt, listBtn))
+    btn.mousePressed(() => {
+        listVisibleEdges = []
+        updateEdgesRender(nEdge, listInputElt, listBtn)
+    }
+    )
 }
 
 function updateEdgesRender(nEdge, listInputElt, listBtn) {
@@ -114,13 +108,13 @@ function updateEdgeCheck(edge, edgeBtn, newColor, newColorId) {
         edge.render = true
         btn.style.backgroundColor = edge.color
         lb.elt.style.opacity = 1
+        listVisibleEdges.push(edge)
         // customBox.elt.style.backgroundColor =  edge.color
     } else {
         edge.render = false
         btn.style.backgroundColor = '#999'
         lb.elt.style.opacity = .5
-        // lb.elt.filter = 'invert(1)'
-        // customBox.elt.style.backgroundColor =  '#fff'
+        listVisibleEdges = listVisibleEdges.filter((e) => { return e.index !== edge.index })
     }
 }
 
@@ -289,7 +283,7 @@ function updateLayersOptions(formatName, formatIndex, hasLayers) {
                 iBtn.mouseClicked(() => { toggleLayers(pagelayerInfos, pathI, iBtn) })
                 titreLayerContainer.child(tBtn)
                 infosLayerContainer.child(iBtn)
-                if(i == 0){
+                if (i == 0) {
                     // tBtn.addClass('active-layer-btn')
                     // iBtn.addClass('active-layer-btn')
                     tBtn.elt.click()
@@ -308,7 +302,7 @@ function updateLayersOptions(formatName, formatIndex, hasLayers) {
                 iBtn.mouseClicked(() => { toggleLayers(pagelayerInfos, pathI, iBtn) })
                 titreLayerContainer.child(tBtn)
                 infosLayerContainer.child(iBtn)
-                if(i == 0){
+                if (i == 0) {
                     // tBtn.addClass('active-layer-btn')
                     // iBtn.addClass('active-layer-btn')
                     tBtn.elt.click()
@@ -324,15 +318,36 @@ function toggleLayers(layernode, path, btn) {
     layernode.style('backgroundImage', 'url(' + path + ')')
 }
 
-function canvasFiltering(){
-    let thresholdBtn = createCheckbox('threshold', true)
+function canvasFiltering() {
+    let btn = createCheckbox('threshold', true)
     let container = select('#canvas-filtering-container')
-    container.child(thresholdBtn)
-    thresholdBtn.input(() => {
-        if(thresholdBtn.checked()){
+    container.child(btn)
+    btn.input(() => {
+        if (btn.checked()) {
             listFilters.push(THRESHOLD)
         } else {
             listFilters = []
         }
     })
+}
+
+function animateEdges(btn, distMax, sMax, freq) {
+    let isTriggered = frameCount % (freq * parseInt(frameRate())) == 0
+    // console.log(isTriggered)
+    if (btn) {
+        btn = select('input', btn.elt) 
+        if (btn.checked() && listVisibleEdges.length != 0 && isTriggered) {
+            for (const edge of listVisibleEdges) {
+                let dist = floor(random(distMax) - distMax / 2)
+                let size = floor(random(sMax) - sMax / 2)
+                let mx = 0, my = 0, mz = 0
+                if (edge.axis == "X") { mx = dist }
+                if (edge.axis == "Y") { my = dist }
+                if (edge.axis == "Z") { mz = dist }
+                edge.move(mx, my, mz)
+                edge.resize(size)
+                // cell.resizeEdges(randomSize)
+            }
+        }
+    }
 }

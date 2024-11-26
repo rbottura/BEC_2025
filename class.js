@@ -176,7 +176,6 @@ class Edge {
         this.thickness = val
     }
     resize(newSize) {
-
         this.edgeEaseSize += newSize
     }
     move(x, y, z) {

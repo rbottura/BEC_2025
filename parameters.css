@@ -58,6 +58,10 @@
     flex-basis: calc(100% - 10px);
 }
 
+#infos-layers-box {
+    flex-basis: 100%;
+}
+
 #list-edges-container {
     flex: 1 0 auto;
     overflow-y: auto;
