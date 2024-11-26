@@ -281,10 +281,6 @@ function updateLayersOptions(formatName, formatIndex, hasLayers) {
             for (let i = 0; i < nbrCompoPoster + 1; i++) {
                 let tBtn = createDiv(i)
                 let iBtn = createDiv(i)
-                if(i == 0){
-                    tBtn.addClass('active-layer-btn')
-                    iBtn.addClass('active-layer-btn')
-                }
                 tBtn.addClass('select-l-btn')
                 iBtn.addClass('select-l-btn')
                 let pathT = posterPath + posterPathT + posterTitle + i + fileFormat
@@ -293,15 +289,17 @@ function updateLayersOptions(formatName, formatIndex, hasLayers) {
                 iBtn.mouseClicked(() => { toggleLayers(pagelayerInfos, pathI, iBtn) })
                 titreLayerContainer.child(tBtn)
                 infosLayerContainer.child(iBtn)
+                if(i == 0){
+                    // tBtn.addClass('active-layer-btn')
+                    // iBtn.addClass('active-layer-btn')
+                    tBtn.elt.click()
+                    iBtn.elt.click()
+                }
             }
         } else {
             for (let i = 0; i < nbrCompoSm + 1; i++) {
                 let tBtn = createDiv(i)
                 let iBtn = createDiv(i)
-                if(i == 0){
-                    tBtn.addClass('active-layer-btn')
-                    iBtn.addClass('active-layer-btn')
-                }
                 tBtn.addClass('select-l-btn')
                 iBtn.addClass('select-l-btn')
                 let pathT = smPath + listF[formatIndex] + "titre" + i + fileFormat
@@ -310,6 +308,12 @@ function updateLayersOptions(formatName, formatIndex, hasLayers) {
                 iBtn.mouseClicked(() => { toggleLayers(pagelayerInfos, pathI, iBtn) })
                 titreLayerContainer.child(tBtn)
                 infosLayerContainer.child(iBtn)
+                if(i == 0){
+                    // tBtn.addClass('active-layer-btn')
+                    // iBtn.addClass('active-layer-btn')
+                    tBtn.elt.click()
+                    iBtn.elt.click()
+                }
             }
         }
     }

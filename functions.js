@@ -341,7 +341,10 @@ function setPerspective(cam) {
 function changeLayerCss(inputLayer, btn) {
     console.log(btn)
     if(!btn.hasClass('active-layer-btn')){
-        select('.active-layer-btn', inputLayer).removeClass('active-layer-btn')
+        let currentActiveBtn = select('.active-layer-btn', inputLayer)
+        if(currentActiveBtn){
+            currentActiveBtn.removeClass('active-layer-btn')
+        }
         btn.addClass('active-layer-btn')
     }
 }
