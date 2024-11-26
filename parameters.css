@@ -160,7 +160,7 @@ label>span {
     flex-grow: 1;
 }
 
-input[type=checkbox] {
+.edge-select-btn input[type=checkbox] {
     display: none;
 }
 

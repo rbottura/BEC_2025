@@ -6,6 +6,7 @@ let formats, objFormat, cnvW, cnvH, cnv, seed = 1
 let currentFormatName = "poster", currentFormat
 let xRot = 0, yRot = 0, zRot = 0, sceneRotSpeed = 0, sceneZdist = 0, sceneScale = 1, myScene
 let listScenesVariables = [xRot, yRot, zRot, sceneScale, sceneRotSpeed]
+let listFilters = []
 
 function preload() {
   formats = loadJSON('./assets/formats.json', (e) => {
@@ -26,6 +27,7 @@ function setup() {
   colorMode(RGB, 255, 255, 255, 1)
   angleMode(DEGREES)
   rectMode(CENTER)
+  listFilters.push(THRESHOLD)
   cnv = createCanvas(cnvW, cnvH, WEBGL)
   cnv.parent('#canvas-container')
   document.querySelector('main').remove()
@@ -170,7 +172,9 @@ function draw() {
     }
   }
   
-  // filter(THRESHOLD, .85)
+  if(listFilters.length != 0){
+    filter(listFilters[0], .85)
+  }
   pop()
 
   pop()

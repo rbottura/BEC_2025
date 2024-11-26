@@ -279,20 +279,31 @@ function showBleeds(size) {
 }
 
 let myBECRender
-
 function loadInputs() {
-    // updateSeed()
+
+    // Window settings position and draggable
     let settingsWindow = select('#parameters-container')
     let handle = select('.handle')
     handle.draggable(settingsWindow)
     settingsWindow.position(150, 150)
-    edgesSize()
-    initSizesBtns()
+
+    // some settings boxes
     createAxisSliders()
+    initSizesBtns()
+    edgesSize()
+    // init with threshold On for client show
+    canvasFiltering()
+
+    // create singled-out edges interfaces for custom preview
     let [listBtn, listInput] = createSwitchEdges()
     randomEdgesGenerator(listBtn, listInput)
+
+    // using custom renderer for player settings
     myBECRender = new BECRenderer(cnv)
+
+    // initiate the render with poster format, with layers and all
     resizeRender(currentFormat, currentFormat.index)
+
 }
 
 // Where el is the DOM element you'd like to test for visibility

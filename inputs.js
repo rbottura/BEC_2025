@@ -323,3 +323,16 @@ function toggleLayers(layernode, path, btn) {
     changeLayerCss(btn.parent(), btn)
     layernode.style('backgroundImage', 'url(' + path + ')')
 }
+
+function canvasFiltering(){
+    let thresholdBtn = createCheckbox('threshold', true)
+    let container = select('#canvas-filtering-container')
+    container.child(thresholdBtn)
+    thresholdBtn.input(() => {
+        if(thresholdBtn.checked()){
+            listFilters.push(THRESHOLD)
+        } else {
+            listFilters = []
+        }
+    })
+}
