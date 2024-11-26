@@ -1,29 +1,39 @@
 {
+  "poster": {
+    "width":496,
+    "height":702,
+    "hasLayers":true,
+    "index" : 0
+  },
   "16/9": {
     "width": 720,
-    "height": 405
+    "height": 405,
+    "hasLayers":true,
+    "index" : 1
   },
   "9/16": {
     "width": 405,
-    "height": 720
+    "height": 720,
+    "hasLayers":true,
+    "index" : 2
   },
   "1:1": {
     "width": 540,
-    "height": 540
-  },
-  "poster": {
-    "width":496,
-    "height":702
+    "height": 540,
+    "hasLayers":true,
+    "index" : 3
   },
   "bleeds":{
     "size": 3
   },
   "custom":{
     "width":500,
-    "height":780
+    "height":780,
+    "hasLayers":false
   },
   "full":{
     "width":1920,
-    "height":1080
+    "height":1080,
+    "hasLayers":false
   }
 }

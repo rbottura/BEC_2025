@@ -2,14 +2,17 @@ let matrix, listVertices = [], listEdges = [], listCells = [], listFaces = [], l
 let JointsBuffer, textBuffer
 let cam, cam2, initCamSettings 
 let opsReg, font_pathR, font_pathRMono, metaF
-let formats, cnvW, cnvH, cnv, seed = 1
-let currentFormatName = "custom", currentFormat
+let formats, objFormat, cnvW, cnvH, cnv, seed = 1
+let currentFormatName = "poster", currentFormat
 let xRot = 0, yRot = 0, zRot = 0, sceneRotSpeed = 0, sceneZdist = 0, sceneScale = 1, myScene
 let listScenesVariables = [xRot, yRot, zRot, sceneScale, sceneRotSpeed]
 
 function preload() {
-  formats = loadJSON('./assets/formats.json', () => {
+  formats = loadJSON('./assets/formats.json', (e) => {
+    console.log(e)
+    // objFormat = JSON.parse(e)
     currentFormat = formats[currentFormatName]
+    // updateLayersOptions(currentFormatName, currentFormat.index, currentFormat.hasLayers)
     cnvW = currentFormat.width + formats["bleeds"].size * 2
     cnvH = currentFormat.height + formats["bleeds"].size * 2
   })
@@ -59,10 +62,10 @@ function setup() {
 
 function draw() {
   // randomSeed(seed)
-  background(255)
+  // background(255)
   frameRate(30)
   // debugMode()
-  // clear()
+  clear()
 
   if (textBuffer) {
 

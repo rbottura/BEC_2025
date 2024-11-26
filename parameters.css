@@ -258,13 +258,17 @@ label {
     align-self: flex-end;
 }
 
+.input-layer-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex: 1 0 100%;
+    align-items: center;
+}
 
-
-.select-v-btn {
+.select-l-btn {
     cursor: pointer;
     display: flex;
     justify-content: center;
-    height: 50%;
     /* width: ; */
     border: rgb(192, 192, 192) solid 1px;
     padding: 2px 5px;
@@ -274,12 +278,12 @@ label {
     font-size: 18px;
 }
 
-.select-v-btn:not(.active-version-btn) {
+.select-l-btn:not(.active-layer-btn) {
     color: rgb(0, 0, 0);
     background-color: rgb(224, 224, 224);
 }
 
-.active-version-btn {
+.active-layer-btn {
     background-color: rgb(255, 240, 34);
 }
 
@@ -287,4 +291,11 @@ label {
     min-width: 100px;
     padding-left: 10px;
     font-weight: 500;
+}
+
+#layer-titre-wrapper::before {
+    content : 'Titre : \00A0 '
+}
+#layer-infos-wrapper::before {
+    content : 'Infos : \00A0 '
 }

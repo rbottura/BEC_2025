@@ -76,12 +76,9 @@
       <div class="parameters-box" id="infos-layers-box">
         <div class="param-label">Infos layers options:</div>
         <div class="param-input-wrapper" id="infos-layers-container">
-          <div class="select-v-wrapper">
-            <p class="label-select"></p>
-            <div class="select-v-btn ">0</div>
-            <div class="select-v-btn active-version-btn">1</div>
-            <div class="select-v-btn">2</div>
-          </div>
+          <p class="format-layer-selection-label">Format</p>
+          <div class="input-layer-wrapper" id="layer-titre-wrapper"></div>
+          <div class="input-layer-wrapper" id="layer-infos-wrapper"></div>
         </div>
       </div>
     </div>
@@ -101,10 +98,15 @@
           </div>
 
           <!-- page is for text layer images -->
-          <div id="page"></div>
+          <div id="page">
+            <div class="page-layers layer-title"></div>
 
-          <!-- here goes the p5 canvas that is generated -->
-          <div id="canvas-container"></div>
+            <!-- here goes the p5 canvas that is generated -->
+            <div class="page-layers " id="canvas-container"></div>
+            
+            <div class="page-layers layer-infos"></div>
+          </div>
+
         </div>
       </div>
     </div>

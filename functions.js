@@ -278,14 +278,6 @@ function showBleeds(size) {
     pop()
 }
 
-document.querySelectorAll('.size-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        let format = e.target.innerHTML
-        // console.log(format)
-        resizeToFormat(format)
-    })
-})
-
 let myBECRender
 
 function loadInputs() {
@@ -300,6 +292,7 @@ function loadInputs() {
     let [listBtn, listInput] = createSwitchEdges()
     randomEdgesGenerator(listBtn, listInput)
     myBECRender = new BECRenderer(cnv)
+    resizeRender(currentFormat, currentFormat.index)
 }
 
 // Where el is the DOM element you'd like to test for visibility
@@ -343,4 +336,12 @@ function setOrtho(cam) {
 
 function setPerspective(cam) {
     cam.perspective(2.5 * atan(height / 2 / 800));
+}
+
+function changeLayerCss(inputLayer, btn) {
+    console.log(btn)
+    if(!btn.hasClass('active-layer-btn')){
+        select('.active-layer-btn', inputLayer).removeClass('active-layer-btn')
+        btn.addClass('active-layer-btn')
+    }
 }
