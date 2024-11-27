@@ -1,5 +1,6 @@
 function edgesSize() {
     let slider = createSlider(0, 50, 1, 1)
+    slider.addClass('slider')
     let textVal = createP('1')
     slider.parent('#edges-size')
     console.log()
@@ -124,6 +125,15 @@ function resizeRender(format, name, page) {
     }
     let w = parseInt(format.width)
     let h = parseInt(format.height)
+    cnvW = w
+    cnvH = h
+
+    for(let graph of [infosGraphics, mergeGraphics, titleGraphics]){
+        graph.remove()
+        titleGraphics = createGraphics(w, h)
+        infosGraphics = createGraphics(w, h)
+        mergeGraphics = createGraphics(w, h)
+    }
 
     let sameFormat = (JSON.stringify(format) === JSON.stringify(currentFormat))
     // console.log(sameFormat)
@@ -258,11 +268,8 @@ function updateLayersOptions(formatName, formatIndex, hasLayers) {
     const nbrCompoSm = 1
     let pagelayerTitle = select('.layer-title')
     let pagelayerInfos = select('.layer-infos')
-    console.log(pagelayerTitle)
 
     let layersLabel = select('.format-layer-selection-label')
-    console.log(formatName)
-    console.log(formatIndex)
 
     if (hasLayers) {
         let titreLayerContainer = select('#layer-titre-wrapper')
@@ -316,6 +323,7 @@ function updateLayersOptions(formatName, formatIndex, hasLayers) {
 function toggleLayers(layernode, path, btn) {
     changeLayerCss(btn.parent(), btn)
     layernode.style('backgroundImage', 'url(' + path + ')')
+    myBECRender.updateRenderedLayer(btn.parent(), btn.html())
 }
 
 function canvasFiltering() {

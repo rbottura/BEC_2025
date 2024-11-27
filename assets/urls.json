@@ -1,0 +1,32 @@
+{
+  "poster": {
+    "titre1": "./img/1-Poster/1-Titres/BEC-Poster_Titres-RL-02-1.png",
+    "titre2": "./img/1-Poster/1-Titres/BEC-Poster_Titres-RL-02-2.png",
+    "titre3": "./img/1-Poster/1-Titres/BEC-Poster_Titres-RL-02-3.png",
+    "titre4": "./img/1-Poster/1-Titres/BEC-Poster_Titres-RL-02-4.png",
+    "titre5": "./img/1-Poster/1-Titres/BEC-Poster_Titres-RL-02-5.png",
+    "titre6": "./img/1-Poster/1-Titres/BEC-Poster_Titres-RL-02-6.png",
+    "titre7": "./img/1-Poster/1-Titres/BEC-Poster_Titres-RL-02-7.png",
+    "titre8": "./img/1-Poster/1-Titres/BEC-Poster_Titres-RL-02-8.png",
+    "infos1": "./img/1-Poster/2-Infos/BEC-Poster_Infos-RL-02-1.png",
+    "infos2": "./img/1-Poster/2-Infos/BEC-Poster_Infos-RL-02-2.png",
+    "infos3": "./img/1-Poster/2-Infos/BEC-Poster_Infos-RL-02-3.png",
+    "infos4": "./img/1-Poster/2-Infos/BEC-Poster_Infos-RL-02-4.png",
+    "infos5": "./img/1-Poster/2-Infos/BEC-Poster_Infos-RL-02-5.png",
+    "infos6": "./img/1-Poster/2-Infos/BEC-Poster_Infos-RL-02-6.png",
+    "infos7": "./img/1-Poster/2-Infos/BEC-Poster_Infos-RL-02-7.png",
+    "infos8": "./img/1-Poster/2-Infos/BEC-Poster_Infos-RL-02-8.png"
+  },
+  "square": {
+    "titre1": "./img/2-SocialMedia/1-Square/titre1.png",
+    "infos1": "./img/2-SocialMedia/1-Square/infos1.png"
+  },
+  "portrait": {
+    "titre1": "./img/2-SocialMedia/2-Portrait/titre1.png",
+    "infos1": "./img/2-SocialMedia/2-Portrait/infos1.png"
+  },
+  "landscape": {
+    "titre1": "./img/2-SocialMedia/3-Landscape/titre1.png",
+    "infos1": "./img/2-SocialMedia/3-Landscape/infos1.png"
+  }
+}

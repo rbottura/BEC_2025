@@ -401,7 +401,10 @@ class BECRenderer {
         this.gearBtn.mouseClicked(() => this.showParameters(isHidden(this.paramContainer.elt)))
         this.playBtn.mouseClicked(() => this.playPause(isLooping()))
         this.saveBtn.mouseClicked(() => this.saveFrame())
-        this.camBtn.mouseClicked(() => this.changeCamera()) 
+        this.camBtn.mouseClicked(() => this.changeCamera())
+
+        this.titleIndex = undefined
+        this.infosIndex = undefined
     }
     showParameters(showing) {
         console.log(showing)
@@ -414,21 +417,30 @@ class BECRenderer {
     }
     playPause(play) {
         if (!play) {
-            this.playBtn.innerHTML = '⏸️'
+            this.playBtn.html('⏸️')
             loop()
         } else {
-            this.playBtn.innerHTML = '▶️'
+            this.playBtn.html('▶️') 
             noLoop()
         }
     }
     saveFrame() {
-        saveCanvas(currentFormatName, 'png')
+        printOutLayers(this.titleIndex, this.infosIndex)
+        // saveCanvas(currentFormatName, 'png')
     }
     resetOribitControl() {
         resetMatrix();
     }
     changeCamera(){
         changeCamera(cam, 'toggle')
+    }
+    updateRenderedLayer(layernode, i){
+        console.log(layernode.id)
+        if(layernode.id == "layer-titre-wrapper"){
+            this.titleIndex = i
+        } else if (layernode.id == "layer-infos-wrapper"){
+            this.infosIndex = i
+        }
     }
 }
 

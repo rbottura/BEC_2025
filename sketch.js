@@ -1,14 +1,16 @@
 let matrix, listVertices = [], listEdges = [], listCells = [], listFaces = [], listInfos = []
-let JointsBuffer, textBuffer
-let cam, cam2, initCamSettings 
+let JointsBuffer, textBuffer, infosGraphics, titleGraphics, mergeGraphics
+let cam, cam2, initCamSettings
 let opsReg, font_pathR, font_pathRMono, metaF
 let formats, objFormat, cnvW, cnvH, cnv, seed = 1
 let currentFormatName = "poster", currentFormat
 let xRot = 0, yRot = 0, zRot = 0, sceneRotSpeed = 0, sceneZdist = 0, sceneScale = 1, myScene
 let listScenesVariables = [xRot, yRot, zRot, sceneScale, sceneRotSpeed]
 let listFilters = []
+let jsonData, compoLayers = {}
 
 function preload() {
+  jsonData = loadJSON('./assets/urls.json', transformToImages) 
   formats = loadJSON('./assets/formats.json', (e) => {
     console.log(e)
     // objFormat = JSON.parse(e)
@@ -34,16 +36,18 @@ function setup() {
 
   pixelDensity(1)
 
+  infosGraphics = createGraphics(cnvW, cnvH, P2D)
+  titleGraphics = createGraphics(cnvW, cnvH, P2D)
+  mergeGraphics = createGraphics(cnvW, cnvH, P2D)
+
   JointsBuffer = createFramebuffer()
   textBuffer = createFramebuffer()
   textBuffer.pixelDensity(1)
 
-  textGraphics = createGraphics(WiW, WiH, P2D)
-
   cam = createCamera()
   cam.perspective(2.5 * atan(height / 2 / 800));
   // cam.ortho(-width / 2, width / 2, -height / 2, height / 2, 0, 8000)
-  initCamSettings = {"isOrtho" : false}
+  initCamSettings = { "isOrtho": false }
 
   // cam2 = textBuffer.createCamera()
   // cam2.set(cam)
@@ -104,8 +108,8 @@ function draw() {
     freeRotation: false
   }
 
-  if( (currentFormatName == 'full')){
-    if ((mouseX>= width/4) && (mouseX<=3*width/4) && (mouseY>=height/4) && (mouseY<=3*height/4)){
+  if ((currentFormatName == 'full')) {
+    if ((mouseX >= width / 4) && (mouseX <= 3 * width / 4) && (mouseY >= height / 4) && (mouseY <= 3 * height / 4)) {
       orbitControl(2, 2, 2, options)
     }
   } else {
@@ -146,7 +150,7 @@ function draw() {
   push()
   // console.log()
   animateEdges(select('#anim-edges-checkbox'), 80, 80, .2)
-  if(frameCount == 1){
+  if (frameCount == 1) {
   }
   if (listCells) {
     for (let cell of listCells) {
@@ -175,8 +179,8 @@ function draw() {
       // face.show()
     }
   }
-  
-  if(listFilters.length != 0){
+
+  if (listFilters.length != 0) {
     filter(listFilters[0], .85)
   }
   pop()

@@ -275,7 +275,7 @@ function loadInputs() {
     let settingsWindow = select('#parameters-container')
     let handle = select('.handle')
     handle.draggable(settingsWindow)
-    settingsWindow.position(50, 50)
+    settingsWindow.position(50, (WiH - height) / 2)
 
     // some settings boxes
     createAxisSliders()
@@ -348,11 +348,64 @@ function setPerspective(cam) {
 
 function changeLayerCss(inputLayer, btn) {
     console.log(btn)
-    if(!btn.hasClass('active-layer-btn')){
+    if (!btn.hasClass('active-layer-btn')) {
         let currentActiveBtn = select('.active-layer-btn', inputLayer)
-        if(currentActiveBtn){
+        if (currentActiveBtn) {
             currentActiveBtn.removeClass('active-layer-btn')
         }
         btn.addClass('active-layer-btn')
     }
+}
+
+function printOutLayers(t, i) {
+
+    let F = compoLayers[currentFormatName]
+    let lT = F['titre' + t]
+    let lI = F['infos' + i]
+    console.log(lT)
+    
+    // (Layer 1)
+    titleGraphics.background(255)
+    titleGraphics.image(lT, 0, 0, cnvW, cnvH)
+    console.log(titleGraphics)
+    
+    // (Layer 2)
+    let canvasImage = cnv;
+    console.log(canvasImage)
+    
+    //  (Layer 3)
+    infosGraphics.clear()
+    infosGraphics.image(lI, 0, 0, cnvW, cnvH)
+    console.log(infosGraphics)
+    
+    // Draw the layers onto a new canvas
+    
+    mergeGraphics.background(255)
+    mergeGraphics.image(titleGraphics, 0, 0); // Layer 1
+    mergeGraphics.image(canvasImage, 0, 0); // Layer 2
+    mergeGraphics.image(infosGraphics, 0, 0); // Layer 3
+    console.log(mergeGraphics)
+
+    // console.log(titleGraphics)
+    saveCanvas(mergeGraphics, 'compo', 'png')
+}
+
+function transformToImages(data) {
+    // Recursively transform the JSON structure, replacing URLs with p5 images
+    function transform(obj) {
+        const result = {};
+        for (let key in obj) {
+            if (typeof obj[key] === 'string') {
+                // Replace URL with loaded p5 image
+                result[key] = loadImage(obj[key]);
+            } else if (typeof obj[key] === 'object') {
+                // Recursively process nested objects
+                result[key] = transform(obj[key]);
+            }
+        }
+        return result;
+    }
+
+    // Perform the transformation
+    compoLayers = transform(data);
 }

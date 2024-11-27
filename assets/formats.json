@@ -5,19 +5,19 @@
     "hasLayers":true,
     "index" : 0
   },
-  "16/9": {
+  "landscape": {
     "width": 720,
     "height": 405,
     "hasLayers":true,
     "index" : 1
   },
-  "9/16": {
+  "portrait": {
     "width": 405,
     "height": 720,
     "hasLayers":true,
     "index" : 2
   },
-  "1:1": {
+  "square": {
     "width": 540,
     "height": 540,
     "hasLayers":true,
