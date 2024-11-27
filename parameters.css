@@ -3,7 +3,7 @@
     /* flex-flow: row wrap; */
     flex-flow: row wrap;
     position: absolute;
-    max-width: 30vw;
+    max-width: 25em;
     z-index: 5;
     gap: 5px;
     padding: 5px;
