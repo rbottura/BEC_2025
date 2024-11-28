@@ -34,7 +34,7 @@ function setup() {
   cnv.parent('#canvas-container')
   document.querySelector('main').remove()
 
-  pixelDensity(4)
+  pixelDensity(1)
 
   infosGraphics = createGraphics(cnvW, cnvH, P2D)
   titleGraphics = createGraphics(cnvW, cnvH, P2D)
