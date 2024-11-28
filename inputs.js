@@ -254,38 +254,37 @@ function updateRotationSpeed(val) {
 }
 
 function updateLayersOptions(formatName) {
-    if (formatName != "full") {
+    let pagelayerTitle = select('.layer-title')
+    let pagelayerInfos = select('.layer-infos')
+    let layersLabel = select('.format-layer-selection-label')
+    let titreLayerContainer = select('#layer-titre-wrapper')
+    let infosLayerContainer = select('#layer-infos-wrapper')
+    titreLayerContainer.html('')
+    infosLayerContainer.html('')
+
+    if (jsonData[formatName]) {
+        layersLabel.html(formatName)
+        
         let nbrComposByFormat = Object.values(jsonData[formatName]).length / 2
-        console.log(Object.values(jsonData[formatName]).length / 2)
-        let pagelayerTitle = select('.layer-title')
-        let pagelayerInfos = select('.layer-infos')
-        let layersLabel = select('.format-layer-selection-label')
-
-        if (jsonData[formatName]) {
-            let titreLayerContainer = select('#layer-titre-wrapper')
-            let infosLayerContainer = select('#layer-infos-wrapper')
-            titreLayerContainer.html('')
-            infosLayerContainer.html('')
-            layersLabel.html(formatName)
-
-            for (let i = 0; i < nbrComposByFormat; i++) {
-                let f = jsonData[formatName]
-                let tUrl = f['titre' + (i)]
-                let iUrl = f['infos' + (i)]
-                let tBtn = createDiv(i)
-                let iBtn = createDiv(i)
-                tBtn.addClass('select-l-btn')
-                iBtn.addClass('select-l-btn')
-                tBtn.mouseClicked(() => { toggleLayers(pagelayerTitle, tUrl, tBtn) })
-                iBtn.mouseClicked(() => { toggleLayers(pagelayerInfos, iUrl, iBtn) })
-                titreLayerContainer.child(tBtn)
-                infosLayerContainer.child(iBtn)
-                if (i == 0) {
-                    tBtn.elt.click()
-                    iBtn.elt.click()
-                }
+        for (let i = 0; i < nbrComposByFormat; i++) {
+            let f = jsonData[formatName]
+            let tUrl = f['titre' + (i)]
+            let iUrl = f['infos' + (i)]
+            let tBtn = createDiv(i)
+            let iBtn = createDiv(i)
+            tBtn.addClass('select-l-btn')
+            iBtn.addClass('select-l-btn')
+            tBtn.mouseClicked(() => { toggleLayers(pagelayerTitle, tUrl, tBtn) })
+            iBtn.mouseClicked(() => { toggleLayers(pagelayerInfos, iUrl, iBtn) })
+            titreLayerContainer.child(tBtn)
+            infosLayerContainer.child(iBtn)
+            if (i == 0) {
+                tBtn.elt.click()
+                iBtn.elt.click()
             }
         }
+    } else {        
+        layersLabel.html("NONE")
     }
 }
 

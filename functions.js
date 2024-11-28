@@ -318,7 +318,6 @@ function toggleFullScreen() {
     fullscreen(!fs)
 }
 
-
 function changeCamera(cam, mode) {
     cam = undefined
     cam = createCamera();
