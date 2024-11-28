@@ -289,7 +289,7 @@ function loadInputs() {
     randomEdgesGenerator(listBtn, listInput)
 
     listVisibleEdges = listEdges.slice(0)
-    let btn = createCheckbox('Anim Edges', true)
+    let btn = createCheckbox('Anim Edges', false)
     btn.id('anim-edges-checkbox')
     let container = select('#animate-edges-container')
     container.child(btn)
@@ -313,13 +313,11 @@ function toZero(x) {
     return Math.abs(x) < 1 ? 0 : 1;
 }
 
-function toggleFullScreen(targetFormat) {
-    if (!document.fullscreenElement && targetFormat == 'full') {
-        document.body.requestFullscreen();
-    } else if (document.exitFullscreen) {
-        document.exitFullscreen();
-    }
+function toggleFullScreen() {
+    let fs = fullscreen();
+    fullscreen(!fs)
 }
+
 
 function changeCamera(cam, mode) {
     cam = undefined
@@ -358,28 +356,26 @@ function changeLayerCss(inputLayer, btn) {
 }
 
 function printOutLayers(t, i) {
-
     let F = compoLayers[currentFormatName]
-    let lT = F['titre' + t]
-    let lI = F['infos' + i]
-    console.log(lT)
-    
+
     // (Layer 1)
     titleGraphics.background(255)
-    titleGraphics.image(lT, 0, 0, cnvW, cnvH)
-    console.log(titleGraphics)
-    
+    let lT = F['titre' + t]
+    if (t != 0) {
+        titleGraphics.image(lT, 0, 0, cnvW, cnvH)
+    }
+
     // (Layer 2)
     let canvasImage = cnv;
-    console.log(canvasImage)
-    
+
     //  (Layer 3)
     infosGraphics.clear()
-    infosGraphics.image(lI, 0, 0, cnvW, cnvH)
-    console.log(infosGraphics)
-    
+    let lI = F['infos' + i]
+    if (i != 0) {
+        infosGraphics.image(lI, 0, 0, cnvW, cnvH)
+    }
+
     // Draw the layers onto a new canvas
-    
     mergeGraphics.background(255)
     mergeGraphics.image(titleGraphics, 0, 0); // Layer 1
     mergeGraphics.image(canvasImage, 0, 0); // Layer 2
@@ -395,7 +391,7 @@ function transformToImages(data) {
     function transform(obj) {
         const result = {};
         for (let key in obj) {
-            if (typeof obj[key] === 'string') {
+            if (typeof obj[key] === 'string' && isValidUrl(obj[key])) {
                 // Replace URL with loaded p5 image
                 result[key] = loadImage(obj[key]);
             } else if (typeof obj[key] === 'object') {
@@ -408,4 +404,10 @@ function transformToImages(data) {
 
     // Perform the transformation
     compoLayers = transform(data);
+}
+
+function isValidUrl(input) {
+    // Regex to check for a relative or absolute file path
+    const urlPattern = /^(\/|\.\/|\.\.\/|https?:\/\/|ftp:\/\/|file:\/\/)[^#]+$/;
+    return urlPattern.test(input) && input !== "#";
 }

@@ -128,7 +128,7 @@ function resizeRender(format, name, page) {
     cnvW = w
     cnvH = h
 
-    for(let graph of [infosGraphics, mergeGraphics, titleGraphics]){
+    for (let graph of [infosGraphics, mergeGraphics, titleGraphics]) {
         graph.remove()
         titleGraphics = createGraphics(w, h)
         infosGraphics = createGraphics(w, h)
@@ -157,13 +157,11 @@ function resizeRender(format, name, page) {
 
 function initSizesBtns() {
     let btns = selectAll('.page-size-btn')
-    console.log(btns)
     btns.forEach(btn => {
         btn.elt.addEventListener('click', (e) => {
-            console.log(e)
-            // if (currentFormatName == 'full' && e.target.innerHTML != 'full') {
-            //     toggleFullScreen()
-            // }
+            if (fullscreen() && e.target.innerHTML != 'full') {
+                toggleFullScreen()
+            }
             resizeRender(formats[e.target.innerHTML], e.target.innerHTML)
             if (e.target.innerHTML == "full") {
                 toggleFullScreen()
@@ -255,63 +253,34 @@ function updateRotationSpeed(val) {
     return map(val, 0, 10, 0, 0.05, true)
 }
 
-function updateLayersOptions(formatName, formatIndex, hasLayers) {
-    const posterPath = "./img/1-Poster/"
-    const posterPathT = "1-Titres/"
-    const posterPathI = "2-Infos/"
-    const posterTitle = "BEC-Poster_Titres-RL-02-"
-    const posterInfos = "BEC-Poster_Infos-RL-02-"
-    const smPath = "./img/2-SocialMedia/"
-    const listF = ["poster/", "3-Landscape/", "2-Portrait/", "1-Square/"]
-    const fileFormat = '.png'
-    const nbrCompoPoster = 8
-    const nbrCompoSm = 1
-    let pagelayerTitle = select('.layer-title')
-    let pagelayerInfos = select('.layer-infos')
+function updateLayersOptions(formatName) {
+    if (formatName != "full") {
+        let nbrComposByFormat = Object.values(jsonData[formatName]).length / 2
+        console.log(Object.values(jsonData[formatName]).length / 2)
+        let pagelayerTitle = select('.layer-title')
+        let pagelayerInfos = select('.layer-infos')
+        let layersLabel = select('.format-layer-selection-label')
 
-    let layersLabel = select('.format-layer-selection-label')
+        if (jsonData[formatName]) {
+            let titreLayerContainer = select('#layer-titre-wrapper')
+            let infosLayerContainer = select('#layer-infos-wrapper')
+            titreLayerContainer.html('')
+            infosLayerContainer.html('')
+            layersLabel.html(formatName)
 
-    if (hasLayers) {
-        let titreLayerContainer = select('#layer-titre-wrapper')
-        let infosLayerContainer = select('#layer-infos-wrapper')
-        titreLayerContainer.html('')
-        infosLayerContainer.html('')
-        layersLabel.html(formatName)
-
-        if (formatName == "poster") {
-            for (let i = 0; i < nbrCompoPoster + 1; i++) {
+            for (let i = 0; i < nbrComposByFormat; i++) {
+                let f = jsonData[formatName]
+                let tUrl = f['titre' + (i)]
+                let iUrl = f['infos' + (i)]
                 let tBtn = createDiv(i)
                 let iBtn = createDiv(i)
                 tBtn.addClass('select-l-btn')
                 iBtn.addClass('select-l-btn')
-                let pathT = posterPath + posterPathT + posterTitle + i + fileFormat
-                let pathI = posterPath + posterPathI + posterInfos + i + fileFormat
-                tBtn.mouseClicked(() => { toggleLayers(pagelayerTitle, pathT, tBtn) })
-                iBtn.mouseClicked(() => { toggleLayers(pagelayerInfos, pathI, iBtn) })
+                tBtn.mouseClicked(() => { toggleLayers(pagelayerTitle, tUrl, tBtn) })
+                iBtn.mouseClicked(() => { toggleLayers(pagelayerInfos, iUrl, iBtn) })
                 titreLayerContainer.child(tBtn)
                 infosLayerContainer.child(iBtn)
                 if (i == 0) {
-                    // tBtn.addClass('active-layer-btn')
-                    // iBtn.addClass('active-layer-btn')
-                    tBtn.elt.click()
-                    iBtn.elt.click()
-                }
-            }
-        } else {
-            for (let i = 0; i < nbrCompoSm + 1; i++) {
-                let tBtn = createDiv(i)
-                let iBtn = createDiv(i)
-                tBtn.addClass('select-l-btn')
-                iBtn.addClass('select-l-btn')
-                let pathT = smPath + listF[formatIndex] + "titre" + i + fileFormat
-                let pathI = smPath + listF[formatIndex] + "infos" + i + fileFormat
-                tBtn.mouseClicked(() => { toggleLayers(pagelayerTitle, pathT, tBtn) })
-                iBtn.mouseClicked(() => { toggleLayers(pagelayerInfos, pathI, iBtn) })
-                titreLayerContainer.child(tBtn)
-                infosLayerContainer.child(iBtn)
-                if (i == 0) {
-                    // tBtn.addClass('active-layer-btn')
-                    // iBtn.addClass('active-layer-btn')
                     tBtn.elt.click()
                     iBtn.elt.click()
                 }
@@ -343,7 +312,7 @@ function animateEdges(btn, distMax, sMax, freq) {
     let isTriggered = frameCount % (freq * parseInt(frameRate())) == 0
     // console.log(isTriggered)
     if (btn) {
-        btn = select('input', btn.elt) 
+        btn = select('input', btn.elt)
         if (btn.checked() && listVisibleEdges.length != 0 && isTriggered) {
             for (const edge of listVisibleEdges) {
                 let dist = floor(random(distMax) - distMax / 2)
@@ -354,7 +323,6 @@ function animateEdges(btn, distMax, sMax, freq) {
                 if (edge.axis == "Z") { mz = dist }
                 edge.move(mx, my, mz)
                 edge.resize(size)
-                // cell.resizeEdges(randomSize)
             }
         }
     }
