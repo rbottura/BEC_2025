@@ -264,7 +264,7 @@ function updateLayersOptions(formatName) {
 
     if (jsonData[formatName]) {
         layersLabel.html(formatName)
-        
+
         let nbrComposByFormat = Object.values(jsonData[formatName]).length / 2
         for (let i = 0; i < nbrComposByFormat; i++) {
             let f = jsonData[formatName]
@@ -283,8 +283,10 @@ function updateLayersOptions(formatName) {
                 iBtn.elt.click()
             }
         }
-    } else {        
+    } else {
         layersLabel.html("NONE")
+        pagelayerTitle.style('background-image', 'none')
+        pagelayerInfos.style('background-image', 'none')
     }
 }
 
