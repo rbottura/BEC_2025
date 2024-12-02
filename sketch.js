@@ -3,8 +3,8 @@ let JointsBuffer, textBuffer, infosGraphics, titleGraphics, mergeGraphics
 let cam, cam2, initCamSettings
 let opsReg, font_pathR, font_pathRMono, metaF
 let formats, objFormat, cnvW, cnvH, cnv, seed = 1
-let currentFormatName = "poster", currentFormat
-let xRot = 0, yRot = 0, zRot = 0, sceneRotSpeed = 0, sceneZdist = 0, sceneScale = 1, myScene
+let currentFormatName = "landscape", currentFormat
+let xRot = -25, yRot = 45, zRot = 0, sceneRotSpeed = 0, sceneZdist = 0, sceneScale = .8, myScene
 let listScenesVariables = [xRot, yRot, zRot, sceneScale, sceneRotSpeed]
 let listFilters = []
 let jsonData, compoLayers = {}

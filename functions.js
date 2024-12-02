@@ -275,7 +275,7 @@ function loadInputs() {
     let settingsWindow = select('#parameters-container')
     let handle = select('.handle')
     handle.draggable(settingsWindow)
-    settingsWindow.position(50, (WiH - height) / 2)
+    settingsWindow.position(50, WiH*0.05)
 
     // some settings boxes
     createAxisSliders()
@@ -300,7 +300,6 @@ function loadInputs() {
 
     // initiate the render with poster format, with layers and all
     resizeRender(currentFormat, currentFormat.index)
-
 }
 
 // Where el is the DOM element you'd like to test for visibility

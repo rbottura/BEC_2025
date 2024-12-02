@@ -171,11 +171,11 @@ function initSizesBtns() {
 }
 
 function createAxisSliders() {
-    let xSlider = createSlider(0, 90, 0, 1)
-    let ySlider = createSlider(0, 90, 0, 1)
-    let zSlider = createSlider(0, 90, 0, 1)
-    let scaleSlider = createSlider(0.2, 2, 1, .1)
-    let speedSlider = createSlider(0, 0.1, 0, 0.005)
+    let xSlider = createSlider(-90, 90, xRot, 5)
+    let ySlider = createSlider(0, 90, yRot, 1)
+    let zSlider = createSlider(0, 90, zRot, 1)
+    let scaleSlider = createSlider(0.2, 2, sceneScale, .1)
+    let speedSlider = createSlider(0, 0.1, sceneRotSpeed, 0.005)
 
     let sliders = [
         xSlider,
@@ -230,7 +230,7 @@ function createAxisSliders() {
         let label = createElement('label', sliderNames[index])
         label.addClass('slider-label')
 
-        let valueFeedback = createInput()
+        let valueFeedback = createInput(listScenesVariables[index])
         valueFeedback.addClass('input-box')
         valueFeedback.size(40)
 
