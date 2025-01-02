@@ -49,9 +49,6 @@ function setup() {
   // cam.ortho(-width / 2, width / 2, -height / 2, height / 2, 0, 8000)
   initCamSettings = { "isOrtho": false }
 
-  // cam2 = textBuffer.createCamera()
-  // cam2.set(cam)
-
   const lineWeight = 3
   matrix = new Matrix(4, 2, 4, cellSize, 25, lineWeight)
   listVertices = matrix.getMinVertices()
@@ -64,6 +61,15 @@ function setup() {
 
   loadInputs()
   setCamera(cam)
+
+  const uploadTitleInput = select('#uploadTitle');
+  const uploadInfosInput = select('#uploadInfos');
+  uploadTitleInput.changed(() => {
+    handleFile(select('.layer-title') ,uploadTitleInput.elt.files)
+  });
+  uploadInfosInput.changed(() => {
+    handleFile(select('.layer-infos') ,uploadInfosInput.elt.files)
+  });
 }
 
 function draw() {

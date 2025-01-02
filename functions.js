@@ -275,7 +275,7 @@ function loadInputs() {
     let settingsWindow = select('#parameters-container')
     let handle = select('.handle')
     handle.draggable(settingsWindow)
-    settingsWindow.position(50, WiH*0.05)
+    settingsWindow.position(50, WiH * 0.02)
 
     // some settings boxes
     createAxisSliders()
@@ -408,4 +408,37 @@ function isValidUrl(input) {
     // Regex to check for a relative or absolute file path
     const urlPattern = /^(\/|\.\/|\.\.\/|https?:\/\/|ftp:\/\/|file:\/\/)[^#]+$/;
     return urlPattern.test(input) && input !== "#";
+}
+
+function handleFile(layer, files) {
+    // let img = loadImage(file.target.value); // Load the image selected by the user
+    // console.log(img)
+    for (const file of files) {
+        console.log(file)
+
+        if (validFileType(file)) {
+            const image = document.createElement('img');
+            image.src = URL.createObjectURL(file);
+            
+            layer.style('backgroundImage', 'url(' + URL.createObjectURL(file) + ')')
+            console.log(layer)
+        }
+    }
+}
+
+const fileTypes = [
+    'image/apng',
+    'image/bmp',
+    'image/gif',
+    'image/jpeg',
+    'image/pjpeg',
+    'image/png',
+    'image/svg+xml',
+    'image/tiff',
+    'image/webp',
+    `image/x-icon`
+];
+
+function validFileType(file) {
+    return fileTypes.includes(file.type);
 }
