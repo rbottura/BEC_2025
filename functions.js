@@ -65,7 +65,7 @@ function createEdges(points, cellSize) {
                 // Only add edge if it's unique
                 if (!uniqueEdges.has(edgeKey)) {
                     uniqueEdges.add(edgeKey);
-                    let randColor = floor(random() * 5)
+                    let randColor = 4
                     let colorId = BECcolorsId[randColor]
                     let edgeColor = BECcolors[randColor]
                     edges.push(new Edge(p1, p2, edgeColor, colorId, edgeCounter))
@@ -167,7 +167,7 @@ function findCells(points, edgeMap) {
             // Get the edges for this cell using the edge map
             const edges = getEdgesForCell(vertices, edgeMap);
             const facesColors = []
-            cells.push(new Cell(midpoint, edges, cellIndex, getRandomColors(6)));
+            cells.push(new Cell(midpoint, edges, cellIndex, getRandomColors(BECcolors, 6)[0]));
             cellIndex++
         }
     }
@@ -297,6 +297,7 @@ function loadInputs() {
 
     // using custom renderer for player settings
     myBECRender = new BECRenderer(cnv)
+    setOrtho(cam)
 
     // initiate the render with poster format, with layers and all
     resizeRender(currentFormat, currentFormat.index)

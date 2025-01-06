@@ -3,9 +3,11 @@ let JointsBuffer, textBuffer, infosGraphics, titleGraphics, mergeGraphics
 let cam, cam2, initCamSettings
 let opsReg, font_pathR, font_pathRMono, metaF
 let formats, objFormat, cnvW, cnvH, cnv, seed = 1
-let currentFormatName = "landscape", currentFormat
-let xRot = -25, yRot = 45, zRot = 0, sceneRotSpeed = 0, sceneZdist = 0, sceneScale = .8, myScene
+
+let currentFormatName = "poster", currentFormat
+let xRot = -25, yRot = 35, zRot = 0, sceneRotSpeed = 0, sceneZdist = 0, sceneScale = .8, myScene
 let listScenesVariables = [xRot, yRot, zRot, sceneScale, sceneRotSpeed]
+
 let listFilters = []
 let jsonData, compoLayers = {}
 
@@ -29,7 +31,10 @@ function setup() {
   colorMode(RGB, 255, 255, 255, 1)
   angleMode(DEGREES)
   rectMode(CENTER)
-  listFilters.push(THRESHOLD)
+
+  // line below put threshold filter ON as default
+  // listFilters.push(THRESHOLD)
+  
   cnv = createCanvas(cnvW, cnvH, WEBGL)
   cnv.parent('#canvas-container')
   document.querySelector('main').remove()
@@ -46,11 +51,10 @@ function setup() {
 
   cam = createCamera()
   cam.perspective(2.5 * atan(height / 2 / 800));
-  // cam.ortho(-width / 2, width / 2, -height / 2, height / 2, 0, 8000)
-  initCamSettings = { "isOrtho": false }
+  initCamSettings = { "isOrtho": true }
 
   const lineWeight = 3
-  matrix = new Matrix(4, 2, 4, cellSize, 25, lineWeight)
+  matrix = new Matrix(2, 2, 2, cellSize, 25, lineWeight)
   listVertices = matrix.getMinVertices()
 
   listEdges = createEdges(listVertices, cellSize)
@@ -73,35 +77,27 @@ function setup() {
 }
 
 function draw() {
-  // randomSeed(seed)
-  // background(255)
+  
   frameRate(30)
-  // debugMode()
   clear()
 
   if (textBuffer) {
 
     textBuffer.begin()
     clear()
-    // setCamera(cam2)
-    // let fovy2 = map(mouseX, 0, WiW, .2, 8) * atan(height / 2 / 800)
-    // cam2.frustum()
-    // cam2.perspective(fovy2, width/height, .001, 10000)
     resetMatrix()
 
     push()
     if (listInfos) {
       for (const txt of listInfos) {
         txt.show()
-        // console.log('oueoue')
       }
     }
 
     pop()
     textBuffer.end()
   }
-
-
+  
   push()
   beginClip({ invert: true })
   texture(textBuffer)
@@ -122,9 +118,6 @@ function draw() {
     orbitControl(2, 2, 2, options)
   }
 
-  // let fovy = map(mouseY, 0, WiH, 0.1, 7)
-  // perspective(fovy * atan(height / 2 / 800), 16/9, 1*0.001, 1*10000)
-
   // push for grid layer elements
   push()
 
@@ -141,7 +134,6 @@ function draw() {
   pop()
 
   push()
-  // console.log(xRot)
   if (listEdges) {
     for (let i = 0; i < listEdges.length; i += 1) {
       // listEdges[i].thickness = 15
@@ -156,24 +148,15 @@ function draw() {
   push()
   // console.log()
   animateEdges(select('#anim-edges-checkbox'), 80, 80, .2)
-  if (frameCount == 1) {
-  }
+
   if (listCells) {
     for (let cell of listCells) {
       // cell.showWireFrame()
-      if (cell.id % 3 == 0) {
-        // cell.showEdges(15)
-      }
-      if (frameCount % 1 == 0) {
-        if (cell.id == floor(random() * listCells.length) && cell.id % 5 == 0) {
-          // let randomMove = 100 * noise(0.005 * frameCount);
-          // cell.moveEdges(randomMove)
-          // let randomSize = floor(-100 + random(200))
-          // cell.resizeEdges(randomSize)
-        }
+      if (cell.id == second()%6 ) {
+        cell.showFaces(['left', 'right', 'top', 'bottom', 'front', 'back'])
+        // cell.showFaces(['left', 'right', 'top'])
       }
       // cell.showDebug()
-      // cell.showFaces(['left', 'right', 'top'])
     }
   }
 

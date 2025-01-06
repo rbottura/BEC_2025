@@ -1,7 +1,7 @@
 function edgesSize() {
-    let slider = createSlider(0, 50, 1, 1)
+    let slider = createSlider(0, 50, 10, 1)
     slider.addClass('slider')
-    let textVal = createP('1')
+    let textVal = createP('10')
     slider.parent('#edges-size')
     console.log()
     select('#edge-size-box').child(textVal)
