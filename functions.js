@@ -268,7 +268,7 @@ function showBleeds(size) {
     pop()
 }
 
-let myBECRender, listVisibleEdges = []
+let myBECRender, listVisibleEdges = [], listEdgesBtn= [], litsEdgesInput = []
 function loadInputs() {
 
     // Window settings position and draggable
@@ -285,8 +285,11 @@ function loadInputs() {
     canvasFiltering()
 
     // create singled-out edges interfaces for custom preview
-    let [listBtn, listInput] = createSwitchEdges()
-    randomEdgesGenerator(listBtn, listInput)
+    // [listEdgesBtn, litsEdgesInput] = createSwitchEdges()
+    let [x, y] = createSwitchEdges()
+    listEdgesBtn = x
+    litsEdgesInput = y
+    randomEdgesGenerator(listEdgesBtn, litsEdgesInput)
 
     listVisibleEdges = listEdges.slice(0)
     let btn = createCheckbox('Anim Edges', false)
@@ -446,20 +449,41 @@ function validFileType(file) {
 
 document.addEventListener('keydown', (e) => {
     console.log(e.key)
+    let nbrEdges = select('#EdgesGenInput')
+    if (e.key == 'q') {
+        shuffleRenderedFaces(4)
+    }
     if (e.key == 's') {
-        shuffleRenderedFaces()
+        shuffleRenderedFaces(6)
+    }
+    if (e.key == 'd') {
+        shuffleRenderedFaces(8)
+    }
+    if (e.key == 'c') {
+        shuffleFacesColors()
+    }
+    if (e.key == 'e') {
+        updateEdgesRender(parseInt(nbrEdges.value()), litsEdgesInput, listEdgesBtn)
     }
 })
-function shuffleRenderedFaces() {
-    let randArr = getArrayOfRandomUniqueInt(listFaces.length/6, 0, listFaces.length)
+function shuffleRenderedFaces(nbr) {
+    let randArr = getArrayOfRandomUniqueInt(nbr, 0, listFaces.length)
     for (let i = 0; i < listFaces.length; i++) {
         // if (randArr.includes(listFaces[i].index)){
-            console.log(listFaces[i])
-        if (`${listFaces[i].index}` == `${randArr[0]}` && randArr.length != 0){
+        console.log(listFaces[i])
+        if (`${listFaces[i].index}` == `${randArr[0]}` && randArr.length != 0) {
             listFaces[i].render = true
             randArr.shift()
         } else {
             listFaces[i].render = false
         }
+    }
+}
+
+function shuffleFacesColors(){
+    let randColors = getRandomColors(BECcolors, listFaces.length)[0]
+    // console.log(randColors)
+    for (let i = 0; i < listFaces.length; i++) {
+        listFaces[i].color = randColors[i]
     }
 }

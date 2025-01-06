@@ -40,9 +40,11 @@ function createSwitchEdges() {
 function randomEdgesGenerator(listBtn, listInputElt) {
     let container = select('#edges-color-random')
     let numbInput = createInput(25)
+    numbInput.id('EdgesGenInput')
     numbInput.size(10)
     let nEdge = numbInput.value()
     let btn = createButton('generate')
+    btn.id('EdgesRandoGenBtn')
     container.child(numbInput)
     container.child(btn)
     let arrVal = []
@@ -65,8 +67,7 @@ function randomEdgesGenerator(listBtn, listInputElt) {
     btn.mousePressed(() => {
         listVisibleEdges = []
         updateEdgesRender(nEdge, listInputElt, listBtn)
-    }
-    )
+    })
 }
 
 function updateEdgesRender(nEdge, listInputElt, listBtn) {
@@ -101,7 +102,7 @@ function updateEdgeCheck(edge, edgeBtn, newColor, newColorId) {
     } else {
         lb.elt.style.color = "black"
     }
-    let btn
+    let btn = edgeBtn
     if (typeof edgeBtn == 'object') {
         btn = edgeBtn.elt
     }
