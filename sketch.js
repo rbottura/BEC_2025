@@ -39,11 +39,11 @@ function setup() {
   cnv.parent('#canvas-container')
   document.querySelector('main').remove()
 
-  pixelDensity(1)
-
-  infosGraphics = createGraphics(cnvW, cnvH, P2D)
-  titleGraphics = createGraphics(cnvW, cnvH, P2D)
-  mergeGraphics = createGraphics(cnvW, cnvH, P2D)
+  let outputPixelD = 6
+  pixelDensity(outputPixelD)
+  infosGraphics = createGraphics(cnvW * outputPixelD, cnvH * outputPixelD, P2D)
+  titleGraphics = createGraphics(cnvW * outputPixelD, cnvH * outputPixelD, P2D)
+  mergeGraphics = createGraphics(cnvW * outputPixelD, cnvH * outputPixelD, P2D)
 
   JointsBuffer = createFramebuffer()
   textBuffer = createFramebuffer()

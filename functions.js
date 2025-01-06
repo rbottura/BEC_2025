@@ -363,13 +363,14 @@ function printOutLayers(t, i) {
     // (Layer 1)
     titleGraphics.background(255)
     let lT = F['titre' + t]
-    if (t != 0) {
-        titleGraphics.image(lT, 0, 0, cnvW, cnvH)
-    }
+    // if (t != 0) {
+    //     titleGraphics.image(lT, 0, 0, cnvW, cnvH)
+    // }
+    titleGraphics.image(lT, 0, 0, cnvW, cnvH)
 
     // (Layer 2)
     let canvasImage = cnv;
-
+    
     //  (Layer 3)
     infosGraphics.clear()
     let lI = F['infos' + i]
@@ -447,25 +448,6 @@ function validFileType(file) {
     return fileTypes.includes(file.type);
 }
 
-document.addEventListener('keydown', (e) => {
-    console.log(e.key)
-    let nbrEdges = select('#EdgesGenInput')
-    if (e.key == 'q') {
-        shuffleRenderedFaces(4)
-    }
-    if (e.key == 's') {
-        shuffleRenderedFaces(6)
-    }
-    if (e.key == 'd') {
-        shuffleRenderedFaces(8)
-    }
-    if (e.key == 'c') {
-        shuffleFacesColors()
-    }
-    if (e.key == 'e') {
-        updateEdgesRender(parseInt(nbrEdges.value()), litsEdgesInput, listEdgesBtn)
-    }
-})
 function shuffleRenderedFaces(nbr) {
     let randArr = getArrayOfRandomUniqueInt(nbr, 0, listFaces.length)
     for (let i = 0; i < listFaces.length; i++) {
@@ -487,3 +469,23 @@ function shuffleFacesColors(){
         listFaces[i].color = randColors[i]
     }
 }
+
+document.addEventListener('keydown', (e) => {
+    console.log(e.key)
+    let nbrEdges = select('#EdgesGenInput')
+    if (e.key == 'q') {
+        shuffleRenderedFaces(4)
+    }
+    if (e.key == 's') {
+        shuffleRenderedFaces(6)
+    }
+    if (e.key == 'd') {
+        shuffleRenderedFaces(8)
+    }
+    if (e.key == 'c') {
+        shuffleFacesColors()
+    }
+    if (e.key == 'e') {
+        updateEdgesRender(parseInt(nbrEdges.value()), litsEdgesInput, listEdgesBtn)
+    }
+})
