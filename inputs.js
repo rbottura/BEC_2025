@@ -39,7 +39,7 @@ function createSwitchEdges() {
 
 function randomEdgesGenerator(listBtn, listInputElt) {
     let container = select('#edges-color-random')
-    let numbInput = createInput(85)
+    let numbInput = createInput(25)
     numbInput.size(10)
     let nEdge = numbInput.value()
     let btn = createButton('generate')
@@ -70,10 +70,11 @@ function randomEdgesGenerator(listBtn, listInputElt) {
 }
 
 function updateEdgesRender(nEdge, listInputElt, listBtn) {
-    let [colors, colorsId] = getRandomColors(BECcolors, 170)
+    // let [colors, colorsId] = getRandomColors(BECcolors, listEdges.length)
+    let [colors, colorsId] = [[4], ['black']]
     nEdge = parseInt(nEdge)
     let changedEdges = []
-    changedEdges = getArrayOfRandomUniqueInt(nEdge, 0, 170)
+    changedEdges = getArrayOfRandomUniqueInt(nEdge, 0, listEdges.length)
     console.log(changedEdges.length)
 
     for (let i = 0; i < listEdges.length; i++) {

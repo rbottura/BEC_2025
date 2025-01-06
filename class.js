@@ -77,7 +77,7 @@ class Edge {
         this.index = index
 
         this.jSize = 10
-        this.edgeOffset = -50
+        this.edgeOffset = 50
         this.edgeSize = 200
         this.edgeEaseSize = 200
         this.thickness = 10
@@ -234,7 +234,7 @@ class Cell {
         this.facesNameList = ['left', 'right', 'top', 'bottom', 'front', 'back']
         for (let i = 0; i < 6; i++) {
             let f = this.faces[this.facesNameList[i]]
-            let newFace = new Face(2, f.posVec, f.rotVec, this.fColors[i], .2, f.scale, f, i, this.index)
+            let newFace = new Face(2, f.posVec, f.rotVec, this.fColors[i], .2, f.scale, f, listFaces.length, this.index)
             listFaces.push(newFace)
         }
     }
@@ -324,13 +324,15 @@ class Face {
         this.name = name
         this.index = index
         this.cellIndex = cellIndex
+
+        this.render = true
     }
     show() {
         noStroke()
 
         push()
         fill(this.color)
-        this.color.setAlpha(this.alpha)
+        // this.color.setAlpha(this.alpha)
         translate(this.pos)
         rotateX(this.rot.x)
         rotateY(this.rot.y)

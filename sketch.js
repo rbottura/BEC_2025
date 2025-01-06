@@ -12,7 +12,7 @@ let listFilters = []
 let jsonData, compoLayers = {}
 
 function preload() {
-  jsonData = loadJSON('./assets/urls.json', transformToImages) 
+  jsonData = loadJSON('./assets/urls.json', transformToImages)
   formats = loadJSON('./assets/formats.json', (e) => {
     console.log(e)
     // objFormat = JSON.parse(e)
@@ -34,7 +34,7 @@ function setup() {
 
   // line below put threshold filter ON as default
   // listFilters.push(THRESHOLD)
-  
+
   cnv = createCanvas(cnvW, cnvH, WEBGL)
   cnv.parent('#canvas-container')
   document.querySelector('main').remove()
@@ -69,15 +69,15 @@ function setup() {
   const uploadTitleInput = select('#uploadTitle');
   const uploadInfosInput = select('#uploadInfos');
   uploadTitleInput.changed(() => {
-    handleFile(select('.layer-title') ,uploadTitleInput.elt.files)
+    handleFile(select('.layer-title'), uploadTitleInput.elt.files)
   });
   uploadInfosInput.changed(() => {
-    handleFile(select('.layer-infos') ,uploadInfosInput.elt.files)
+    handleFile(select('.layer-infos'), uploadInfosInput.elt.files)
   });
 }
 
 function draw() {
-  
+
   frameRate(30)
   clear()
 
@@ -97,7 +97,7 @@ function draw() {
     pop()
     textBuffer.end()
   }
-  
+
   push()
   beginClip({ invert: true })
   texture(textBuffer)
@@ -152,10 +152,9 @@ function draw() {
   if (listCells) {
     for (let cell of listCells) {
       // cell.showWireFrame()
-      if (cell.id == second()%6 ) {
-        cell.showFaces(['left', 'right', 'top', 'bottom', 'front', 'back'])
-        // cell.showFaces(['left', 'right', 'top'])
-      }
+      // cell.showFaces(['left', 'right', 'top', 'bottom', 'front', 'back'])
+      // cell.showFaces(['left', 'right', 'top'])
+
       // cell.showDebug()
     }
   }
@@ -165,7 +164,9 @@ function draw() {
       // listFaces[i].show()
     }
     for (const face of listFaces) {
-      // face.show()
+      if (face.render) {
+        face.show()
+      }
     }
   }
 

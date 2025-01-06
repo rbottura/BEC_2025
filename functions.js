@@ -420,7 +420,7 @@ function handleFile(layer, files) {
         if (validFileType(file)) {
             const image = document.createElement('img');
             image.src = URL.createObjectURL(file);
-            
+
             layer.style('backgroundImage', 'url(' + URL.createObjectURL(file) + ')')
             console.log(layer)
         }
@@ -442,4 +442,24 @@ const fileTypes = [
 
 function validFileType(file) {
     return fileTypes.includes(file.type);
+}
+
+document.addEventListener('keydown', (e) => {
+    console.log(e.key)
+    if (e.key == 's') {
+        shuffleRenderedFaces()
+    }
+})
+function shuffleRenderedFaces() {
+    let randArr = getArrayOfRandomUniqueInt(listFaces.length/6, 0, listFaces.length)
+    for (let i = 0; i < listFaces.length; i++) {
+        // if (randArr.includes(listFaces[i].index)){
+            console.log(listFaces[i])
+        if (`${listFaces[i].index}` == `${randArr[0]}` && randArr.length != 0){
+            listFaces[i].render = true
+            randArr.shift()
+        } else {
+            listFaces[i].render = false
+        }
+    }
 }
