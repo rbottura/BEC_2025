@@ -1,6 +1,7 @@
 function edgesSize() {
-    let slider = createSlider(0, 50, 10, 1)
+    let slider = createSlider(0, 20, 10, 1)
     slider.id('edgesSizesSlider')
+    slider.attribute('list', 'edges-sizes-markers')
     slider.addClass('slider')
     let textVal = createP('10')
     slider.parent('#edges-size')
@@ -77,8 +78,8 @@ function randomEdgesGenerator(listBtn, listInputElt) {
 }
 
 function updateEdgesRender(nEdge, listInputElt, listBtn) {
-    // let [colors, colorsId] = getRandomColors(BECcolors, listEdges.length)
-    let [colors, colorsId] = [[4], ['black']]
+    let [colors, colorsId] = getRandomColors(BECcolors, listEdges.length)
+    // let [colors, colorsId] = [[4], ['black']]
     nEdge = parseInt(nEdge)
     let changedEdges = []
     changedEdges = getArrayOfRandomUniqueInt(nEdge, 0, listEdges.length)
@@ -273,7 +274,7 @@ function updateLayersOptions(formatName) {
         let nbrComposByFormat = Object.values(jsonData[formatName]).length / 2
         for (let i = 0; i < nbrComposByFormat; i++) {
             let f = jsonData[formatName]
-            console.log(f)
+            // console.log(f)
             let tUrl = f['titre' + (i)]
             let iUrl = f['infos' + (i)]
             let tBtn = createDiv(i)

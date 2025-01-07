@@ -161,20 +161,18 @@ function draw() {
     }
   }
 
-  if (listFaces) {
-    for (let i = 0; i < listFaces.length; i += 1) {
-      // listFaces[i].show()
-    }
-    for (const face of listFaces) {
-      if (face.render) {
-        face.show()
-      }
-    }
-  }
+  // if (listFaces) {
+  //   for (const face of listFaces) {
+  //     if (face.render) {
+  //       face.show()
+  //     }
+  //   }
+  // }
 
-  if (listFilters.length != 0) {
-    filter(listFilters[0], .85)
-  }
+  // if (listFilters.length != 0) {
+  //   filter(listFilters[0], .85)
+  // }
+
   pop()
 
   pop()

@@ -46,3 +46,15 @@ main {
   position: absolute;
   margin-left: 20px;
 }
+
+datalist {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  writing-mode:vertical-lr;
+  /* width: 200px; */
+}
+
+option {
+  padding: 0;
+}

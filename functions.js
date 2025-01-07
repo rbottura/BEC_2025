@@ -65,7 +65,7 @@ function createEdges(points, cellSize) {
                 // Only add edge if it's unique
                 if (!uniqueEdges.has(edgeKey)) {
                     uniqueEdges.add(edgeKey);
-                    let randColor = 4
+                    let randColor = parseInt(random(5))
                     let colorId = BECcolorsId[randColor]
                     let edgeColor = BECcolors[randColor]
                     edges.push(new Edge(p1, p2, edgeColor, colorId, edgeCounter))
@@ -469,11 +469,11 @@ function shuffleRenderedFaces(nbr) {
     }
 }
 
-function shuffleFacesColors() {
-    let randColors = getRandomColors(BECcolors, listFaces.length)[0]
+function shuffleColors() {
+    let randColors = getRandomColors(BECcolors, listEdges.length)[0]
     // console.log(randColors)
-    for (let i = 0; i < listFaces.length; i++) {
-        listFaces[i].color = randColors[i]
+    for (let i = 0; i < listEdges.length; i++) {
+        listEdges[i].color = randColors[i]
     }
 }
 
@@ -508,7 +508,7 @@ document.addEventListener('keydown', (e) => {
         shuffleRenderedFaces(8)
     }
     if (e.key == 'c') {
-        shuffleFacesColors()
+        shuffleColors()
     }
     if (e.key == 'e') {
         updateEdgesRender(parseInt(nbrEdges.value()), litsEdgesInput, listEdgesBtn)
