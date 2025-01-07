@@ -273,6 +273,7 @@ function updateLayersOptions(formatName) {
         let nbrComposByFormat = Object.values(jsonData[formatName]).length / 2
         for (let i = 0; i < nbrComposByFormat; i++) {
             let f = jsonData[formatName]
+            console.log(f)
             let tUrl = f['titre' + (i)]
             let iUrl = f['infos' + (i)]
             let tBtn = createDiv(i)
@@ -296,6 +297,7 @@ function updateLayersOptions(formatName) {
 }
 
 function toggleLayers(layernode, path, btn) {
+    console.log(path)
     changeLayerCss(btn.parent(), btn)
     layernode.style('backgroundImage', 'url(' + path + ')')
     myBECRender.updateRenderedLayer(btn.parent(), btn.html())

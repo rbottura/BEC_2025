@@ -268,7 +268,7 @@ function showBleeds(size) {
     pop()
 }
 
-let myBECRender, listVisibleEdges = [], listEdgesBtn= [], litsEdgesInput = []
+let myBECRender, listVisibleEdges = [], listEdgesBtn = [], litsEdgesInput = []
 function loadInputs() {
 
     // Window settings position and draggable
@@ -370,7 +370,7 @@ function printOutLayers(t, i) {
 
     // (Layer 2)
     let canvasImage = cnv;
-    
+
     //  (Layer 3)
     infosGraphics.clear()
     let lI = F['infos' + i]
@@ -419,16 +419,23 @@ function handleFile(layer, files) {
     // let img = loadImage(file.target.value); // Load the image selected by the user
     // console.log(img)
     for (const file of files) {
-        console.log(file)
+        // console.log(file)
 
         if (validFileType(file)) {
             const image = document.createElement('img');
-            image.src = URL.createObjectURL(file);
-
-            layer.style('backgroundImage', 'url(' + URL.createObjectURL(file) + ')')
-            console.log(layer)
+            const newUrl = URL.createObjectURL(file)
+            image.src = newUrl
+            jsonData.poster.titre9 = newUrl
+            compoLayers.poster.titre9 = loadImage(newUrl)
+            // layer.style('backgroundImage', 'url(' + newUrl + ')')
+            
+            updateLayersOptions(currentFormatName, currentFormat.index, currentFormat.hasLayers)
         }
     }
+}
+
+function addImageToImageData() {
+
 }
 
 const fileTypes = [
@@ -462,7 +469,7 @@ function shuffleRenderedFaces(nbr) {
     }
 }
 
-function shuffleFacesColors(){
+function shuffleFacesColors() {
     let randColors = getRandomColors(BECcolors, listFaces.length)[0]
     // console.log(randColors)
     for (let i = 0; i < listFaces.length; i++) {
@@ -478,9 +485,9 @@ function updateRotationSpeed(val) {
     return map(val, 0, 10, 0, 0.05, true)
 }
 
-function edgesThicker(val){
+function edgesThicker(val) {
     console.log(val)
-    for(const edge of listEdges){
+    for (const edge of listEdges) {
         let randThickness = parseInt(random(10))
         let currentVal = select('#edgesSizesSlider').value()
         console.log(currentVal)
