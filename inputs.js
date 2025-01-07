@@ -1,10 +1,16 @@
 function edgesSize() {
     let slider = createSlider(0, 50, 10, 1)
+    slider.id('edgesSizesSlider')
     slider.addClass('slider')
     let textVal = createP('10')
     slider.parent('#edges-size')
     console.log()
+    randomThicknessBtn = createButton('random thickness')
     select('#edge-size-box').child(textVal)
+    select('#edge-size-box').child(randomThicknessBtn)
+    randomThicknessBtn.mouseClicked(() => {
+        edgesThicker()
+    })
     slider.changed(() => {
         let v = slider.value()
         console.log(v)
@@ -172,17 +178,20 @@ function initSizesBtns() {
     })
 }
 
+let xSlider, ySlider, zSlider, yTranslateSlider, scaleSlider, speedSlider, randomThicknessBtn
 function createAxisSliders() {
-    let xSlider = createSlider(-90, 90, xRot, 5)
-    let ySlider = createSlider(0, 90, yRot, 1)
-    let zSlider = createSlider(0, 90, zRot, 1)
-    let scaleSlider = createSlider(0.2, 2, sceneScale, .1)
-    let speedSlider = createSlider(0, 0.1, sceneRotSpeed, 0.005)
+    xSlider = createSlider(-180, 180, xRot, 10)
+    ySlider = createSlider(-180, 180, yRot, 10)
+    zSlider = createSlider(-180, 180, zRot, 10)
+    yTranslateSlider = createSlider(-100, 100, yPos, 10)
+    scaleSlider = createSlider(0.2, 2, sceneScale, .1)
+    speedSlider = createSlider(0, 0.1, sceneRotSpeed, 0.005)
 
     let sliders = [
         xSlider,
         ySlider,
         zSlider,
+        yTranslateSlider,
         scaleSlider,
         speedSlider
     ]
@@ -225,7 +234,7 @@ function createAxisSliders() {
     let arr = []
     sliders.forEach((slider, index) => {
         slider.addClass('slider')
-        let sliderNames = ['x', 'y', 'z', 's', 'speed']
+        let sliderNames = ['x', 'y', 'z', 'yPos', 's', 'speed', 'r-size']
         let sliderWrapper = createDiv()
         sliderWrapper.addClass('slider-input-wrapper')
 
@@ -247,12 +256,6 @@ function createAxisSliders() {
 
 function linkSliderToInputArea(sceneInput, callback) {
     sceneInput.input(() => callback(sceneInput, sceneInput.value()))
-}
-function updateSceneScale(val) {
-    return map(val, 0, 500, 0.2, 3)
-}
-function updateRotationSpeed(val) {
-    return map(val, 0, 10, 0, 0.05, true)
 }
 
 function updateLayersOptions(formatName) {

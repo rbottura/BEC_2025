@@ -175,6 +175,9 @@ class Edge {
     updateThickness(val) {
         this.thickness = val
     }
+    addThickness(val){
+    
+    }
     resize(newSize) {
         this.edgeEaseSize += newSize
     }
@@ -447,10 +450,11 @@ class BECRenderer {
 }
 
 class Scene {
-    constructor(xRot, yRot, zRot, s, rotSpeed){
+    constructor(xRot, yRot, zRot, yPos, s, rotSpeed){
         this.xRot = xRot; 
         this.yRot = yRot; 
-        this.zRot = zRot; 
+        this.zRot = zRot;
+        this.yPos = yPos; 
         this.scale = s; 
         this.rotSpeed = rotSpeed;
     }

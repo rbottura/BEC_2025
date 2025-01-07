@@ -5,7 +5,7 @@ let opsReg, font_pathR, font_pathRMono, metaF
 let formats, objFormat, cnvW, cnvH, cnv, seed = 1
 
 let currentFormatName = "poster", currentFormat
-let xRot = -25, yRot = 35, zRot = 0, sceneRotSpeed = 0, sceneZdist = 0, sceneScale = .8, myScene
+let xRot = -25, yRot = 35, zRot = 0, yPos = 0, sceneRotSpeed = 0, sceneZdist = 0, sceneScale = .8, randomThicknessValue, myScene
 let listScenesVariables = [xRot, yRot, zRot, sceneScale, sceneRotSpeed]
 
 let listFilters = []
@@ -39,7 +39,7 @@ function setup() {
   cnv.parent('#canvas-container')
   document.querySelector('main').remove()
 
-  let outputPixelD = 6
+  let outputPixelD = 4
   pixelDensity(outputPixelD)
   infosGraphics = createGraphics(cnvW * outputPixelD, cnvH * outputPixelD, P2D)
   titleGraphics = createGraphics(cnvW * outputPixelD, cnvH * outputPixelD, P2D)
@@ -61,7 +61,7 @@ function setup() {
   const edgeMap = buildEdgeMap(listEdges)
   listCells = findCells(listVertices, edgeMap)
 
-  myScene = new Scene(xRot, yRot, zRot, sceneScale, sceneRotSpeed)
+  myScene = new Scene(xRot, yRot, zRot, yPos, sceneScale, sceneRotSpeed)
 
   loadInputs()
   setCamera(cam)
@@ -126,6 +126,8 @@ function draw() {
   rotateX(myScene.xRot + frameCount * 10 * myScene.rotSpeed * toZero(myScene.xRot))
   rotateY(myScene.yRot + frameCount * 10 * myScene.rotSpeed * toZero(myScene.yRot))
   rotateZ(myScene.zRot + frameCount * 10 * myScene.rotSpeed * toZero(myScene.zRot))
+
+  translate(0, myScene.yPos, 0)
 
   push()
   if (matrix) {

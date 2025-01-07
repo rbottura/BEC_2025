@@ -470,6 +470,24 @@ function shuffleFacesColors(){
     }
 }
 
+function updateSceneScale(val) {
+    return map(val, 0, 500, 0.2, 3)
+}
+
+function updateRotationSpeed(val) {
+    return map(val, 0, 10, 0, 0.05, true)
+}
+
+function edgesThicker(val){
+    console.log(val)
+    for(const edge of listEdges){
+        let randThickness = parseInt(random(10))
+        let currentVal = select('#edgesSizesSlider').value()
+        console.log(currentVal)
+        edge.updateThickness(currentVal + randThickness)
+    }
+}
+
 document.addEventListener('keydown', (e) => {
     console.log(e.key)
     let nbrEdges = select('#EdgesGenInput')
