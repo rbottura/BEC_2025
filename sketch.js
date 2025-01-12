@@ -1,178 +1,236 @@
-let matrix, listVertices = [], listEdges = [], listCells = [], listFaces = [], listInfos = []
-let JointsBuffer, textBuffer, infosGraphics, titleGraphics, mergeGraphics
-let cam, cam2, initCamSettings
-let opsReg, font_pathR, font_pathRMono, metaF
-let formats, objFormat, cnvW, cnvH, cnv, seed = 1, cstFPS = 12
+let matrix,
+  listVertices = [],
+  listEdges = [],
+  listCells = [],
+  listFaces = [],
+  listInfos = [];
+let JointsBuffer, textBuffer, infosGraphics, titleGraphics, mergeGraphics;
+let cam, cam2, initCamSettings;
+let opsReg, font_pathR, font_pathRMono, metaF;
+let formats,
+  objFormat,
+  cnvW,
+  cnvH,
+  cnv,
+  seed = 1,
+  cstFPS = 12;
 
-let currentFormatName = "poster", currentFormat
-let xRot = -25, yRot = 35, zRot = 0, yPos = 0, sceneRotSpeed = 0, sceneZdist = 0, sceneScale = .8, randomThicknessValue, myScene
-let listScenesVariables = [xRot, yRot, zRot, sceneScale, sceneRotSpeed]
+let bufferOptions = {};
 
-let listFilters = []
-let jsonData, compoLayers = {}
+let currentFormatName = "poster",
+  currentFormat;
+let xRot = -25,
+  yRot = 35,
+  zRot = 0,
+  yPos = 0,
+  sceneRotSpeed = 0,
+  sceneZdist = 0,
+  sceneScale = 0.8,
+  randomThicknessValue,
+  myScene;
+let listScenesVariables = [xRot, yRot, zRot, sceneScale, sceneRotSpeed];
 
+let listFilters = [];
+let jsonData,
+  compoLayers = {};
 
 P5Capture.setDefaultOptions({
   format: "png",
-  framerate: cstFPS
+  framerate: cstFPS,
 });
 
 function preload() {
-  jsonData = loadJSON('./assets/urls2.json', transformToImages)
-  formats = loadJSON('./assets/formats.json', (e) => {
-    console.log(e)
+  jsonData = loadJSON("./assets/urls2.json", transformToImages);
+  formats = loadJSON("./assets/formats.json", (e) => {
+    console.log(e);
     // objFormat = JSON.parse(e)
-    currentFormat = formats[currentFormatName]
+    currentFormat = formats[currentFormatName];
     // updateLayersOptions(currentFormatName, currentFormat.index, currentFormat.hasLayers)
-    cnvW = currentFormat.width + formats["bleeds"].size * 2
-    cnvH = currentFormat.height + formats["bleeds"].size * 2
-  })
-  opsReg = loadFont('./assets/fonts/OPS/OPSFavorite-Regular.otf')
-  font_pathR = loadFont('./assets/fonts/Path/Path-R.otf')
-  font_pathRMono = loadFont('./assets/fonts/Path/Path-RMono.otf')
-  metaF = loadFont('./assets/fonts/mn128_clean_META.otf')
+    cnvW = currentFormat.width + formats["bleeds"].size * 2;
+    cnvH = currentFormat.height + formats["bleeds"].size * 2;
+  });
+  opsReg = loadFont("./assets/fonts/OPS/OPSFavorite-Regular.otf");
+  font_pathR = loadFont("./assets/fonts/Path/Path-R.otf");
+  font_pathRMono = loadFont("./assets/fonts/Path/Path-RMono.otf");
+  metaF = loadFont("./assets/fonts/mn128_clean_META.otf");
 }
 
+let outputPixelD = 2;
 function setup() {
-  colorMode(RGB, 255, 255, 255, 1)
-  angleMode(DEGREES)
-  rectMode(CENTER)
+  colorMode(RGB, 255, 255, 255, 1);
+  angleMode(DEGREES);
+  rectMode(CENTER);
+  imageMode(CENTER);
 
+  bufferOptions = {
+    width: cnvW,
+    height: cnvH,
+    density: outputPixelD,
+    textureFiltering: LINEAR,
+  };
   // line below put threshold filter ON as default
   // listFilters.push(THRESHOLD)
 
-  cnv = createCanvas(cnvW, cnvH, WEBGL)
-  cnv.parent('#canvas-container')
-  document.querySelector('main').remove()
+  cnv = createCanvas(cnvW, cnvH, WEBGL);
+  cnv.parent("#canvas-container");
+  document.querySelector("main").remove();
 
-  let outputPixelD = 2
-  pixelDensity(outputPixelD)
-  infosGraphics = createGraphics(cnvW * outputPixelD, cnvH * outputPixelD, P2D)
-  titleGraphics = createGraphics(cnvW * outputPixelD, cnvH * outputPixelD, P2D)
-  mergeGraphics = createGraphics(cnvW * outputPixelD, cnvH * outputPixelD, P2D)
+  pixelDensity(outputPixelD);
+  infosGraphics = createGraphics(cnvW * outputPixelD, cnvH * outputPixelD, P2D);
+  titleGraphics = createGraphics(cnvW, cnvH, WEBGL);
+  mergeGraphics = createGraphics(cnvW * outputPixelD, cnvH * outputPixelD, P2D);
 
-  JointsBuffer = createFramebuffer()
-  textBuffer = createFramebuffer()
-  textBuffer.pixelDensity(1)
+  JointsBuffer = createFramebuffer();
+  textBuffer = createFramebuffer(bufferOptions);
 
-  cam = createCamera()
+  cam = createCamera();
   cam.perspective(2.5 * atan(height / 2 / 800));
-  initCamSettings = { "isOrtho": true }
+  initCamSettings = { isOrtho: true };
 
-  const lineWeight = 3
-  matrix = new Matrix(2, 2, 2, cellSize, 25, lineWeight)
-  listVertices = matrix.getMinVertices()
+  const lineWeight = 3;
+  matrix = new Matrix(2, 2, 2, cellSize, 25, lineWeight);
+  listVertices = matrix.getMinVertices();
 
-  listEdges = createEdges(listVertices, cellSize)
-  const edgeMap = buildEdgeMap(listEdges)
-  listCells = findCells(listVertices, edgeMap)
+  listEdges = createEdges(listVertices, cellSize);
+  const edgeMap = buildEdgeMap(listEdges);
+  listCells = findCells(listVertices, edgeMap);
 
-  myScene = new Scene(xRot, yRot, zRot, yPos, sceneScale, sceneRotSpeed)
+  myScene = new Scene(xRot, yRot, zRot, yPos, sceneScale, sceneRotSpeed);
 
-  loadInputs()
-  setCamera(cam)
+  loadInputs();
+  setCamera(cam);
 
-  const uploadTitleInput = select('#uploadTitle');
-  const uploadInfosInput = select('#uploadInfos');
+  const uploadTitleInput = select("#uploadTitle");
+  const uploadInfosInput = select("#uploadInfos");
   uploadTitleInput.changed(() => {
-    handleFile(select('.layer-title'), uploadTitleInput.elt.files)
+    handleFile(select(".layer-title"), uploadTitleInput.elt.files);
   });
   uploadInfosInput.changed(() => {
-    handleFile(select('.layer-infos'), uploadInfosInput.elt.files)
+    handleFile(select(".layer-infos"), uploadInfosInput.elt.files);
   });
 
-  select('.p5c-container').position(550, 50)
+  select(".p5c-container").position(550, 50);
 }
 
 function draw() {
-
-  frameRate(cstFPS)
-  background(255)
+  frameRate(cstFPS);
+  background(255);
 
   if (textBuffer) {
-    
-    textBuffer.begin()
-    clear()
-    resetMatrix()
-    background(255)
-
-    push()
-    if (compoLayers[currentFormatName].titre1 && selectAll('.active-layer-btn')[0].html() == '1') {
-      image(compoLayers[currentFormatName].titre1, -width / 2, -height / 2, cnvW, cnvH)
+    textBuffer.begin();
+    setCamera(cam)
+    clear();
+    // resetMatrix();
+    imageMode(CENTER);
+    rectMode(CENTER)
+    background('yellow')
+    // push();
+    if (
+      compoLayers[currentFormatName].titre1 &&
+      selectAll(".active-layer-btn")[0].html() == "1"
+    ) {
+      // translate(-width/2, -height/2)
+      fill('red')
+      rect(0, 0, cnvW, cnvH)
+      image(compoLayers[currentFormatName].titre1, 0, 0, cnvW, cnvH);
+      // image(titleGraphics, 0, 0, width, height);
     } else {
-      clear()
-      resetMatrix()
+      clear();
     }
-
-    if (listInfos) {
-      for (const txt of listInfos) {
-        txt.show()
-      }
-    }
-
-    pop()
-    textBuffer.end()
+    // resetMatrix();
+    // pop();
+    textBuffer.end();
   }
 
-  push()
-  beginClip({ invert: true })
-  texture(textBuffer)
-  plane(width, height)
-  endClip()
-  pop()
+  
+  push();
+  beginClip({ invert: true });
+  if (
+    compoLayers[currentFormatName].titre1 &&
+    selectAll(".active-layer-btn")[0].html() == "1"
+  ) {
+    titleGraphics.imageMode(CENTER)
+    titleGraphics.rectMode(CENTER)
+    titleGraphics.background('yellow')
+    titleGraphics.pixelDensity(outputPixelD)
+    // titleGraphics.translate(-width/2, -height/2)
+    titleGraphics.image(compoLayers[currentFormatName].titre1, width/2, height/2, width, height)
+    image(titleGraphics, -width/2, -height/2)
+  }
+  
+  // textureMode(NORMAL);
+  // textureWrap(REPEAT)
+  // texture(textBuffer);
+  strokeWeight(2)
+  stroke('black')
+  // plane(width, height);
+  // box(width, height, width)
+  endClip();
+  pop();
+
 
   let options = {
     disableTouchActions: true,
-    freeRotation: false
-  }
+    freeRotation: false,
+  };
 
-  if ((currentFormatName == 'full')) {
-    if ((mouseX >= width / 4) && (mouseX <= 3 * width / 4) && (mouseY >= height / 4) && (mouseY <= 3 * height / 4)) {
-      orbitControl(2, 2, 2, options)
+  if (currentFormatName == "full") {
+    if (
+      mouseX >= width / 4 &&
+      mouseX <= (3 * width) / 4 &&
+      mouseY >= height / 4 &&
+      mouseY <= (3 * height) / 4
+    ) {
+      orbitControl(2, 2, 2, options);
     }
   } else {
-    orbitControl(2, 2, 2, options)
+    orbitControl(2, 2, 2, options);
   }
 
   // push for grid layer elements
-  push()
+  push();
 
-  scale(myScene.scale)
+  scale(myScene.scale);
 
-  rotateX(myScene.xRot + frameCount * 10 * myScene.rotSpeed * toZero(myScene.xRot))
-  rotateY(myScene.yRot + frameCount * 10 * myScene.rotSpeed * toZero(myScene.yRot))
-  rotateZ(myScene.zRot + frameCount * 10 * myScene.rotSpeed * toZero(myScene.zRot))
+  rotateX(
+    myScene.xRot + frameCount * 10 * myScene.rotSpeed * toZero(myScene.xRot)
+  );
+  rotateY(
+    myScene.yRot + frameCount * 10 * myScene.rotSpeed * toZero(myScene.yRot)
+  );
+  rotateZ(
+    myScene.zRot + frameCount * 10 * myScene.rotSpeed * toZero(myScene.zRot)
+  );
 
-  translate(0, myScene.yPos, 0)
+  translate(0, myScene.yPos, 0);
 
-  push()
+  push();
   if (matrix) {
     // matrix.showVertices([0])
   }
-  pop()
+  pop();
 
-  push()
+  push();
   if (listEdges) {
     for (let i = 0; i < listEdges.length; i += 1) {
       // listEdges[i].thickness = 15
       if (listEdges[i].render) {
-        listEdges[i].showBox()
+        listEdges[i].showBox();
       }
       // listEdges[i].showJoints(true, true)
     }
   }
-  pop()
+  pop();
 
-  push()
+  push();
   // console.log()
-  animateEdges(select('#anim-edges-checkbox'), 80, 80, 12)
+  animateEdges(select("#anim-edges-checkbox"), 80, 80, 12);
 
   if (listCells) {
     for (let cell of listCells) {
       // cell.showWireFrame()
       // cell.showFaces(['left', 'right', 'top', 'bottom', 'front', 'back'])
       // cell.showFaces(['left', 'right', 'top'])
-
       // cell.showDebug()
     }
   }
@@ -189,9 +247,9 @@ function draw() {
   //   filter(listFilters[0], .85)
   // }
 
-  pop()
+  pop();
 
-  pop()
+  pop();
   // pop grid layer elements
 
   // showBleeds(formats["bleeds"].size)

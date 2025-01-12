@@ -161,7 +161,11 @@ function resizeRender(format, name, page) {
         // only handle the first call of the function, not used after
         page.size(w, h)
     }
-    updateLayersOptions(currentFormatName, currentFormat.index, currentFormat.hasLayers)
+    if(textBuffer){
+        // textBuffer.width = cnvW;
+        // textBuffer.height = cnvH;
+    }
+    updateLayersOptions(currentFormatName)
 }
 
 function initSizesBtns() {
