@@ -87,20 +87,23 @@ function setup() {
 function draw() {
 
   frameRate(cstFPS)
-  
-  if(selectAll('.active-layer-btn')[0].html() == '0'){
-    background(255)
-  } else {
-    clear()
-  }
+  background(255)
 
   if (textBuffer) {
-
+    
     textBuffer.begin()
     clear()
     resetMatrix()
+    background(255)
 
     push()
+    if (compoLayers[currentFormatName].titre1 && selectAll('.active-layer-btn')[0].html() == '1') {
+      image(compoLayers[currentFormatName].titre1, -width / 2, -height / 2, cnvW, cnvH)
+    } else {
+      clear()
+      resetMatrix()
+    }
+
     if (listInfos) {
       for (const txt of listInfos) {
         txt.show()
