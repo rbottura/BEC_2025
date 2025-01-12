@@ -2,7 +2,7 @@ let matrix, listVertices = [], listEdges = [], listCells = [], listFaces = [], l
 let JointsBuffer, textBuffer, infosGraphics, titleGraphics, mergeGraphics
 let cam, cam2, initCamSettings
 let opsReg, font_pathR, font_pathRMono, metaF
-let formats, objFormat, cnvW, cnvH, cnv, seed = 1
+let formats, objFormat, cnvW, cnvH, cnv, seed = 1, cstFPS = 12
 
 let currentFormatName = "poster", currentFormat
 let xRot = -25, yRot = 35, zRot = 0, yPos = 0, sceneRotSpeed = 0, sceneZdist = 0, sceneScale = .8, randomThicknessValue, myScene
@@ -10,6 +10,12 @@ let listScenesVariables = [xRot, yRot, zRot, sceneScale, sceneRotSpeed]
 
 let listFilters = []
 let jsonData, compoLayers = {}
+
+
+P5Capture.setDefaultOptions({
+  format: "png",
+  framerate: cstFPS
+});
 
 function preload() {
   jsonData = loadJSON('./assets/urls2.json', transformToImages)
@@ -39,7 +45,7 @@ function setup() {
   cnv.parent('#canvas-container')
   document.querySelector('main').remove()
 
-  let outputPixelD = 4
+  let outputPixelD = 2
   pixelDensity(outputPixelD)
   infosGraphics = createGraphics(cnvW * outputPixelD, cnvH * outputPixelD, P2D)
   titleGraphics = createGraphics(cnvW * outputPixelD, cnvH * outputPixelD, P2D)
@@ -74,12 +80,19 @@ function setup() {
   uploadInfosInput.changed(() => {
     handleFile(select('.layer-infos'), uploadInfosInput.elt.files)
   });
+
+  select('.p5c-container').position(550, 50)
 }
 
 function draw() {
 
-  frameRate(30)
-  clear()
+  frameRate(cstFPS)
+  // console.log()
+  if(selectAll('.active-layer-btn')[0].html == '0'){
+    background(255)
+  } else {
+    clear()
+  }
 
   if (textBuffer) {
 
