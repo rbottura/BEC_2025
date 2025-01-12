@@ -181,6 +181,7 @@ label {
     display: inline-flex;
     align-self: flex-end;
     position: absolute;
+    top: 20px;
     margin-bottom: 20px;
     z-index: 15;
     flex-direction: row;
