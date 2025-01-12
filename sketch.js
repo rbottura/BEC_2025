@@ -12,7 +12,7 @@ let listFilters = []
 let jsonData, compoLayers = {}
 
 function preload() {
-  jsonData = loadJSON('./assets/urls.json', transformToImages)
+  jsonData = loadJSON('./assets/urls2.json', transformToImages)
   formats = loadJSON('./assets/formats.json', (e) => {
     console.log(e)
     // objFormat = JSON.parse(e)

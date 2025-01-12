@@ -363,10 +363,10 @@ function printOutLayers(t, i) {
     // (Layer 1)
     titleGraphics.background(255)
     let lT = F['titre' + t]
-    // if (t != 0) {
-    //     titleGraphics.image(lT, 0, 0, cnvW, cnvH)
-    // }
-    titleGraphics.image(lT, 0, 0, cnvW, cnvH)
+    if (t != 0) {
+        titleGraphics.image(lT, 0, 0, cnvW, cnvH)
+    }
+    // titleGraphics.image(lT, 0, 0, cnvW, cnvH)
 
     // (Layer 2)
     let canvasImage = cnv;
@@ -425,17 +425,13 @@ function handleFile(layer, files) {
             const image = document.createElement('img');
             const newUrl = URL.createObjectURL(file)
             image.src = newUrl
-            jsonData.poster.titre9 = newUrl
-            compoLayers.poster.titre9 = loadImage(newUrl)
+            jsonData[currentFormatName].titre1 = newUrl
+            compoLayers[currentFormatName].titre1 = loadImage(newUrl)
             // layer.style('backgroundImage', 'url(' + newUrl + ')')
             
             updateLayersOptions(currentFormatName, currentFormat.index, currentFormat.hasLayers)
         }
     }
-}
-
-function addImageToImageData() {
-
 }
 
 const fileTypes = [
