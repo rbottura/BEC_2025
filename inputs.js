@@ -318,8 +318,8 @@ function canvasFiltering() {
 }
 
 function animateEdges(btn, distMax, sMax, freq) {
-    let isTriggered = frameCount % (freq * parseInt(frameRate())) == 0
-    // console.log(isTriggered)
+    // console.log(freq * parseInt(frameRate()))
+    let isTriggered = frameCount % freq == 0
     if (btn) {
         btn = select('input', btn.elt)
         if (btn.checked() && listVisibleEdges.length != 0 && isTriggered) {
