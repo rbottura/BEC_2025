@@ -87,8 +87,8 @@ function setup() {
 function draw() {
 
   frameRate(cstFPS)
-  // console.log()
-  if(selectAll('.active-layer-btn')[0].html == '0'){
+  
+  if(selectAll('.active-layer-btn')[0].html() == '0'){
     background(255)
   } else {
     clear()
