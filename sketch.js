@@ -114,7 +114,6 @@ function setup() {
 
 function draw() {
   frameRate(cstFPS);
-  background(255);
 
   if (textBuffer) {
     textBuffer.begin();
@@ -126,13 +125,13 @@ function draw() {
     background('yellow')
     // push();
     if (
-      compoLayers[currentFormatName].titre1 &&
-      selectAll(".active-layer-btn")[0].html() == "1"
+      compoLayers[currentFormatName].titre2 &&
+      selectAll(".active-layer-btn")[0].html() == "2"
     ) {
       // translate(-width/2, -height/2)
       fill('red')
       rect(0, 0, cnvW, cnvH)
-      image(compoLayers[currentFormatName].titre1, 0, 0, cnvW, cnvH);
+      image(compoLayers[currentFormatName].titre2, 0, 0, cnvW, cnvH);
       // image(titleGraphics, 0, 0, width, height);
     } else {
       clear();
@@ -142,27 +141,31 @@ function draw() {
     textBuffer.end();
   }
 
-  
+
   push();
   beginClip({ invert: true });
   if (
-    compoLayers[currentFormatName].titre1 &&
-    selectAll(".active-layer-btn")[0].html() == "1"
+    compoLayers[currentFormatName].titre2 &&
+    selectAll(".active-layer-btn")[0].html() == "2"
   ) {
     titleGraphics.imageMode(CENTER)
     titleGraphics.rectMode(CENTER)
     titleGraphics.background('yellow')
     titleGraphics.pixelDensity(outputPixelD)
     // titleGraphics.translate(-width/2, -height/2)
-    titleGraphics.image(compoLayers[currentFormatName].titre1, width/2, height/2, width, height)
-    image(titleGraphics, -width/2, -height/2)
+    titleGraphics.image(compoLayers[currentFormatName].titre2, width / 2, height / 2, width, height)
+    background(255);
+    image(titleGraphics, -width / 2, -height / 2)
+  } else if (selectAll(".active-layer-btn")[0].html() == "1") {
+    background(255);
+  } else if (selectAll(".active-layer-btn")[0].html() == "0" ){
+    clear()
   }
-  
+
   // textureMode(NORMAL);
   // textureWrap(REPEAT)
   // texture(textBuffer);
-  strokeWeight(2)
-  stroke('black')
+  
   // plane(width, height);
   // box(width, height, width)
   endClip();

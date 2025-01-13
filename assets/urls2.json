@@ -2,24 +2,28 @@
   "poster": {
     "titre0": "#",
     "titre1": "#",
+    "titre2": "#",
     "infos0": "#",
     "infos1": "#"
   },
   "square": {
     "titre0": "#",
     "titre1": "#",
+    "titre2": "#",
     "infos0": "#",
     "infos1": "#"
   },
   "portrait": {
     "titre0": "#",
     "titre1": "#",
+    "titre2": "#",
     "infos0": "#",
     "infos1": "#"
   },
   "landscape": {
     "titre0": "#",
     "titre1": "#",
+    "titre2": "#",
     "infos0": "#",
     "infos1": "#"
   }

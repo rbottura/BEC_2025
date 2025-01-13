@@ -361,10 +361,14 @@ function printOutLayers(t, i) {
     let F = compoLayers[currentFormatName]
 
     // (Layer 1)
-    titleGraphics.background(255)
     let lT = F['titre' + t]
-    if (t != 0) {
+    console.log(t)
+    if (t == '1') {
+        titleGraphics.background(255)
+    } else if(t == '2'){
         titleGraphics.image(lT, 0, 0, cnvW, cnvH)
+    } else if (t == '0'){
+        titleGraphics.clear()
     }
     // titleGraphics.image(lT, 0, 0, cnvW, cnvH)
 
@@ -379,7 +383,7 @@ function printOutLayers(t, i) {
     }
 
     // Draw the layers onto a new canvas
-    mergeGraphics.background(255)
+    // mergeGraphics.background(255)
     mergeGraphics.image(titleGraphics, 0, 0); // Layer 1
     mergeGraphics.image(canvasImage, 0, 0); // Layer 2
     mergeGraphics.image(infosGraphics, 0, 0); // Layer 3
@@ -425,8 +429,8 @@ function handleFile(layer, files) {
             const image = document.createElement('img');
             const newUrl = URL.createObjectURL(file)
             image.src = newUrl
-            jsonData[currentFormatName].titre1 = newUrl
-            compoLayers[currentFormatName].titre1 = loadImage(newUrl)
+            jsonData[currentFormatName].titre2 = newUrl
+            compoLayers[currentFormatName].titre2 = loadImage(newUrl)
             // layer.style('backgroundImage', 'url(' + newUrl + ')')
             
             updateLayersOptions(currentFormatName, currentFormat.index, currentFormat.hasLayers)
