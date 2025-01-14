@@ -150,7 +150,6 @@ function draw() {
   ) {
     titleGraphics.imageMode(CENTER)
     titleGraphics.rectMode(CENTER)
-    titleGraphics.background('yellow')
     titleGraphics.pixelDensity(outputPixelD)
     // titleGraphics.translate(-width/2, -height/2)
     titleGraphics.image(compoLayers[currentFormatName].titre2, width / 2, height / 2, width, height)
@@ -159,6 +158,7 @@ function draw() {
   } else if (selectAll(".active-layer-btn")[0].html() == "1") {
     background(255);
   } else if (selectAll(".active-layer-btn")[0].html() == "0" ){
+    // console.log('clear')
     clear()
   }
 

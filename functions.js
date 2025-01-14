@@ -368,6 +368,7 @@ function printOutLayers(t, i) {
     } else if(t == '2'){
         titleGraphics.image(lT, 0, 0, cnvW, cnvH)
     } else if (t == '0'){
+        titleGraphics.background(255,0,255)
         titleGraphics.clear()
     }
     // titleGraphics.image(lT, 0, 0, cnvW, cnvH)
@@ -384,10 +385,10 @@ function printOutLayers(t, i) {
 
     // Draw the layers onto a new canvas
     // mergeGraphics.background(255)
+    mergeGraphics.clear()
     mergeGraphics.image(titleGraphics, 0, 0); // Layer 1
     mergeGraphics.image(canvasImage, 0, 0); // Layer 2
     mergeGraphics.image(infosGraphics, 0, 0); // Layer 3
-    console.log(mergeGraphics)
 
     // console.log(titleGraphics)
     saveCanvas(mergeGraphics, 'compo', 'png')

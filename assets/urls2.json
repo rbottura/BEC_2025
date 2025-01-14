@@ -1,27 +1,27 @@
 {
   "poster": {
-    "titre0": "#",
+    "titre0": "./img/alphaPattern.png",
     "titre1": "#",
     "titre2": "#",
     "infos0": "#",
     "infos1": "#"
   },
   "square": {
-    "titre0": "#",
+    "titre0": "./img/alphaPattern.png",
     "titre1": "#",
     "titre2": "#",
     "infos0": "#",
     "infos1": "#"
   },
   "portrait": {
-    "titre0": "#",
+    "titre0": "./img/alphaPattern.png",
     "titre1": "#",
     "titre2": "#",
     "infos0": "#",
     "infos1": "#"
   },
   "landscape": {
-    "titre0": "#",
+    "titre0": "./img/alphaPattern.png",
     "titre1": "#",
     "titre2": "#",
     "infos0": "#",
