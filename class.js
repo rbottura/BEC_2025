@@ -1,4 +1,11 @@
-const BECcolors = ['rgb(0,115,220)', 'rgb(228, 5, 20)', 'rgb(0,167,115)', 'rgb(255,212,0)', 'rgb(0,0,0)']
+// PALETTE MIX
+// const BECcolors = ['rgb(26,158,218)', 'rgb(218, 33, 75)', 'rgb(0,167,115)', 'rgb(255,203,4)', 'rgb(0,0,0)']
+
+// PALETTE ORIGINAL
+// const BECcolors = ['rgb(0,115,220)', 'rgb(228, 5, 20)', 'rgb(0,167,115)', 'rgb(255,212,0)', 'rgb(0,0,0)']
+
+// PALETTE GRAND PARIS SUD
+const BECcolors = ['rgb(26,158,218)', 'rgb(218, 33, 75)', 'rgb(33,166,84)', 'rgb(255,203,4)', 'rgb(0,0,0)']
 const BECcolorsId = ['blue', 'red', 'green', 'yellow', 'black']
 class Matrix {
     constructor(gridX, gridY, gridZ, cellSize, offset, lineWeight) {
@@ -392,8 +399,6 @@ class BECRenderer {
     constructor(canvas) {
         this.c = canvas
 
-        this.sceneRotationSpeed = 1
-        this.prevSceneRotationSpeed = 1
         this.paramContainer = select('#parameters-container')
 
         this.btns = selectAll('.player-btn')
