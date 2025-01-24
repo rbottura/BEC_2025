@@ -61,6 +61,7 @@ function setup() {
   angleMode(DEGREES);
   rectMode(CENTER);
   imageMode(CENTER);
+  noSmooth();
 
   bufferOptions = {
     width: cnvW,

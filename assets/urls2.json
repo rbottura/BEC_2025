@@ -26,5 +26,12 @@
     "titre2": "#",
     "infos0": "#",
     "infos1": "#"
+  },
+  "full": {
+    "titre0": "./img/alphaPattern.png",
+    "titre1": "#",
+    "titre2": "#",
+    "infos0": "#",
+    "infos1": "#"
   }
 }

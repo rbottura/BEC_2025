@@ -391,7 +391,11 @@ function printOutLayers(t, i) {
     mergeGraphics.image(infosGraphics, 0, 0); // Layer 3
 
     // console.log(titleGraphics)
-    saveCanvas(mergeGraphics, 'compo', 'png')
+    if(outputPixelD >= 10){
+        setTimeout(() => {
+            saveCanvas(mergeGraphics, 'compo', 'png')
+        }, 2000);
+    }
 }
 
 function transformToImages(data) {
