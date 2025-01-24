@@ -99,6 +99,13 @@ function setup() {
   myScene = new Scene(xRot, yRot, zRot, yPos, sceneScale, sceneRotSpeed);
 
   loadInputs();
+  // Add load button to load downloaded data file
+  let loadButton = createFileInput(loadJsonData);
+
+  // Only accept files with .json extension
+  loadButton.attribute('accept', '.json');
+  loadButton.id('loadDataBtn')
+
   setCamera(cam);
 
   const uploadTitleInput = select("#uploadTitle");
@@ -158,7 +165,7 @@ function draw() {
     image(titleGraphics, -width / 2, -height / 2)
   } else if (selectAll(".active-layer-btn")[0].html() == "1") {
     background(255);
-  } else if (selectAll(".active-layer-btn")[0].html() == "0" ){
+  } else if (selectAll(".active-layer-btn")[0].html() == "0") {
     // console.log('clear')
     clear()
   }
@@ -166,7 +173,7 @@ function draw() {
   // textureMode(NORMAL);
   // textureWrap(REPEAT)
   // texture(textBuffer);
-  
+
   // plane(width, height);
   // box(width, height, width)
   endClip();
@@ -215,14 +222,14 @@ function draw() {
   pop();
 
   push();
-  if (listEdges) {
-    for (let i = 0; i < listEdges.length; i += 1) {
-      // listEdges[i].thickness = 15
+  for (let i = 0; i < listEdges.length; i += 1) {
+    // listEdges[i].thickness = 15
+    if (listEdges[i]) {
       if (listEdges[i].render) {
         listEdges[i].showBox();
       }
-      // listEdges[i].showJoints(true, true)
     }
+    // listEdges[i].showJoints(true, true)
   }
   pop();
 

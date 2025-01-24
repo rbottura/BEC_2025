@@ -407,11 +407,15 @@ class BECRenderer {
         this.scrnBtn = this.btns[2]
         this.saveBtn = this.btns[3]
         this.camBtn = this.btns[4]
+        this.savePresetsBtn = this.btns[5]
+        this.loadPresetsBtn = this.btns[6]
 
         this.gearBtn.mouseClicked(() => this.showParameters(isHidden(this.paramContainer.elt)))
         this.playBtn.mouseClicked(() => this.playPause(isLooping()))
         this.saveBtn.mouseClicked(() => this.saveFrame())
         this.camBtn.mouseClicked(() => this.changeCamera())
+        this.savePresetsBtn.mouseClicked(() => this.savePresets())
+        this.loadPresetsBtn.mouseClicked(() => this.loadPresets())
 
         this.titleIndex = undefined
         this.infosIndex = undefined
@@ -443,6 +447,15 @@ class BECRenderer {
     }
     changeCamera(){
         changeCamera(cam, 'toggle')
+    }
+    savePresets(){
+        let edgesSettings = JSON.stringify([...listEdges])
+        console.log(JSON.parse(edgesSettings))
+        saveJSON(edgesSettings, 'edgeSettings')
+        // saveJSON(listEdges[0], 'edge1')
+    }
+    loadPresets(){
+        applyNewSettings(laodedData)
     }
     updateRenderedLayer(layernode, i){
         console.log(layernode.id)

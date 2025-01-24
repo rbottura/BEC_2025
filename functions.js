@@ -365,10 +365,10 @@ function printOutLayers(t, i) {
     console.log(t)
     if (t == '1') {
         titleGraphics.background(255)
-    } else if(t == '2'){
+    } else if (t == '2') {
         titleGraphics.image(lT, 0, 0, cnvW, cnvH)
-    } else if (t == '0'){
-        titleGraphics.background(255,0,255)
+    } else if (t == '0') {
+        titleGraphics.background(255, 0, 255)
         titleGraphics.clear()
     }
     // titleGraphics.image(lT, 0, 0, cnvW, cnvH)
@@ -391,7 +391,7 @@ function printOutLayers(t, i) {
     mergeGraphics.image(infosGraphics, 0, 0); // Layer 3
 
     // console.log(titleGraphics)
-    if(outputPixelD >= 10){
+    if (outputPixelD >= 10) {
         setTimeout(() => {
             saveCanvas(mergeGraphics, 'compo', 'png')
         }, 2000);
@@ -437,7 +437,7 @@ function handleFile(layer, files) {
             jsonData[currentFormatName].titre2 = newUrl
             compoLayers[currentFormatName].titre2 = loadImage(newUrl)
             // layer.style('backgroundImage', 'url(' + newUrl + ')')
-            
+
             updateLayersOptions(currentFormatName, currentFormat.index, currentFormat.hasLayers)
         }
     }
@@ -519,3 +519,22 @@ document.addEventListener('keydown', (e) => {
         updateEdgesRender(parseInt(nbrEdges.value()), litsEdgesInput, listEdgesBtn)
     }
 })
+
+let laodedData
+function loadJsonData(file) {
+    laodedData = file.data
+}
+
+function applyNewSettings(newSet) {
+
+    let newEdges = JSON.parse(newSet)
+    console.log("load presets")
+    noLoop()
+    for (let i = 0; i < listEdges.length; i++) {
+        console.log(newEdges[i])
+        Object.assign(listEdges[i], newEdges[i])
+    }
+    setTimeout(() => {
+        loop()
+    }, 1000);
+}

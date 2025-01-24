@@ -318,3 +318,8 @@ label {
 #layer-infos-wrapper::before {
     content: 'Infos : \00A0 '
 }
+
+#loadDataBtn {
+    position: absolute;
+    z-index: 15000;
+}
