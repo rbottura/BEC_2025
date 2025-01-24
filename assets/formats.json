@@ -35,5 +35,10 @@
     "width":1920,
     "height":1080,
     "hasLayers":false
+  },
+  "4-3":{
+    "width":495,
+    "height":660,
+    "hasLayers":false
   }
 }
