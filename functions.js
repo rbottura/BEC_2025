@@ -395,6 +395,8 @@ function printOutLayers(t, i) {
         setTimeout(() => {
             saveCanvas(mergeGraphics, 'compo', 'png')
         }, 2000);
+    } else {
+        saveCanvas(mergeGraphics, 'compo', 'png')
     }
 }
 
@@ -531,7 +533,7 @@ function applyNewSettings(newSet) {
     console.log("load presets")
     noLoop()
     for (let i = 0; i < listEdges.length; i++) {
-        console.log(newEdges[i])
+        // console.log(newEdges[i])
         Object.assign(listEdges[i], newEdges[i])
     }
     setTimeout(() => {
