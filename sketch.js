@@ -89,7 +89,7 @@ function setup() {
   initCamSettings = { isOrtho: true };
 
   const lineWeight = 3;
-  matrix = new Matrix(2, 2, 2, cellSize, 25, lineWeight);
+  matrix = new Matrix(2, 4, 2, cellSize, 25, lineWeight);
   listVertices = matrix.getMinVertices();
 
   listEdges = createEdges(listVertices, cellSize);

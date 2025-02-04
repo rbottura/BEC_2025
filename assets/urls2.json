@@ -40,5 +40,61 @@
     "titre2": "#",
     "infos0": "#",
     "infos1": "#"
+  },
+  "8-3": {
+    "titre0": "./img/alphaPattern.png",
+    "titre1": "#",
+    "titre2": "#",
+    "infos0": "#",
+    "infos1": "#"
+  },
+  "4-5":{
+    "titre0": "./img/alphaPattern.png",
+    "titre1": "#",
+    "titre2": "#",
+    "infos0": "#",
+    "infos1": "#"
+  },
+  "1080/1350":{
+    "titre0": "./img/alphaPattern.png",
+    "titre1": "#",
+    "titre2": "#",
+    "infos0": "#",
+    "infos1": "#"
+  },
+  "980/630":{
+    "titre0": "./img/alphaPattern.png",
+    "titre1": "#",
+    "titre2": "#",
+    "infos0": "#",
+    "infos1": "#"
+  },
+  "270/180":{
+    "titre0": "./img/alphaPattern.png",
+    "titre1": "#",
+    "titre2": "#",
+    "infos0": "#",
+    "infos1": "#"
+  },
+  "570/380":{
+    "titre0": "./img/alphaPattern.png",
+    "titre1": "#",
+    "titre2": "#",
+    "infos0": "#",
+    "infos1": "#"
+  },
+  "1200/500":{
+    "titre0": "./img/alphaPattern.png",
+    "titre1": "#",
+    "titre2": "#",
+    "infos0": "#",
+    "infos1": "#"
+  },
+  "980/900":{
+    "titre0": "./img/alphaPattern.png",
+    "titre1": "#",
+    "titre2": "#",
+    "infos0": "#",
+    "infos1": "#"
   }
 }

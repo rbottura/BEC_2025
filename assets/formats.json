@@ -40,5 +40,45 @@
     "width":495,
     "height":660,
     "hasLayers":false
+  },
+  "8-3":{
+    "width":300,
+    "height":800,
+    "hasLayers":false
+  },
+  "4-5":{
+    "width":400,
+    "height":500,
+    "hasLayers":false
+  },
+  "1080/1350": {
+    "width":1080,
+    "height":1350,
+    "hasLayers":false
+  },
+  "980/630":{
+    "width":980,
+    "height":630,
+    "hasLayers":false
+  },
+  "270/180":{
+    "width":270,
+    "height":180,
+    "hasLayers":false
+  },
+  "570/380":{
+    "width":570,
+    "height":380,
+    "hasLayers":false
+  },
+  "1200/500":{
+    "width":1200,
+    "height":500,
+    "hasLayers":false
+  },
+  "980/900":{
+    "width":980,
+    "height":900,
+    "hasLayers":false
   }
 }
