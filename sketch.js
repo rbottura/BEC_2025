@@ -55,7 +55,7 @@ function preload() {
   metaF = loadFont("./assets/fonts/mn128_clean_META.otf");
 }
 
-let outputPixelD = 12;
+let outputPixelD = 2;
 function setup() {
   colorMode(RGB, 255, 255, 255, 1);
   angleMode(DEGREES);
