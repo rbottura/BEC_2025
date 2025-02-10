@@ -53,16 +53,18 @@ canvas {
     user-select: none;
 }
 
-.page-layers:nth-of-type(1){
+.page-layers:nth-of-type(1) {
     z-index: 0;
     pointer-events: none;
     background: url('./img/alphaPattern.png') repeat;
     /* background-color: blueviolet; */
 }
-.page-layers:nth-of-type(2){
+
+.page-layers:nth-of-type(2) {
     z-index: 10;
 }
-.page-layers:nth-of-type(2){
+
+.page-layers:nth-of-type(2) {
     z-index: 20;
     pointer-events: none;
 }
