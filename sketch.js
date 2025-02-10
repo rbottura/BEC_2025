@@ -55,7 +55,7 @@ function preload() {
   metaF = loadFont("./assets/fonts/mn128_clean_META.otf");
 }
 
-let outputPixelD = 4;
+let outputPixelD = 10;
 function setup() {
   colorMode(RGB, 255, 255, 255, 1);
   angleMode(DEGREES);
@@ -89,7 +89,7 @@ function setup() {
   initCamSettings = { isOrtho: true };
 
   const lineWeight = 3;
-  matrix = new Matrix(2, 4, 2, cellSize, 25, lineWeight);
+  matrix = new Matrix(2, 2, 2, cellSize, 25, lineWeight);
   listVertices = matrix.getMinVertices();
 
   listEdges = createEdges(listVertices, cellSize);
@@ -222,6 +222,7 @@ function draw() {
   pop();
 
   push();
+  
   for (let i = 0; i < listEdges.length; i += 1) {
     // listEdges[i].thickness = 15
     if (listEdges[i]) {
