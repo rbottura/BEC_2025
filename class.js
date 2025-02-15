@@ -112,15 +112,16 @@ class Edge {
         this.eRotate = this.rotate
     }
     easing() {
+        const speed = .05
         // console.log("easing")
-        this.x = easeIn(this.x, this.ex, .1)
-        this.y = easeIn(this.y, this.ey, .1)
-        this.z = easeIn(this.z, this.ez, .1)
+        this.x = easeIn(this.x, this.ex, speed)
+        this.y = easeIn(this.y, this.ey, speed)
+        this.z = easeIn(this.z, this.ez, speed)
 
-        this.scale = easeIn(this.scale, this.eScale, .1)
+        this.scale = easeIn(this.scale, this.eScale, speed)
         this.rotate = easeIn(this.rotate, this.eRotate, .1)
 
-        this.edgeSize = easeIn(this.edgeSize, this.edgeEaseSize, .1)
+        this.edgeSize = easeIn(this.edgeSize, this.edgeEaseSize, speed)
     }
     show(thickness) {
         stroke(this.color);

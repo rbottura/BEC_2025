@@ -236,7 +236,7 @@ function draw() {
 
   push();
   // console.log()
-  animateEdges(select("#anim-edges-checkbox"), 80, 80, 12);
+  animateEdges(select("#anim-edges-checkbox"), 160, 160, 72);
 
   if (listCells) {
     for (let cell of listCells) {

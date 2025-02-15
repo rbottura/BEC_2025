@@ -47,13 +47,13 @@
     "hasLayers":false
   },
   "4-5":{
-    "width":400,
-    "height":500,
+    "width":600,
+    "height":750,
     "hasLayers":false
   },
   "1080/1350": {
-    "width":1080,
-    "height":1350,
+    "width":540,
+    "height":675,
     "hasLayers":false
   },
   "980/630":{
