@@ -255,9 +255,9 @@ function draw() {
   //   }
   // }
 
-  // if (listFilters.length != 0) {
-  //   filter(listFilters[0], .85)
-  // }
+  if (listFilters.length != 0) {
+    filter(listFilters[0], .85)
+  }
 
   pop();
 

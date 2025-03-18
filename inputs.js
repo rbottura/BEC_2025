@@ -305,7 +305,7 @@ function toggleLayers(layernode, path, btn) {
 }
 
 function canvasFiltering() {
-    let btn = createCheckbox('threshold', true)
+    let btn = createCheckbox('threshold', false)
     let container = select('#canvas-filtering-container')
     container.child(btn)
     btn.input(() => {
