@@ -155,11 +155,12 @@ function resizeRender(format, name, page) {
         resizeCanvas(w, h)
         changeCamera(cam, initCamSettings)
 
-        renderContainerElt.size(w, h)
+        // renderContainerElt.size(w, h)
         page.size(w, h)
     } else {
         // only handle the first call of the function, not used after
         page.size(w, h)
+        // page.position(0, 0)
     }
     updateLayersOptions(currentFormatName)
 }

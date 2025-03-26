@@ -7,7 +7,6 @@
     <title>MATRIX</title>
 
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <link rel="stylesheet" type="text/css" href="page.css" />
     <link rel="stylesheet" type="text/css" href="parameters.css" />
 
     <!-- <script src="libraries/p5.js"></script> -->
@@ -17,117 +16,121 @@
   </head>
 
   <body>
-
-    <div class="rendered-element" id="parameters-container">
-      <p>current pixel ratio : <span id="px-input">4</span></p>
-      <div class="handle parameters-box" id="parameters-handle"></div>
-      <div class="parameters-box" id="axis-box">
-        <div class="param-label">Axis</div>
-        <div class="param-input-wrapper" id="axis-container"></div>
-      </div>
-
-      <div class="parameters-box" id="page-sizes-box">
-        <div class="param-label">resizes</div>
-        <div class="param-input-wrapper" id="page-size-container">
-          <div class="page-size-btn">poster</div>
-          <div class="page-size-btn">landscape</div>
-          <div class="page-size-btn">portrait</div>
-          <div class="page-size-btn">square</div>
-          <div class="page-size-btn">4-3</div>
-          <div class="page-size-btn">8-3</div>
-          <div class="page-size-btn">4-5</div>
-          <div class="page-size-btn">1080/1350</div>
-          <div class="page-size-btn">980/630</div>
-          <div class="page-size-btn">270/180</div>
-          <div class="page-size-btn">570/380</div>
-          <div class="page-size-btn">1200/500</div>
-          <div class="page-size-btn">980/900</div>
-          <div class="page-size-btn">full</div>
+    <div id="p5-base-dashboard">
+      <div class="rendered-element" id="parameters-container">
+        <!-- <div class="handle parameters-box" id="parameters-handle"></div> -->
+        <div class="parameters-box" id="axis-box">
+          <div class="param-label">Axis</div>
+          <div class="param-input-wrapper" id="axis-container"></div>
         </div>
-      </div>
 
-      <div class="parameters-box" id="edge-size-box">
-        <div class="param-label">Edges size</div>
-        <div class="param-input-wrapper" id="edges-size"></div>
-        <datalist id="edges-sizes-markers">
-          <option value="0" label="0"></option>
-          <option value="5" label="5"></option>
-          <option value="10" label="10"></option>
-          <option value="15" label="15"></option>
-          <option value="20" label="20"></option>
-        </datalist>
-      </div>
-
-      <div class="parameters-box" id="edge-random-box">
-        <div class="param-label">random edges</div>
-        <div class="param-input-wrapper" id="edges-color-random"></div>
-      </div>
-
-      <div class="parameters-box" id="canvas-filtering-box">
-        <div class="param-label">canvas filtering</div>
-        <div class="param-input-wrapper" id="canvas-filtering-container"></div>
-      </div>
-
-      <div class="parameters-box" id="list-edges-box">
-        <div class="param-label">list edges</div>
-        <div class="param-input-wrapper" id="list-edges-container"></div>
-      </div>
-
-      <div class="parameters-box" id="infos-layers-box">
-        <div class="param-label">animate visible edges</div>
-        <div class="param-input-wrapper" id="animate-edges-container"></div>
-      </div>
-
-      <div class="parameters-box" id="infos-layers-box">
-        <div class="param-label">Infos layers options</div>
-        <div class="param-input-wrapper" id="infos-layers-container">
-          <p class="format-layer-selection-label">Format</p>
-          <div class="input-layer-wrapper" id="layer-titre-wrapper"></div>
-          <div class="input-layer-wrapper" id="layer-infos-wrapper"></div>
-        </div>
-        <div id="browse-images-wrapper">
-          <!-- <label for="image_uploads">Choose images to upload (PNG, JPG)</label> -->
-          <input type="file" id="uploadTitle" name="image_uploads" accept=".jpg, .jpeg, .png">
-          <input type="file" id="uploadInfos" name="image_uploads" accept=".jpg, .jpeg, .png">
-        </div>
-      </div>
-      <div class="parameters-box">
-        <div class="param-label">Keyboard actions :</div>
-        <ul>
-          <li>Q : 4 randoms faces</li>
-          <li>S : 6 randoms faces</li>
-          <li>D : 8 randoms faces</li>
-          <li>C : shuffle faces colors</li>
-          <li>E : shuffle Edges</li>
-        </ul>
-      </div>
-    </div>
-
-    <div id="render-area-wrapper">
-      <div id="render-area">
-        <div class="rendered-element" id="render-window-wrapper">
-          <!-- render player parameters -->
-          <div id="player-parameters-wrapper">
-            <div class="player-btn" id="show-hide-params-btn">⚙️</div>
-            <div class="player-btn isPlaying" id="play-pause-btn">⏸️</div>
-            <div style="display: none" class="player-btn" id="fullscreen-btn">
-              🖥️
-            </div>
-            <div class="player-btn" id="save-frame-btn">💾</div>
-            <div class="player-btn" id="toggle-cam-btn">🎥</div>
-            <div class="player-btn" id="save-presets-btn">save</div>
-            <div class="player-btn" id="load-presets-btn">load</div>
+        <div class="parameters-box" id="page-sizes-box">
+          <div class="param-label">resizes</div>
+          <div class="param-input-wrapper" id="page-size-container">
+            <div class="page-size-btn">poster</div>
+            <div class="page-size-btn">landscape</div>
+            <div class="page-size-btn">portrait</div>
+            <div class="page-size-btn">square</div>
+            <div class="page-size-btn">4-3</div>
+            <div class="page-size-btn">8-3</div>
+            <div class="page-size-btn">4-5</div>
+            <div class="page-size-btn">1080/1350</div>
+            <div class="page-size-btn">980/630</div>
+            <div class="page-size-btn">270/180</div>
+            <div class="page-size-btn">570/380</div>
+            <div class="page-size-btn">1200/500</div>
+            <div class="page-size-btn">980/900</div>
+            <div class="page-size-btn">full</div>
           </div>
+        </div>
 
-          <!-- page is for text layer images -->
-          <div id="page">
-            <div class="page-layers layer-title"></div>
+        <div class="parameters-box" id="edge-size-box">
+          <div class="param-label">random edges</div>
+          <div class="param-input-wrapper" id="edges-color-random"></div>
 
-            <!-- here goes the p5 canvas that is generated -->
-            <div class="page-layers" id="canvas-container"></div>
+          <div class="param-label">Edges size</div>
+          <div class="param-input-wrapper" id="edges-size"></div>
+          <datalist id="edges-sizes-markers">
+            <option value="0" label="0"></option>
+            <option value="5" label="5"></option>
+            <option value="10" label="10"></option>
+            <option value="15" label="15"></option>
+            <option value="20" label="20"></option>
+          </datalist>
+        </div>
 
-            <div class="page-layers layer-infos"></div>
+        <div class="parameters-box" id="infos-layers-box">
+          <div class="param-label">Infos layers options</div>
+          <div class="param-input-wrapper" id="infos-layers-container">
+            <p class="format-layer-selection-label">Format</p>
+            <div class="input-layer-wrapper" id="layer-titre-wrapper"></div>
+            <div class="input-layer-wrapper" id="layer-infos-wrapper"></div>
           </div>
+          <div id="browse-images-wrapper">
+            <!-- <label for="image_uploads">Choose images to upload (PNG, JPG)</label> -->
+            <input
+              type="file"
+              id="uploadTitle"
+              name="image_uploads"
+              accept=".jpg, .jpeg, .png"
+            />
+            <input
+              type="file"
+              id="uploadInfos"
+              name="image_uploads"
+              accept=".jpg, .jpeg, .png"
+            />
+          </div>
+        </div>
+
+        <div class="parameters-box" id="list-edges-box">
+          <div class="param-label">list edges</div>
+          <div class="param-input-wrapper" id="list-edges-container"></div>
+        </div>
+
+        <div class="parameters-box" id="actions-layers-box">
+          <div class="param-label">animate visible edges</div>
+          <div class="param-input-wrapper" id="animate-edges-container"></div>
+          <div
+            class="param-input-wrapper"
+            id="canvas-filtering-container"
+          ></div>
+        </div>
+
+        <div class="parameters-box" id="keyActions-box">
+          <div class="param-label">Keyboard actions :</div>
+          <ul>
+            <li>Q : 4 randoms faces</li>
+            <li>S : 6 randoms faces</li>
+            <li>D : 8 randoms faces</li>
+            <li>C : shuffle faces colors</li>
+            <li>E : shuffle Edges</li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="viewport">
+        <!-- render player parameters -->
+        <div id="player-parameters-wrapper">
+          <div class="player-btn" id="show-hide-params-btn">⚙️</div>
+          <div class="player-btn isPlaying" id="play-pause-btn">⏸️</div>
+          <div style="display: none" class="player-btn" id="fullscreen-btn">
+            🖥️
+          </div>
+          <div class="player-btn" id="save-frame-btn">💾</div>
+          <div class="player-btn" id="toggle-cam-btn">🎥</div>
+          <div class="player-btn" id="save-presets-btn">save</div>
+          <div class="player-btn" id="load-presets-btn">load</div>
+        </div>
+
+        <!-- page is for text layer images -->
+        <div id="page">
+          <div class="page-layers layer-title"></div>
+
+          <!-- here goes the p5 canvas that is generated -->
+          <div class="page-layers" id="canvas-container"></div>
+
+          <div class="page-layers layer-infos"></div>
         </div>
       </div>
     </div>

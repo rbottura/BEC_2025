@@ -1,24 +1,20 @@
 #parameters-container {
     display: flex;
-    /* flex-flow: row wrap; */
+    position: relative;
     flex-flow: row wrap;
-    position: absolute;
-    max-width: 25em;
+    flex: 1 1 40%;
+    width: 25%;
+    max-width: 50%;
     z-index: 5;
     gap: 5px;
     padding: 5px;
-    border: rgb(255, 255, 255) 2px solid;
     box-sizing: border-box;
     border-radius: 8px;
-    /* background-color: rgb(198, 198, 198); */
-    /* backdrop-filter: blur(2px); */
-    background-color: #d6d6d6;
-    box-shadow: 0px 0px 55px -2px rgba(0, 0, 0, 0.2);
 }
 
 .parameters-box {
     display: flex;
-    flex: 1 1 40%;
+    flex: 1 0 25%;
     overflow-y: auto;
     overflow-x: hidden;
     flex-direction: column;
@@ -31,14 +27,23 @@
     /* overflow-y:hidden; */
 }
 
-#axis-box {
-    flex-basis: 60%;
+#infos-layers-box {
+    flex-basis: calc(100% - 10px);
+    /* background-color: red; */
+}
+
+#axis-container {
+    width: 100%;
 }
 
 .param-input-wrapper {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column nowrap;
     gap: 5px;
+}
+
+#page-size-container {
+    flex-flow: row wrap;
 }
 
 .param-input-wrapper * {
@@ -61,10 +66,6 @@
 
 #list-edges-box {
     flex-basis: calc(100% - 10px);
-}
-
-#infos-layers-box {
-    flex-basis: 100%;
 }
 
 #list-edges-container {
@@ -227,7 +228,6 @@ label {
     flex-flow: row nowrap;
     flex-grow: 1;
     flex-shrink: 0;
-    flex-basis: 40%;
     min-width: 0px;
     justify-content: space-between;
     align-items: center;
@@ -278,7 +278,6 @@ label {
 .input-layer-wrapper {
     display: flex;
     flex-direction: row;
-    flex: 1 0 100%;
     align-items: center;
     gap: 5px;
 }
@@ -322,4 +321,8 @@ label {
 #loadDataBtn {
     position: absolute;
     z-index: 15000;
+}
+
+#keyActions-box {
+    display: none;
 }
