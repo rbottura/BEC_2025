@@ -48,7 +48,6 @@ function randomEdgesGenerator(listBtn, listInputElt) {
     let container = select('#edges-color-random')
     let numbInput = createInput(25)
     numbInput.id('EdgesGenInput')
-    numbInput.size(10)
     let nEdge = numbInput.value()
     let btn = createButton('generate')
     btn.id('EdgesRandoGenBtn')

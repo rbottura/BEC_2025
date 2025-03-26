@@ -34,10 +34,10 @@ let listFilters = [];
 let jsonData,
   compoLayers = {};
 
-P5Capture.setDefaultOptions({
-  format: "png",
-  framerate: cstFPS,
-});
+// P5Capture.setDefaultOptions({
+//   format: "png",
+//   framerate: cstFPS,
+// });
 
 function preload() {
   jsonData = loadJSON("./assets/urls2.json", transformToImages);
@@ -117,7 +117,7 @@ function setup() {
     handleFile(select(".layer-infos"), uploadInfosInput.elt.files);
   });
 
-  select(".p5c-container").position(550, 50);
+  // select(".p5c-container").position(550, 50);
 }
 
 function draw() {

@@ -1,3 +1,10 @@
+:root {
+    --light-label-color: rgb(147, 147, 147);
+    --dark-label-color: rgba(14, 2, 2, 0.148);
+    --dark-bck-box-color: rgba(255, 255, 255, 0);
+    --dark-label-text-color: rgba(16, 15, 15, 0.814);
+}
+
 #parameters-container {
     display: flex;
     position: relative;
@@ -7,7 +14,6 @@
     max-width: 50%;
     z-index: 5;
     gap: 5px;
-    padding: 5px;
     box-sizing: border-box;
     border-radius: 8px;
 }
@@ -22,7 +28,7 @@
     justify-content: start;
     padding: 5px;
     gap: 5px;
-    background-color: rgba(255, 255, 255, 0.838);
+    background-color: var(--dark-bck-box-color);
     border-radius: 5px;
     /* overflow-y:hidden; */
 }
@@ -98,14 +104,17 @@
 }
 
 .param-label {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-weight: 600;
-    background-color: rgb(210, 210, 210);
-    color: rgb(0, 0, 0);
-    /* border-radius: 3px; */
+    /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+    font-family: monospace;
+    font-weight: 200;
+    text-transform: uppercase;
+    border-top: solid 2px var(--dark-label-color);
+    /* background-color: var(--dark-label-color); */
+    color: var(--dark-label-text-color);
+    border-radius: 3px;
     padding: 2px 5px 3px 5px;
     font-stretch: ultra-condensed;
-    font-size: 14px;
+    font-size: 18px;
     text-transform: capitalize;
     -webkit-user-select: none;
     -ms-user-select: none;
