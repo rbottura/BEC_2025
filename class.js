@@ -183,8 +183,8 @@ class Edge {
     updateThickness(val) {
         this.thickness = val
     }
-    addThickness(val){
-    
+    addThickness(val) {
+
     }
     resize(newSize) {
         this.edgeEaseSize += newSize
@@ -408,25 +408,39 @@ class BECRenderer {
         this.scrnBtn = this.btns[2]
         this.saveBtn = this.btns[3]
         this.camBtn = this.btns[4]
-        this.savePresetsBtn = this.btns[5]
-        this.loadPresetsBtn = this.btns[6]
+        // this.savePresetsBtn = this.btns[5]
+        // this.loadPresetsBtn = this.btns[6]
 
         this.gearBtn.mouseClicked(() => this.showParameters(isHidden(this.paramContainer.elt)))
         this.playBtn.mouseClicked(() => this.playPause(isLooping()))
         this.saveBtn.mouseClicked(() => this.saveFrame())
         this.camBtn.mouseClicked(() => this.changeCamera())
-        this.savePresetsBtn.mouseClicked(() => this.savePresets())
-        this.loadPresetsBtn.mouseClicked(() => this.loadPresets())
+        // this.savePresetsBtn.mouseClicked(() => this.savePresets())
+        // this.loadPresetsBtn.mouseClicked(() => this.loadPresets())
 
         this.titleIndex = undefined
         this.infosIndex = undefined
     }
-    showParameters(showing) {
-        console.log(showing)
-        if (showing) {
+    showParameters(hidden) {
+        const box1 = document.querySelector('#viewport');
+        const box2 = document.querySelector('#parameters-container');
+        // if (box2.classList.contains('hidden')) {
+        // box2.classList.remove('hidden');
+        // box1.classList.remove('expanded');
+        // } else {
+        // box2.classList.add('hidden');
+        // box1.classList.add('expanded');
+        // }
+        if (hidden) {
+            // box2.classList.remove('hidden');
+            // box1.classList.remove('expanded');
             // this.paramContainer.show()
             this.paramContainer.elt.style.display = 'flex'
         } else {
+            // console.log('hideidhieh')
+            // box2.classList.add('hidden');
+            // box1.classList.add('expanded');
+            // console.log(box2)
             this.paramContainer.hide()
         }
     }
@@ -435,7 +449,7 @@ class BECRenderer {
             this.playBtn.html('⏸️')
             loop()
         } else {
-            this.playBtn.html('▶️') 
+            this.playBtn.html('▶️')
             noLoop()
         }
     }
@@ -446,35 +460,35 @@ class BECRenderer {
     resetOribitControl() {
         resetMatrix();
     }
-    changeCamera(){
+    changeCamera() {
         changeCamera(cam, 'toggle')
     }
-    savePresets(){
+    savePresets() {
         let edgesSettings = JSON.stringify([...listEdges])
         console.log(JSON.parse(edgesSettings))
         saveJSON(edgesSettings, 'edgeSettings')
         // saveJSON(listEdges[0], 'edge1')
     }
-    loadPresets(){
+    loadPresets() {
         applyNewSettings(laodedData)
     }
-    updateRenderedLayer(layernode, i){
+    updateRenderedLayer(layernode, i) {
         console.log(layernode.id)
-        if(layernode.id == "layer-titre-wrapper"){
+        if (layernode.id == "layer-titre-wrapper") {
             this.titleIndex = i
-        } else if (layernode.id == "layer-infos-wrapper"){
+        } else if (layernode.id == "layer-infos-wrapper") {
             this.infosIndex = i
         }
     }
 }
 
 class Scene {
-    constructor(xRot, yRot, zRot, yPos, s, rotSpeed){
-        this.xRot = xRot; 
-        this.yRot = yRot; 
+    constructor(xRot, yRot, zRot, yPos, s, rotSpeed) {
+        this.xRot = xRot;
+        this.yRot = yRot;
         this.zRot = zRot;
-        this.yPos = yPos; 
-        this.scale = s; 
+        this.yPos = yPos;
+        this.scale = s;
         this.rotSpeed = rotSpeed;
     }
 }

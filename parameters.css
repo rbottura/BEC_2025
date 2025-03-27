@@ -6,11 +6,9 @@
 }
 
 #parameters-container {
-    display: flex;
     position: relative;
     flex-flow: row wrap;
-    flex: 1 1 40%;
-    width: 25%;
+    flex: .3 0 30%;
     max-width: 50%;
     z-index: 5;
     gap: 5px;
@@ -26,7 +24,7 @@
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: start;
-    padding: 5px;
+    /* padding: 5px; */
     gap: 5px;
     background-color: var(--dark-bck-box-color);
     border-radius: 5px;
@@ -84,6 +82,7 @@
     flex: 1 0 auto;
     overflow-y: auto;
     /* height: 0px; */
+    width: 100%;
 }
 
 .handle {
@@ -114,7 +113,7 @@
     border-radius: 3px;
     padding: 2px 5px 3px 5px;
     font-stretch: ultra-condensed;
-    font-size: 18px;
+    font-size: 16px;
     text-transform: capitalize;
     -webkit-user-select: none;
     -ms-user-select: none;
@@ -192,12 +191,11 @@ label {
     align-self: flex-end;
     position: absolute;
     top: 20px;
+    right: 20px;
     margin-bottom: 20px;
     z-index: 15;
-    flex-direction: row;
+    flex-direction: column;
     gap: 10px;
-    background-color: rgba(206, 206, 206, 0.4);
-    backdrop-filter: blur(2px);
 }
 
 .player-btn {
@@ -213,7 +211,9 @@ label {
     align-items: center;
     min-height: 35px;
     min-width: 35px;
+    filter: grayscale(1) contrast(1.4);
     background-color: rgba(241, 241, 241, 0.28);
+    backdrop-filter: blur(2px);
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
@@ -328,6 +328,7 @@ label {
 }
 
 #loadDataBtn {
+    display: none;
     position: absolute;
     z-index: 15000;
 }
