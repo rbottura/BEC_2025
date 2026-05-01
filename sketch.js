@@ -120,6 +120,7 @@ function setup() {
     handleFile(select(".layer-infos"), uploadInfosInput.elt.files);
   });
 
+        updateRenderAreaTransform()
   // select(".p5c-container").position(550, 50);
 }
 
