@@ -275,7 +275,7 @@ function loadInputs() {
     let settingsWindow = select('#parameters-container')
     let handle = select('.handle')
     handle.draggable(settingsWindow)
-    settingsWindow.position(50, WiH * 0.02)
+    settingsWindow.position(0, 0)
 
     // some settings boxes
     createAxisSliders()

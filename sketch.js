@@ -13,11 +13,11 @@ let formats,
   cnvH,
   cnv,
   seed = 1,
-  cstFPS = 12;
+  cstFPS = 30;
 
 let bufferOptions = {};
 
-let currentFormatName = "poster",
+let currentFormatName = "square",
   currentFormat;
 let xRot = -25,
   yRot = 35,
@@ -34,10 +34,10 @@ let listFilters = [];
 let jsonData,
   compoLayers = {};
 
-P5Capture.setDefaultOptions({
-  format: "png",
-  framerate: cstFPS,
-});
+// P5Capture.setDefaultOptions({
+  // format: "png",
+  // framerate: cstFPS,
+// });
 
 function preload() {
   jsonData = loadJSON("./assets/urls2.json", transformToImages);
@@ -55,13 +55,16 @@ function preload() {
   metaF = loadFont("./assets/fonts/mn128_clean_META.otf");
 }
 
-let outputPixelD = 4;
+let outputPixelD;
+
 function setup() {
   colorMode(RGB, 255, 255, 255, 1);
   angleMode(DEGREES);
   rectMode(CENTER);
   imageMode(CENTER);
   noSmooth();
+
+  outputPixelD = 1;
 
   bufferOptions = {
     width: cnvW,
@@ -89,7 +92,7 @@ function setup() {
   initCamSettings = { isOrtho: true };
 
   const lineWeight = 3;
-  matrix = new Matrix(1, 1, 1, cellSize, 25, lineWeight);
+  matrix = new Matrix(4, 2, 4, cellSize, 25, lineWeight);
   listVertices = matrix.getMinVertices();
 
   listEdges = createEdges(listVertices, cellSize);
@@ -100,11 +103,11 @@ function setup() {
 
   loadInputs();
   // Add load button to load downloaded data file
-  let loadButton = createFileInput(loadJsonData);
+  // let loadButton = createFileInput(loadJsonData);
 
   // Only accept files with .json extension
-  loadButton.attribute('accept', '.json');
-  loadButton.id('loadDataBtn')
+  // loadButton.attribute('accept', '.json');
+  // loadButton.id('loadDataBtn')
 
   setCamera(cam);
 
@@ -117,7 +120,7 @@ function setup() {
     handleFile(select(".layer-infos"), uploadInfosInput.elt.files);
   });
 
-  select(".p5c-container").position(550, 50);
+  // select(".p5c-container").position(550, 50);
 }
 
 function draw() {
@@ -130,7 +133,7 @@ function draw() {
     // resetMatrix();
     imageMode(CENTER);
     rectMode(CENTER)
-    background('yellow')
+    // background('yellow')
     // push();
     if (
       compoLayers[currentFormatName].titre2 &&

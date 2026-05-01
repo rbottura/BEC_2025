@@ -13,13 +13,16 @@
     <!-- <script src="libraries/p5.js"></script> -->
     <script src="libraries/p5.min.js"></script>
     <!-- <script src="libraries/p5.sound.min.js"></script> -->
-    <script src="libraries/p5.capture.umd.min.js"></script>
+    <!-- <script src="libraries/p5.capture.umd.min.js"></script> -->
   </head>
 
   <body>
 
+    <p id="px-ratio">current pixel ratio : <span id="px-input">4</span>
+    <br>
+    click and drag to rotate, <br>use mouse wheel to zoom, <br>use parameters <br>to change format <br>and other options
+    </p>
     <div class="rendered-element" id="parameters-container">
-      <p>current pixel ratio : <span id="px-input">4</span></p>
       <div class="handle parameters-box" id="parameters-handle"></div>
       <div class="parameters-box" id="axis-box">
         <div class="param-label">Axis</div>
