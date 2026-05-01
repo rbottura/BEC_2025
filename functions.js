@@ -312,6 +312,22 @@ function isHidden(el) {
     return (style.display === 'none')
 }
 
+// Updates render-area transform based on parameters-container visibility
+function updateRenderAreaTransform() {
+    let paramsContainer = select('#parameters-container');
+    let renderArea = select('#render-area');
+    
+    if (paramsContainer && renderArea) {
+        if (!isHidden(paramsContainer.elt)) {
+            // Parameters container is visible, apply transform
+            renderArea.elt.style.transform = 'translate(50%, 0px)';
+        } else {
+            // Parameters container is hidden, remove transform
+            renderArea.elt.style.transform = 'none';
+        }
+    }
+}
+
 function toZero(x) {
     return Math.abs(x) < 1 ? 0 : 1;
 }

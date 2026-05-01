@@ -429,6 +429,7 @@ class BECRenderer {
         } else {
             this.paramContainer.hide()
         }
+        updateRenderAreaTransform()
     }
     playPause(play) {
         if (!play) {

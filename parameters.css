@@ -199,19 +199,21 @@ label {
     display: inline-flex;
     align-self: flex-end;
     position: absolute;
-    top: 20px;
-    margin-bottom: 20px;
+    
+    /* margin-bottom: 20px; */
     z-index: 15;
     flex-direction: row;
     gap: 10px;
-    background-color: rgba(206, 206, 206, 0.4);
+    /* background-color: rgba(163, 163, 163, 0.76); */
     backdrop-filter: blur(2px);
+    transform: translate(0px, -10px);
 }
 
 .player-btn {
     display: flex;
     cursor: pointer;
-    border: grey solid 2px;
+    border: grey solid 1px;
+    padding: 3px;
     border-radius: 3px;
     /* font-family: 'Courier New', Courier, monospace; */
     font-family: notoEmoji;
@@ -221,7 +223,8 @@ label {
     align-items: center;
     min-height: 35px;
     min-width: 35px;
-    background-color: rgba(241, 241, 241, 0.28);
+    background-color: rgb(212, 212, 212);
+    /* box-shadow: 0px 0px 10px -1px rgba(0, 0, 0, 0.418); */
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
