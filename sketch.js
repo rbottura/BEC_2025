@@ -34,30 +34,60 @@ let listFilters = [];
 let jsonData,
   compoLayers = {};
 
-// P5Capture.setDefaultOptions({
-  // format: "png",
-  // framerate: cstFPS,
-// });
+// ─── Loading progress tracking ─────────────────────────────────────────────────
+//
+// Two-phase bar:
+//   Phase 1 — preload()  : 2 JSONs + 4 fonts resolved via callbacks  →  0% … 75%
+//   Phase 2 — setup()    : 8 heavy synchronous steps (buffers, cam…)  → 75% … 100%
+//
+// setProgress() and hideLoadingScreen() live in functions.js
+
+const PRELOAD_ASSET_COUNT = 6; // 2 loadJSON + 4 loadFont
+const PRELOAD_WEIGHT = 0.75; // preload phase fills 75% of the bar
+let preloadDone = 0;
+
+function onAssetLoaded() {
+  preloadDone++;
+  setProgress((preloadDone / PRELOAD_ASSET_COUNT) * PRELOAD_WEIGHT);
+}
+
+// ─── p5 lifecycle ──────────────────────────────────────────────────────────────
 
 function preload() {
-  jsonData = loadJSON("./assets/urls2.json", transformToImages);
+  // Pass a success callback to every loader so we can count completions.
+  // loadJSON already had callbacks; loadFont ones are added here.
+
+  jsonData = loadJSON("./assets/urls2.json", (data) => {
+    transformToImages(data);
+    onAssetLoaded();
+  });
+
   formats = loadJSON("./assets/formats.json", (e) => {
     console.log(e);
-    // objFormat = JSON.parse(e)
     currentFormat = formats[currentFormatName];
-    // updateLayersOptions(currentFormatName, currentFormat.index, currentFormat.hasLayers)
     cnvW = currentFormat.width + formats["bleeds"].size * 2;
     cnvH = currentFormat.height + formats["bleeds"].size * 2;
+    onAssetLoaded();
   });
-  opsReg = loadFont("./assets/fonts/OPS/OPSFavorite-Regular.otf");
-  font_pathR = loadFont("./assets/fonts/Path/Path-R.otf");
-  font_pathRMono = loadFont("./assets/fonts/Path/Path-RMono.otf");
-  metaF = loadFont("./assets/fonts/mn128_clean_META.otf");
+
+  opsReg = loadFont(
+    "./assets/fonts/OPS/OPSFavorite-Regular.otf",
+    onAssetLoaded,
+  );
+  font_pathR = loadFont("./assets/fonts/Path/Path-R.otf", onAssetLoaded);
+  font_pathRMono = loadFont(
+    "./assets/fonts/Path/Path-RMono.otf",
+    onAssetLoaded,
+  );
+  metaF = loadFont("./assets/fonts/mn128_clean_META.otf", onAssetLoaded);
 }
 
 let outputPixelD;
 
 function setup() {
+  // Preload is guaranteed done when setup() runs → snap to 75%
+  setProgress(PRELOAD_WEIGHT);
+
   colorMode(RGB, 255, 255, 255, 1);
   angleMode(DEGREES);
   rectMode(CENTER);
@@ -72,45 +102,59 @@ function setup() {
     density: outputPixelD,
     textureFiltering: LINEAR,
   };
-  // line below put threshold filter ON as default
-  // listFilters.push(THRESHOLD)
 
   cnv = createCanvas(cnvW, cnvH, WEBGL);
   cnv.parent("#canvas-container");
   document.querySelector("main").remove();
 
   pixelDensity(outputPixelD);
+
+  // ── nudge bar through the 8 heavy setup steps (75% → 100%) ───────────────
+  const SETUP_STEPS = 8;
+  let setupDone = 0;
+  const nudge = () => {
+    setupDone++;
+    setProgress(
+      PRELOAD_WEIGHT + (setupDone / SETUP_STEPS) * (1 - PRELOAD_WEIGHT),
+    );
+  };
+
   infosGraphics = createGraphics(cnvW * outputPixelD, cnvH * outputPixelD, P2D);
+  nudge();
   titleGraphics = createGraphics(cnvW, cnvH, WEBGL);
+  nudge();
   mergeGraphics = createGraphics(cnvW * outputPixelD, cnvH * outputPixelD, P2D);
+  nudge();
 
   JointsBuffer = createFramebuffer();
+  nudge();
   textBuffer = createFramebuffer(bufferOptions);
+  nudge();
 
   cam = createCamera();
   cam.perspective(2.5 * atan(height / 2 / 800));
   initCamSettings = { isOrtho: true };
+  setCamera(cam);
+  nudge();
 
   const lineWeight = 3;
   matrix = new Matrix(4, 2, 4, cellSize, 25, lineWeight);
   listVertices = matrix.getMinVertices();
-
   listEdges = createEdges(listVertices, cellSize);
   const edgeMap = buildEdgeMap(listEdges);
   listCells = findCells(listVertices, edgeMap);
+  nudge();
 
   myScene = new Scene(xRot, yRot, zRot, yPos, sceneScale, sceneRotSpeed);
+  loadInputs(() => {
+    // One-time click on the second .select-l-btn (index 1)
+    const btns = document.querySelectorAll(".select-l-btn");
+    if (btns[1]) btns[1].click();
+  });
+  nudge();
+  // → setupDone is now 8/8, bar is at 100%
 
-  loadInputs();
-  // Add load button to load downloaded data file
-  // let loadButton = createFileInput(loadJsonData);
-
-  // Only accept files with .json extension
-  // loadButton.attribute('accept', '.json');
-  // loadButton.id('loadDataBtn')
-
-  setCamera(cam);
-
+  // ── wire up file upload inputs ─────────────────────────────────────────────
   const uploadTitleInput = select("#uploadTitle");
   const uploadInfosInput = select("#uploadInfos");
   uploadTitleInput.changed(() => {
@@ -120,8 +164,11 @@ function setup() {
     handleFile(select(".layer-infos"), uploadInfosInput.elt.files);
   });
 
-        updateRenderAreaTransform()
-  // select(".p5c-container").position(550, 50);
+  updateRenderAreaTransform();
+
+  // ── 100% reached → short pause so user sees it, then fade out ─────────────
+  setProgress(1);
+  setTimeout(() => hideLoadingScreen(), 300);
 }
 
 function draw() {
@@ -129,30 +176,22 @@ function draw() {
 
   if (textBuffer) {
     textBuffer.begin();
-    setCamera(cam)
+    setCamera(cam);
     clear();
-    // resetMatrix();
     imageMode(CENTER);
-    rectMode(CENTER)
-    // background('yellow')
-    // push();
+    rectMode(CENTER);
     if (
       compoLayers[currentFormatName].titre2 &&
       selectAll(".active-layer-btn")[0].html() == "2"
     ) {
-      // translate(-width/2, -height/2)
-      fill('red')
-      rect(0, 0, cnvW, cnvH)
+      fill("red");
+      rect(0, 0, cnvW, cnvH);
       image(compoLayers[currentFormatName].titre2, 0, 0, cnvW, cnvH);
-      // image(titleGraphics, 0, 0, width, height);
     } else {
       clear();
     }
-    // resetMatrix();
-    // pop();
     textBuffer.end();
   }
-
 
   push();
   beginClip({ invert: true });
@@ -160,29 +199,25 @@ function draw() {
     compoLayers[currentFormatName].titre2 &&
     selectAll(".active-layer-btn")[0].html() == "2"
   ) {
-    titleGraphics.imageMode(CENTER)
-    titleGraphics.rectMode(CENTER)
-    titleGraphics.pixelDensity(outputPixelD)
-    // titleGraphics.translate(-width/2, -height/2)
-    titleGraphics.image(compoLayers[currentFormatName].titre2, width / 2, height / 2, width, height)
+    titleGraphics.imageMode(CENTER);
+    titleGraphics.rectMode(CENTER);
+    titleGraphics.pixelDensity(outputPixelD);
+    titleGraphics.image(
+      compoLayers[currentFormatName].titre2,
+      width / 2,
+      height / 2,
+      width,
+      height,
+    );
     background(255);
-    image(titleGraphics, -width / 2, -height / 2)
+    image(titleGraphics, -width / 2, -height / 2);
   } else if (selectAll(".active-layer-btn")[0].html() == "1") {
     background(255);
   } else if (selectAll(".active-layer-btn")[0].html() == "0") {
-    // console.log('clear')
-    clear()
+    clear();
   }
-
-  // textureMode(NORMAL);
-  // textureWrap(REPEAT)
-  // texture(textBuffer);
-
-  // plane(width, height);
-  // box(width, height, width)
   endClip();
   pop();
-
 
   let options = {
     disableTouchActions: true,
@@ -202,21 +237,18 @@ function draw() {
     orbitControl(2, 2, 2, options);
   }
 
-  // push for grid layer elements
   push();
 
   scale(myScene.scale);
-
   rotateX(
-    myScene.xRot + frameCount * 10 * myScene.rotSpeed * toZero(myScene.xRot)
+    myScene.xRot + frameCount * 10 * myScene.rotSpeed * toZero(myScene.xRot),
   );
   rotateY(
-    myScene.yRot + frameCount * 10 * myScene.rotSpeed * toZero(myScene.yRot)
+    myScene.yRot + frameCount * 10 * myScene.rotSpeed * toZero(myScene.yRot),
   );
   rotateZ(
-    myScene.zRot + frameCount * 10 * myScene.rotSpeed * toZero(myScene.zRot)
+    myScene.zRot + frameCount * 10 * myScene.rotSpeed * toZero(myScene.zRot),
   );
-
   translate(0, myScene.yPos, 0);
 
   push();
@@ -226,47 +258,29 @@ function draw() {
   pop();
 
   push();
-  
   for (let i = 0; i < listEdges.length; i += 1) {
-    // listEdges[i].thickness = 15
     if (listEdges[i]) {
       if (listEdges[i].render) {
         listEdges[i].showBox();
       }
     }
-    // listEdges[i].showJoints(true, true)
   }
   pop();
 
   push();
-  // console.log()
   animateEdges(select("#anim-edges-checkbox"), 160, 160, 72);
 
   if (listCells) {
     for (let cell of listCells) {
       // cell.showWireFrame()
-      // cell.showFaces(['left', 'right', 'top', 'bottom', 'front', 'back'])
-      // cell.showFaces(['left', 'right', 'top'])
       // cell.showDebug()
     }
   }
 
-  // if (listFaces) {
-  //   for (const face of listFaces) {
-  //     if (face.render) {
-  //       face.show()
-  //     }
-  //   }
-  // }
-
   if (listFilters.length != 0) {
-    filter(listFilters[0], .85)
+    filter(listFilters[0], 0.85);
   }
-
   pop();
 
   pop();
-  // pop grid layer elements
-
-  // showBleeds(formats["bleeds"].size)
 }

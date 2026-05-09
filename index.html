@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -17,10 +17,19 @@
   </head>
 
   <body>
+    <div id="loading-screen">
+      <img id="loading-gif" src="img/loading.gif" alt="Loading…" />
+      <div id="progress-bar-track">
+        <div id="progress-bar-fill"></div>
+      </div>
+      <p id="loading-label">Loading… 0%</p>
+    </div>
 
-    <p id="px-ratio">current pixel ratio : <span id="px-input">4</span>
-    <br>
-    click and drag to rotate, <br>use mouse wheel to zoom, <br>use parameters <br>to change format <br>and other options
+    <p id="tool-tip">
+      current pixel ratio : <span id="px-input">4</span>
+      <br />
+      click and drag to rotate, <br />use mouse wheel to zoom, <br />use
+      parameters <br />to change format <br />and other options
     </p>
     <div class="rendered-element" id="parameters-container">
       <div class="handle parameters-box" id="parameters-handle"></div>
@@ -90,8 +99,18 @@
         </div>
         <div id="browse-images-wrapper">
           <!-- <label for="image_uploads">Choose images to upload (PNG, JPG)</label> -->
-          <input type="file" id="uploadTitle" name="image_uploads" accept=".jpg, .jpeg, .png">
-          <input type="file" id="uploadInfos" name="image_uploads" accept=".jpg, .jpeg, .png">
+          <input
+            type="file"
+            id="uploadTitle"
+            name="image_uploads"
+            accept=".jpg, .jpeg, .png"
+          />
+          <input
+            type="file"
+            id="uploadInfos"
+            name="image_uploads"
+            accept=".jpg, .jpeg, .png"
+          />
         </div>
       </div>
       <div class="parameters-box">

@@ -401,6 +401,7 @@ class BECRenderer {
         this.c = canvas
 
         this.paramContainer = select('#parameters-container')
+        this.toolTip = select('#tool-tip')
 
         this.btns = selectAll('.player-btn')
         this.gearBtn = this.btns[0]
@@ -425,9 +426,11 @@ class BECRenderer {
         console.log(showing)
         if (showing) {
             // this.paramContainer.show()
-            this.paramContainer.elt.style.display = 'flex'
+            this.paramContainer.elt.style.display = 'flex';
+            this.toolTip.hide()
         } else {
             this.paramContainer.hide()
+            this.toolTip.hide()
         }
         updateRenderAreaTransform()
     }
